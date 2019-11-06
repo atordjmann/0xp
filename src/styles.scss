@@ -1,1 +1,25 @@
 /* You can add global styles to this file, and also import other style files */
+
+//Container
+
+.flexRow {
+    display: flex;
+    flex-direction: row;
+}
+
+.flexRow-spaceBet {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+//Text
+.noSpace {
+    margin-block-start: 0em;
+    margin-block-end: 0em;
+}
+
+.smallSpace {
+    margin-block-start: 0.5em;
+    margin-block-end: 0.5em;
+}

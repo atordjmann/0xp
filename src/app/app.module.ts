@@ -19,6 +19,8 @@ import { NotificationComponent } from './profile/notification/notification.compo
 import { OfferSquareComponent } from './profile/application/offer-square/offer-square.component';
 import { OfferCompanyComponent } from './profile/application/offer-company/offer-company.component';
 
+import { GlobalService } from './global.service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,7 +44,7 @@ import { OfferCompanyComponent } from './profile/application/offer-company/offer
     BrowserModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [GlobalService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

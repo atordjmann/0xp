@@ -1,4 +1,10 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<app-navbar></app-navbar>
+<div [ngClass]="{'onBackground': isModalLoggingActive}">
+    <app-navbar></app-navbar>
 
-<router-outlet></router-outlet>
+    <router-outlet></router-outlet>
+</div>
+
+<!--Modal de logging-->
+<div class="modalForLogging" *ngIf="isModalLoggingActive">
+    <app-modal-login></app-modal-login>
+</div>
