@@ -1,0 +1,29 @@
+.navbar
+{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 50px;
+    background-color: #000004;
+    font-family: EvSansBold, Calibri;
+    box-shadow: #FBFEF9 0px 5px 2px;
+}
+
+.navbar ul
+{
+    display: flex;
+    justify-content: space-evenly;
+    width: 30%;
+    list-style-type: none;
+}
+
+.navbar div
+{
+    width: 10%;
+}
+
+a
+{
+    text-decoration:none;
+    color: #FBFEF9;
+}
