@@ -10,7 +10,7 @@ import { GlobalService } from './global.service';
 export class AppComponent implements OnInit {
   title = 'zero-xp';
 
-  isModalLoggingActive = true;
+  isModalLoggingActive = false;
   subscriptionIsModalLoggingActive: Subscription;
 
   constructor(private globalService: GlobalService) { }
