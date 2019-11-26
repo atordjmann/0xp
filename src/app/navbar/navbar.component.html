@@ -1,16 +1,23 @@
-<p>
-  navbar works!
-</p>
-<ul>
-  <li>
-    <a routerLink="" translate>Home</a>
-  </li>
-  <li>
-    <a routerLink="offers" translate>Offers</a>
-  </li>
-  <li>
-    <a routerLink="profile" translate>Profile</a>
-  </li>
+<ul class="navbar">
+  <div style="height: 70%">
+    <a routerLink="/" translate>
+      <img src="/assets/Logo.svg" alt="Logo Navigateur" style="height: 100%" />
+    </a>
+  </div>
+  <ul>
 
-  <p (click)="openLoggingModal()">Log in</p>
+    <li>
+      <a routerLink="/offers" translate>Offers</a>
+    </li>
+    <li>
+      <a routerLink="/profile" translate>Profile</a>
+    </li>
+    <li>
+      <a routerLink="/FAQ">FAQ</a>
+    </li>
+  </ul>
+  <div>
+    <a (click)="openLoggingModal()">Connexion</a>
+  </div>
+
 </ul>
