@@ -1,18 +1,29 @@
 <img class="img-center" src="{{profile.photo}}">
 
-<div *ngIf="isStudent" class="bar-details">
-  <a class="bar-button current" (click)="clicSection($event,'profil')">Mon Profil</a>
-  <a class="bar-button" (click)="clicSection($event,'candidatures')">Mes candidatures</a>
-  <a class="bar-button" (click)="clicSection($event,'notif')">Mes notifications</a>
+<div *ngIf="isStudent">
+  <div class="bar-details">
+    <a class="bar-button current" (click)="clicSection($event,'profil')">Mon Profil</a>
+    <a class="bar-button" (click)="clicSection($event,'candidatures')">Mes candidatures</a>
+    <a class="bar-button" (click)="clicSection($event,'notif')">Mes notifications</a>
+
+  </div>
+  <div class="square-sections">
+    <app-profile-detail [details]="profile" *ngIf="showProfile"></app-profile-detail>
+    <app-offer-square *ngIf="showCandidatures"></app-offer-square>
+    <app-notification *ngIf="showNotifs"></app-notification>
+  </div>
 </div>
 
-<div *ngIf="isCompany" class="bar-details">
-  <a class="bar-button">Mon Profil</a>
-  <a class="bar-button">Mes offres</a>
-</div>
+<div *ngIf="isCompany">
+  <div class="bar-details">
+    <a class="bar-button current" (click)="clicSection($event,'profil')">Mon Profil</a>
+    <a class="bar-button" (click)="clicSection($event,'candidatures')">Mes offres</a>
+    <a class="bar-button" (click)="clicSection($event,'notif')">Mes Notifications</a>
 
-<div class="square-sections">
-  <app-profile-detail *ngIf="showProfile"></app-profile-detail>
-  <app-offer-square *ngIf="showCandidatures"></app-offer-square>
-  <app-notification *ngIf="showNotifs"></app-notification>
+  </div>
+  <div class="square-sections">
+    <app-profile-detail [details]="profile" *ngIf="showProfile"></app-profile-detail>
+    <app-offer-company *ngIf="showCandidatures"></app-offer-company>
+    <app-notification *ngIf="showNotifs"></app-notification>
+  </div>
 </div>
