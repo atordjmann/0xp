@@ -1,3 +1,4 @@
-<app-offer-detail></app-offer-detail>
+<!--<app-offer-detail></app-offer-detail>-->
 <app-filter></app-filter>
 
+<app-offer-preview *ngFor="let offer of listOffers" [offer]="offer"></app-offer-preview>
