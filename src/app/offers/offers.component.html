@@ -2,5 +2,5 @@
 <app-filter></app-filter>
 
 <div class="flexCol listOffers">
-    <app-offer-preview class="oneOffer button" *ngFor="let offer of listOffers" [offer]="offer"></app-offer-preview>
+    <app-offer-preview class="oneOffer button" *ngFor="let offer of listOffers" [offer]="offer" routerLink="/offerDetail"></app-offer-preview>
 </div>
