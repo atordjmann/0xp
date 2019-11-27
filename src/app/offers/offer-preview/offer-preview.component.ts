@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { Offer } from '../../../modeles/offer';
+import { Offer } from '../../../models/Offer';
 import {SafeStyle, DomSanitizer } from '@angular/platform-browser';
 
 @Component({

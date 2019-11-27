@@ -1,5 +1,5 @@
 <div class="mainFilterText flexRow-spaceBet">
-  <input type="text" placeholder="Rechercher"/>
+  <input type="text" placeholder="Rechercher" (keyup.enter)="filter()" [(ngModel)]="currentFilter.textInput"/>
   <img src="https://image.flaticon.com/icons/svg/149/149309.svg"/>
 </div>
 
