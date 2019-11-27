@@ -7,12 +7,18 @@ import { Filter } from 'src/models/Filter';
 export class OfferViewService {
 
 
-    listOffers : Offer[] = [];
+    listOffers : Offer[];
     listOffersSubject = new Subject<Offer[]>();
 
     constructor() { }
 
     fillListOffers(){
+        if(this.listOffers){
+            return;
+        }
+
+        this.listOffers = [];
+
         let offer1 = new Offer()
         offer1.title = "Junior Développeur Full Stack (H/F)"
         offer1.srcImgCompany = "http://www.portify.fr/wp-content/uploads/2019/07/logo-sopra-steria.png"
@@ -41,7 +47,6 @@ export class OfferViewService {
     }
 
     filter(currentFilter : Filter){
-        currentFilter.print();
-        
+        currentFilter.print();  
     }
 }
