@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -18,6 +19,9 @@ import { ApplicationComponent } from './profile/application/application.componen
 import { NotificationComponent } from './profile/notification/notification.component';
 import { OfferSquareComponent } from './profile/application/offer-square/offer-square.component';
 import { OfferCompanyComponent } from './profile/application/offer-company/offer-company.component';
+
+import { GlobalService } from './global.service';
+import { OfferViewService } from './offers/offerView.service';
 
 @NgModule({
   declarations: [
@@ -40,9 +44,10 @@ import { OfferCompanyComponent } from './profile/application/offer-company/offer
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule
   ],
-  providers: [],
+  providers: [GlobalService, OfferViewService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

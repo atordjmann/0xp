@@ -1,3 +1,8 @@
-<app-offer-detail></app-offer-detail>
-<app-filter></app-filter>
+<!--<app-offer-detail></app-offer-detail>-->
+<div style="padding-top: 5vh;">
+    <app-filter ></app-filter>
 
+    <div class="flexCol listOffers">
+        <app-offer-preview class="oneOffer button" *ngFor="let offer of listOffers" [offer]="offer" routerLink="/offerDetail"></app-offer-preview>
+    </div>
+</div>

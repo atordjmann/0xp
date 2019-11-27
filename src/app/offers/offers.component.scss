@@ -1,0 +1,10 @@
+.listOffers{
+    padding: 5vh 0vw;
+    .oneOffer{
+        margin-bottom:1vh;
+        &:focus, &:active, &:visited{
+            outline: none;
+            -moz-outline-style: none;
+        }
+    }
+}

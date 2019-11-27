@@ -1,0 +1,51 @@
+.logoModale {
+    margin: auto;
+    width: 5vw;
+    display: block;
+}
+
+.logosApiAuth {
+    width: 15vw;
+    margin: auto;
+
+    .divImage {
+        width: 2vw;
+        height: 2vw;
+        padding: 0.5vw;
+        border-radius: 5px;
+
+        img {
+            width: 2vw;
+            height: 2vw;
+        }
+    }
+
+    .logoLinkedin {
+        background-color: #0077b7;
+
+        img {
+            filter: invert(1);
+        }
+    }
+
+    .logoGoogle {
+        border: 1px solid lightgray;
+    }
+}
+
+.raddioDiv {
+    margin: auto;
+    width: 10vw;
+
+    .oneType {
+        width: 7vw;
+        text-align: center;
+        padding: 2px 0px 2px 0px;
+        border-radius: 15px;
+    }
+
+    .typeSelected {
+        background-color: var(--color-blue);
+        z-index: 2;
+    }
+}
