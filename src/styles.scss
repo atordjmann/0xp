@@ -88,3 +88,25 @@ h5 {
     margin-block-start: 0.5em;
     margin-block-end: 0.5em;
 }
+
+.color-blue-light{
+    color:var(--color-blue-light);
+}
+
+.color-blue-medium{
+    color:var(--color-blue-medium);
+}
+
+//Style général
+
+//Materials
+input{
+    border:0px;
+    &:focus{
+        outline: none;
+    }
+}
+
+.button:hover{
+    cursor: pointer;
+}
