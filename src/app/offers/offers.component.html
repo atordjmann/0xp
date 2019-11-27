@@ -1,4 +1,6 @@
 <!--<app-offer-detail></app-offer-detail>-->
 <app-filter></app-filter>
 
-<app-offer-preview *ngFor="let offer of listOffers" [offer]="offer"></app-offer-preview>
+<div class="flexCol listOffers">
+    <app-offer-preview class="oneOffer button" *ngFor="let offer of listOffers" [offer]="offer"></app-offer-preview>
+</div>
