@@ -16,8 +16,6 @@ export class OffersComponent implements OnInit {
   constructor(private offerViewService : OfferViewService) { }
 
   ngOnInit() {
-    this.offerViewService.fillListOffers();
-
     this.listArticlesSubscription = this.offerViewService.listOffersSubject.subscribe(
       (listOffers: any[]) => {
         this.listOffers = listOffers.slice();

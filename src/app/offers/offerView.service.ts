@@ -13,10 +13,6 @@ export class OfferViewService {
     constructor() { }
 
     fillListOffers(){
-        if(this.listOffers){
-            return;
-        }
-
         this.listOffers = [];
 
         let offer1 = new Offer()
@@ -47,6 +43,7 @@ export class OfferViewService {
     }
 
     filter(currentFilter : Filter){
-        currentFilter.print();  
+        currentFilter.print();
+        this.fillListOffers()
     }
 }
