@@ -5,6 +5,7 @@
         &:focus, &:active, &:visited{
             outline: none;
             -moz-outline-style: none;
+            outline-style: none;
         }
     }
 }

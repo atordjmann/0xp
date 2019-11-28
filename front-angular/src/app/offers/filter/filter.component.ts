@@ -23,6 +23,7 @@ export class FilterComponent implements OnInit {
 
   filter(){
     this.offerViewService.filter(this.currentFilter)
+    this.isMoreFilterOpen=false;
   }
 
   openFilter(keySelected : string){
