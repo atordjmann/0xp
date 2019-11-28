@@ -3,10 +3,13 @@ import { Offer } from '../../models/Offer';
 import { Subject } from 'rxjs/Subject';
 import { Filter } from 'src/models/Filter';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class OfferViewService {
 
+
+    apiUrl = environment.apiUrl;
 
     listOffers : Offer[];
     listOffersSubject = new Subject<Offer[]>();
@@ -18,7 +21,7 @@ export class OfferViewService {
 
     fillListOffers(){
         this.emitisLoadingSubject(true)
-        this.httpClient.get<any>("http://localhost:3000/offres").subscribe(
+        this.httpClient.get<any>(this.apiUrl+"/offres").subscribe(
             (response) => {
                 this.listOffers = [];
                 console.log("Found "+response.length+" offers")
