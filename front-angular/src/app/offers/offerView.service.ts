@@ -28,7 +28,6 @@ export class OfferViewService {
                 response.forEach((offerJson)=>{
                     var offer = new Offer()
                     offer.fromHashMap(offerJson)
-                    offer.print()
                     this.listOffers.push(offer)
                 })
                 this.emitListOffersSubject();
@@ -38,7 +37,33 @@ export class OfferViewService {
                 console.log('Erreur ! : ' + error);
             }
         );
-        
+    }
+
+    filterListOffers(currentFilter : Filter){
+        this.emitisLoadingSubject(true)
+        var query=currentFilter.toQuery()
+        if (query===""){
+            this.emitisLoadingSubject(false)
+            return;
+        }
+
+        console.log(this.apiUrl+"/offres/filtered?"+query)
+        this.httpClient.get<any>(this.apiUrl+"/offres/filtered?"+query).subscribe(
+            (response) => {
+                this.listOffers = [];
+                console.log("Found "+response.length+" offers matching the filter")
+                response.forEach((offerJson)=>{
+                    var offer = new Offer()
+                    offer.fromHashMap(offerJson)
+                    this.listOffers.push(offer)
+                })
+                this.emitListOffersSubject();
+                this.emitisLoadingSubject(false)
+            },
+            (error) => {
+                console.log('Erreur ! : ' + error);
+            }
+        );
     }
 
     emitListOffersSubject(){
@@ -50,7 +75,10 @@ export class OfferViewService {
     }
 
     filter(currentFilter : Filter){
-        currentFilter.print();
-        this.fillListOffers()
+        if (currentFilter.toQuery()!=""){
+            this.filterListOffers(currentFilter)
+        } else{
+            this.fillListOffers()
+        }
     }
 }

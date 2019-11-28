@@ -19,6 +19,8 @@ export class FilterComponent implements OnInit {
   constructor(private offerViewService : OfferViewService) { }
 
   ngOnInit() {
+    //this.currentFilter.type = "Stage"
+    //this.currentFilter.domain = "Informatique"
   }
 
   filter(){
@@ -42,5 +44,20 @@ export class FilterComponent implements OnInit {
 
   manageMoreFilter(){
     this.isMoreFilterOpen=!this.isMoreFilterOpen;
+  }
+
+  selectOneFilter(key:string, value:string = "All"){
+
+    Object.keys(this.mapOpenFilter).forEach((keyFilter) => {
+      this.mapOpenFilter[keyFilter]=false;
+    })
+
+    if(value==="All"){
+      this.currentFilter.resetField(key);
+      console.log(this.currentFilter[key])
+      return;
+    }
+    
+    this.currentFilter[key]=value;
   }
 }

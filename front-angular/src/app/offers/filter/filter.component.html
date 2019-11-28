@@ -9,13 +9,14 @@
     <div>
       <p>Type d'expérience souhaitée</p>
       <div class="flexRow-spaceBet customSelect">
-        <p class="noSpace">Stage</p>
+        <p class="noSpace">{{currentFilter.type}}</p>
         <img class="button" (click)="openFilter('type')" src="https://image.flaticon.com/icons/svg/130/130907.svg"/>
       </div>
       <div class="choicesSelect" [ngStyle]="{'display':mapOpenFilter.type ? 'block' : 'none' }">
-        <p class="button">Stage</p>
-        <p class="button">Alternance</p>
-        <p class="button">Emploi</p>
+        <p class="button" (click)="selectOneFilter('type')">Tout type</p>
+        <p class="button" (click)="selectOneFilter('type','Stage')">Stage</p>
+        <p class="button" (click)="selectOneFilter('type','Alternance')">Alternance</p>
+        <p class="button" (click)="selectOneFilter('type','Emploi')">Emploi</p>
       </div>
     </div>
     <div>
