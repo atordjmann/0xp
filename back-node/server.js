@@ -13,6 +13,8 @@ var http = require('http');
 var bodyParser = require('body-parser');
 var PORT = 3000;
 
+const MongoClient = require('mongodb').MongoClient
+
 //CORS Middleware
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
@@ -39,5 +41,13 @@ app.use(function(error, req, res, next) {
 });
 
 //listen
-var httpServer = http.createServer(app);
-httpServer.listen(PORT, () => console.log(`API running on localhost:${PORT}`));
+const uri = "mongodb+srv://admin0xp:mdpadmin0xp@0xp-aqxy3.mongodb.net/test?retryWrites=true&w=majority";
+const client = new MongoClient(uri, { useNewUrlParser: true });
+client.connect( err => {
+    if (err) return console.log(err)
+    db = client.db('0xpDB')
+    var httpServer = http.createServer(app);
+    httpServer.listen(PORT, () => console.log(`API running on localhost:${PORT}`));
+})
+/*var httpServer = http.createServer(app);
+httpServer.listen(PORT, () => console.log(`API running on localhost:${PORT}`));*/
