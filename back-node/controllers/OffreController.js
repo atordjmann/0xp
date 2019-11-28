@@ -23,6 +23,15 @@ router.get('/', function (req, res) {
             "domain" : "Graphisme / Design",
             "location" : "Paris, France",
             "type" : "Alternance 3 ans"
+        },
+        {
+            "title" : "Designer UI/UX Web (H/F)",
+            "srcImgCompany" : "https://upload.wikimedia.org/wikipedia/en/thumb/e/e4/ALTEN_logo.svg/1200px-ALTEN_logo.svg.png",
+            "company" : "Alten",
+            "date" : new Date(),
+            "domain" : "Graphisme / Design",
+            "location" : "Paris, France",
+            "type" : "Alternance 3 ans"
         }]
 
     res.json(listOffres);
