@@ -11,6 +11,9 @@ export class OfferViewService {
     listOffers : Offer[];
     listOffersSubject = new Subject<Offer[]>();
 
+    isLoading:Boolean=false;
+    isLoadingSubject = new Subject<Boolean>();
+
     constructor(private httpClient : HttpClient) { }
 
     fillListOffers(){
@@ -52,8 +55,15 @@ export class OfferViewService {
         this.listOffersSubject.next(this.listOffers.slice());
     }
 
+    emitisLoadingSubject(isLoading : Boolean){
+        this.isLoadingSubject.next(isLoading);
+    }
+
     filter(currentFilter : Filter){
         currentFilter.print();
         this.fillListOffers()
+
+        this.emitisLoadingSubject(true)
+        setTimeout(()=>{this.emitisLoadingSubject(false)},1000)
     }
 }

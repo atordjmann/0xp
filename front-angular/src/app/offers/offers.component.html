@@ -2,7 +2,12 @@
 <div style="padding-top: 5vh;">
     <app-filter ></app-filter>
 
-    <div class="flexCol listOffers">
+    <div class="loadingScreen" *ngIf="isLoading">
+        <div class="loader"></div>
+        <h1>Chargement des offres correspondant le plus à votre recherche !</h1>
+    </div>
+
+    <div *ngIf="!isLoading" class="flexCol listOffers">
         <app-offer-preview class="oneOffer button" *ngFor="let offer of listOffers" [offer]="offer" routerLink="/offerDetail"></app-offer-preview>
     </div>
 </div>

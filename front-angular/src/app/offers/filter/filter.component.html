@@ -10,24 +10,41 @@
       <p>Type d'expérience souhaitée</p>
       <div class="flexRow-spaceBet customSelect">
         <p class="noSpace">Stage</p>
-        <img class="button" src="https://image.flaticon.com/icons/svg/130/130907.svg"/>
+        <img class="button" (click)="openFilter('type')" src="https://image.flaticon.com/icons/svg/130/130907.svg"/>
+      </div>
+      <div class="choicesSelect" [ngStyle]="{'display':mapOpenFilter.type ? 'block' : 'none' }">
+        <p class="button">Stage</p>
+        <p class="button">Alternance</p>
+        <p class="button">Emploi</p>
       </div>
     </div>
     <div>
       <p>Durée</p>
       <div class="flexRow-spaceBet customSelect">
         <p class="noSpace">1-2 mois</p>
-        <img class="button" src="https://image.flaticon.com/icons/svg/130/130907.svg"/>
+        <img class="button" (click)="openFilter('time')" src="https://image.flaticon.com/icons/svg/130/130907.svg"/>
+      </div>
+      <div class="choicesSelect" [ngStyle]="{'display':mapOpenFilter.time ? 'block' : 'none' }">
+        <p class="button">1-2 mois</p>
+        <p class="button">6 mois</p>
       </div>
     </div>
     <div>
       <p>Domaine</p>
       <div class="flexRow-spaceBet customSelect">
         <p class="noSpace">Audit / Conseil</p>
-        <img class="button" src="https://image.flaticon.com/icons/svg/130/130907.svg"/>
+        <img class="button" (click)="openFilter('domain')" src="https://image.flaticon.com/icons/svg/130/130907.svg"/>
+      </div>
+      <div class="choicesSelect" [ngStyle]="{'display':mapOpenFilter.domain ? 'block' : 'none' }">
+        <p class="button">Audit / Conseil</p>
+        <p class="button">Informatique</p>
+        <p class="button">Mécanique</p>
       </div>
     </div>
   </div>
   <p class="noSpace textOpenMoreCriteria">Plus de critères</p>
-  <img class="logoShowMoreCriteria button" src="assets/images/icon_arrowFilter.svg"/>
+  <img class="logoShowMoreCriteria button" [ngClass]="{'moreFilterOpenImg':isMoreFilterOpen}" (click)="manageMoreFilter()" src="assets/images/icon_arrowFilter.svg"/>
+</div>
+<div *ngIf="isMoreFilterOpen" class="moreFilterDiv">
+
 </div>
