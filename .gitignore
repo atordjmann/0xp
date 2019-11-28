@@ -1,0 +1,6 @@
+# compiled output
+/front-angular/dist
+
+# dependencies
+/back-node/node_modules
+/front-angular/node_modules
