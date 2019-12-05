@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import {FormControl} from '@angular/forms';
+
 import { OfferViewService } from '../offerView.service';
+
 import { Filter } from 'src/models/Filter';
 
 @Component({
@@ -8,56 +11,37 @@ import { Filter } from 'src/models/Filter';
   styleUrls: ['./filter.component.scss']
 })
 export class FilterComponent implements OnInit {
-  currentFilter :Filter = new Filter();
-  mapOpenFilter = {
-    'type': false,
-    'time':false,
-    'domain':false
-  }
+  currentFilter: Filter = new Filter();
+
+  typeList: string[] = ['Stage', 'Alternance', 'Emploi'];
+  timeList: string[] = ['1-2 mois', '6 mois'];
+  domainList: string[] = ['Audit / Conseil', 'Informatique', 'Mécanique'];
+
   isMoreFilterOpen = false;
 
-  constructor(private offerViewService : OfferViewService) { }
+  constructor(private offerViewService: OfferViewService) { }
 
   ngOnInit() {
-    //this.currentFilter.type = "Stage"
-    //this.currentFilter.domain = "Informatique"
+    this.currentFilter.type = 'All';
+    this.currentFilter.time = 'All';
+    this.currentFilter.domain = 'All';
   }
 
-  filter(){
-    this.offerViewService.filter(this.currentFilter)
-    this.isMoreFilterOpen=false;
-  }
-
-  openFilter(keySelected : string){
-    var isClosingAction = false
-    //Si on veut fermer un filtre actif
-    if(this.mapOpenFilter[keySelected]){
-      isClosingAction = true;
+  filter() {
+    if (this.currentFilter.type === 'All') {
+      this.currentFilter.type = '';
     }
-    Object.keys(this.mapOpenFilter).forEach((keyFilter) => {
-      this.mapOpenFilter[keyFilter]=false;
-    })
-    if(!isClosingAction){
-      this.mapOpenFilter[keySelected]=true;
+    if (this.currentFilter.time === 'All') {
+      this.currentFilter.time = '';
     }
+    if (this.currentFilter.domain === 'All') {
+      this.currentFilter.domain = '';
+    }
+    this.offerViewService.filter(this.currentFilter);
+    this.isMoreFilterOpen = false;
   }
 
-  manageMoreFilter(){
-    this.isMoreFilterOpen=!this.isMoreFilterOpen;
-  }
-
-  selectOneFilter(key:string, value:string = "All"){
-
-    Object.keys(this.mapOpenFilter).forEach((keyFilter) => {
-      this.mapOpenFilter[keyFilter]=false;
-    })
-
-    if(value==="All"){
-      this.currentFilter.resetField(key);
-      console.log(this.currentFilter[key])
-      return;
-    }
-    
-    this.currentFilter[key]=value;
+  manageMoreFilter() {
+    this.isMoreFilterOpen = !this.isMoreFilterOpen;
   }
 }

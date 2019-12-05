@@ -4,43 +4,34 @@
 </div>
 
 <div class="boxMandatory">
-  <h1 class="color-blue-medium noSpace">Critères obligatoires</h1>
+  <h1 class="color-blue-medium noSpace">Critères principaux</h1>
   <div class="flexRow-spaceBet listSelect">
     <div>
-      <p>Type d'expérience souhaitée</p>
-      <div class="flexRow-spaceBet customSelect">
-        <p class="noSpace">{{currentFilter.type}}</p>
-        <img class="button" (click)="openFilter('type')" src="https://image.flaticon.com/icons/svg/130/130907.svg"/>
-      </div>
-      <div class="choicesSelect" [ngStyle]="{'display':mapOpenFilter.type ? 'block' : 'none' }">
-        <p class="button" (click)="selectOneFilter('type')">Tout type</p>
-        <p class="button" (click)="selectOneFilter('type','Stage')">Stage</p>
-        <p class="button" (click)="selectOneFilter('type','Alternance')">Alternance</p>
-        <p class="button" (click)="selectOneFilter('type','Emploi')">Emploi</p>
-      </div>
+      <mat-form-field>
+        <mat-label>Type d'expérience</mat-label>
+        <mat-select [(value)]="currentFilter.type">
+          <mat-option value="All">--</mat-option>
+          <mat-option *ngFor="let type of typeList" [value]="type">{{type}}</mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
     <div>
-      <p>Durée</p>
-      <div class="flexRow-spaceBet customSelect">
-        <p class="noSpace">1-2 mois</p>
-        <img class="button" (click)="openFilter('time')" src="https://image.flaticon.com/icons/svg/130/130907.svg"/>
-      </div>
-      <div class="choicesSelect" [ngStyle]="{'display':mapOpenFilter.time ? 'block' : 'none' }">
-        <p class="button">1-2 mois</p>
-        <p class="button">6 mois</p>
-      </div>
+      <mat-form-field>
+          <mat-label>Durée</mat-label>
+          <mat-select [(value)]="currentFilter.time">
+            <mat-option value="All">--</mat-option>
+            <mat-option *ngFor="let time of timeList" [value]="time">{{time}}</mat-option>
+          </mat-select>
+        </mat-form-field>
     </div>
     <div>
-      <p>Domaine</p>
-      <div class="flexRow-spaceBet customSelect">
-        <p class="noSpace">Audit / Conseil</p>
-        <img class="button" (click)="openFilter('domain')" src="https://image.flaticon.com/icons/svg/130/130907.svg"/>
-      </div>
-      <div class="choicesSelect" [ngStyle]="{'display':mapOpenFilter.domain ? 'block' : 'none' }">
-        <p class="button">Audit / Conseil</p>
-        <p class="button">Informatique</p>
-        <p class="button">Mécanique</p>
-      </div>
+      <mat-form-field>
+        <mat-label>Domaine</mat-label>
+        <mat-select [(value)]="currentFilter.domain">
+          <mat-option value="All">--</mat-option>
+          <mat-option *ngFor="let domain of domainList" [value]="domain">{{domain}}</mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
   </div>
   <p class="noSpace textOpenMoreCriteria">Plus de critères</p>
