@@ -1,15 +1,33 @@
 <div class="flexRow-spaceBet boxContainer">
-  <img src="{{offer.srcImgCompany}}"/>
-  <div>
-    <h1>{{offer.title}}</h1>
-    <h2>{{offer.company}}</h2>
+  <div class="logo_com">
+    <img src="{{offer.srcImgCompany}}"/>
+  </div>
+  <!--<img src="./../../../assets/images/Logo.png"/>-->
+  <div class="previewInfos">
+    <h2>{{offer.title}}</h2>
+    <h3>{{offer.company}}</h3>
+    <!--
+    <h2>Développeur Full-Stack H/F</h2>
+    <h3>Zero-xp.com</h3>
+    -->
     <div class="flexRow-spaceBet">
-      <p>{{offer.location}}</p>
-      <p>{{offer.type}}</p>
-      <p>{{offer.domain}}</p>
+      
+      <h5>{{offer.location}}</h5>
+      <h5>{{offer.type}}</h5>
+      <!--<h5>{{offer.xp-req}}</h5>-->
+      <h5>{{offer.domain}}</h5>
+    <!--
+      <h5>Marseille, France</h5>
+      <h5>Stage 4-6 Mois</h5>
+      <h5>Bac +5</h5>
+      <h5>Informatique</h5>
+    -->
     </div>
   </div>
-  <!--<p>{{offer.date}}</p>-->
-  <p>Il y a 1 heure</p>
-  <p class="percentageMatching" [style]="colorScore">{{matchingScore}}%</p>
+
+  <h5>{{offer.date}}</h5>
+  <!--<h5>Il y a 1 heure</h5>-->
+
+  <h1 class="percentageMatching" [style]="colorScore">{{matchingScore}}%</h1>
+  <!--<h1 class="percentageMatching" [style]="colorScore">95%</h1>-->
 </div>
