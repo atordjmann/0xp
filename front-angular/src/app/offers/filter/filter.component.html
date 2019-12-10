@@ -1,0 +1,42 @@
+<div class="mainFilterText flexRow-spaceBet">
+  <input type="text" placeholder="Rechercher" (keyup.enter)="filter()" [(ngModel)]="currentFilter.textInput"/>
+  <img src="https://image.flaticon.com/icons/svg/149/149309.svg"/>
+</div>
+
+<div class="boxMandatory">
+  <h1 class="color-blue-medium noSpace">Critères principaux</h1>
+  <div class="flexRow-spaceBet listSelect">
+    <div>
+      <mat-form-field>
+        <mat-label>Type d'expérience</mat-label>
+        <mat-select [(value)]="currentFilter.type">
+          <mat-option value="All">--</mat-option>
+          <mat-option *ngFor="let type of typeList" [value]="type">{{type}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field>
+          <mat-label>Durée</mat-label>
+          <mat-select [(value)]="currentFilter.time">
+            <mat-option value="All">--</mat-option>
+            <mat-option *ngFor="let time of timeList" [value]="time">{{time}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field>
+        <mat-label>Domaine</mat-label>
+        <mat-select [(value)]="currentFilter.domain">
+          <mat-option value="All">--</mat-option>
+          <mat-option *ngFor="let domain of domainList" [value]="domain">{{domain}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+  <p class="noSpace textOpenMoreCriteria">Plus de critères</p>
+  <img class="logoShowMoreCriteria button" [ngClass]="{'moreFilterOpenImg':isMoreFilterOpen}" (click)="manageMoreFilter()" src="assets/images/icon_arrowFilter.svg"/>
+</div>
+<div *ngIf="isMoreFilterOpen" class="moreFilterDiv">
+
+</div>
