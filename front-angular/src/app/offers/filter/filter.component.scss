@@ -65,6 +65,10 @@ img{
     background-color:transparent !important;
 }
 
+::ng-deep .mat-select-value-text{
+    color:#adadad !important;
+}
+
 .textOpenMoreCriteria{
     text-align: center;
     margin-bottom:1vh;
@@ -91,7 +95,3 @@ img{
 .moreFilterOpenImg{
     transform: rotate(180deg);
 }
-
-/*::ng-deep .mat-option-text,::ng-deep .mat-select-value-text{
-    text-transform: capitalize !important;
-}*/
