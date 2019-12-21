@@ -1,14 +1,8 @@
-# See http://help.github.com/ignore-files/ for more about ignoring files.
-
 # compiled output
-/dist
-/tmp
-/out-tsc
-/e2e
-# Only exists if Bazel was run
-/bazel-out
+/front-angular/dist
 
 # dependencies
+<<<<<<< HEAD
 /node_modules
 
 # profiling files
@@ -46,3 +40,8 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+=======
+/back-node/node_modules
+/front-angular/node_modules
+node_modules
+>>>>>>> dev
