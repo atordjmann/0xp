@@ -13,7 +13,6 @@ export class RegisterFormComponent implements OnInit {
   registerForm: FormGroup;
   loading = false;
   submitted = false;
-
   constructor(
       private formBuilder: FormBuilder,
       private router: Router,
@@ -34,7 +33,7 @@ export class RegisterFormComponent implements OnInit {
         username: ['', Validators.required],
         password: ['', [Validators.required, Validators.minLength(6)]]
       });
-  }
+    }
 
   // convenience getter for easy access to form fields
   get f() { return this.registerForm.controls; }
@@ -49,7 +48,6 @@ export class RegisterFormComponent implements OnInit {
       if (this.registerForm.invalid) {
           return;
       }
-
       this.loading = true;
       this.userService.register(this.registerForm.value)
           .pipe(first())

@@ -1,3 +1,4 @@
+import { FaqComponent } from './faq/faq.component';
 import { RegisterFormComponent } from './logging/register-form/register-form.component';
 import { LoggingComponent } from './logging/logging.component';
 import { NgModule } from '@angular/core';
@@ -15,6 +16,7 @@ const routes: Routes = [
   { path: 'offers', component: OffersComponent },
   { path: 'profile', component: ProfileComponent },
   { path: 'offerDetail', component: OfferDetailComponent },
+  { path: 'faq', component: FaqComponent },
   { path: '**', redirectTo: 'home'}
 ];
 
