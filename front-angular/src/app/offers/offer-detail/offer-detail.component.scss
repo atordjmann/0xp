@@ -64,6 +64,11 @@ h1 {font-size: 24px;}
     text-align: justify;
 }
 
+ul li
+{
+    font-family: CdtLight;
+}
+
 
 .offer-sheet ul
 {
@@ -81,7 +86,8 @@ h1 {font-size: 24px;}
     margin-left:45%;margin-right:45%;
     display: flex;
     justify-content: center;
-    align-items: center;   
+    align-items: center;
+    border-radius: 2vh;   
 }
 
 .btn-success:hover
