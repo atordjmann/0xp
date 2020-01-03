@@ -38,8 +38,8 @@ export class ProfileComponent implements OnInit {
 
 
   ngOnInit() {
-    this.isStudent = true;
-    this.isCompany = false;
+    this.isStudent = false;
+    this.isCompany = true;
     this.showProfile = true;
     this.showCandidatures = false;
     this.showNotifs = false;
