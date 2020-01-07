@@ -9,11 +9,12 @@ import { GlobalService } from './global.service';
 })
 export class AppComponent implements OnInit {
   title = 'zero-xp';
-
   isModalLoggingActive = false;
   subscriptionIsModalLoggingActive: Subscription;
 
-  constructor(private globalService: GlobalService) { }
+  constructor(
+    private globalService: GlobalService,
+  ) {}
 
   ngOnInit() {
     this.subscriptionIsModalLoggingActive = this.globalService.isModalLoggingActiveSubject.subscribe(

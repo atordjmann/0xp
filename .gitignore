@@ -4,3 +4,5 @@
 # dependencies
 /back-node/node_modules
 /front-angular/node_modules
+
+node_modules

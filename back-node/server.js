@@ -25,11 +25,12 @@ app.use(function(req, res, next) {
 
 // custom routes
 var OffreController = require('./controllers/OffreController');
-
+var UserController = require('./controllers/UserController');
 // Set our routes
 app.use('/offres', OffreController);
+app.use('/users', UserController)
 
-// Handle 404
+ // Handle 404
 app.use(function(req, res) {
     //res.send('404: Page not Found', 404);
     res.status(404).send({status:404, message: '404 Not Found', type:'client'});

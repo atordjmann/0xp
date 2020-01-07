@@ -1,23 +1,27 @@
 <ul class="navbar">
   <div style="height: 70%">
-    <a routerLink="/" translate>
+    <a routerLink="/">
       <img src="/assets/images/logo_orange.svg" alt="Logo Navigateur" style="height: 100%" />
     </a>
   </div>
   <ul>
 
     <li>
-      <a routerLink="/offers" translate>Offers</a>
+      <a routerLink="/offers">LES OFFRES</a>
     </li>
     <li>
-      <a routerLink="/profile" translate>Profile</a>
+      <a routerLink="/faq">FAQ</a>
     </li>
-    <li>
-      <a routerLink="/FAQ">FAQ</a>
+    <li *ngIf="!currentUser">
+      <a routerLink="/login">Connexion</a>
+    </li>
+    <li *ngIf="currentUser">
+      <a routerLink="/profile">Mon Profil ({{currentUser.firstName}} {{currentUser.name}})</a>
+    </li>
+    <li *ngIf="currentUser">
+      <a (click)="logout()">Deconnexion</a>
     </li>
   </ul>
-  <div>
-    <a (click)="openLoggingModal()">Connexion</a>
-  </div>
+  
 
 </ul>
