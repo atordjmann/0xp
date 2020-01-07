@@ -16,7 +16,7 @@
       <a routerLink="/login">Connexion</a>
     </li>
     <li *ngIf="currentUser">
-      <a routerLink="/profile">Mon Profil ({{currentUser.firstName}})</a>
+      <a routerLink="/profile">Mon Profil ({{currentUser.firstName}} {{currentUser.name}})</a>
     </li>
     <li *ngIf="currentUser">
       <a (click)="logout()">Deconnexion</a>

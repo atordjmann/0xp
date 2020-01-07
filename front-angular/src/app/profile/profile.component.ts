@@ -44,15 +44,15 @@ export class ProfileComponent implements OnInit {
 
 
   ngOnInit() {
-    this.isStudent = true;
-    this.isCompany = false;
+    this.isStudent = this.currentUser.isStudent === 'true';
+    this.isCompany = this.currentUser.isStudent === 'false';
     this.showProfile = true;
     this.showCandidatures = false;
     this.showNotifs = false;
     this.profile = {
       firstname: this.currentUser.firstName,
-      lastname: this.currentUser.lastName,
-      photo: 'https://i.pinimg.com/originals/aa/5a/27/aa5a270fc268cb82c66ef12e6def5a09.jpg'
+      name: this.currentUser.name,
+      photo: this.isStudent ? 'https://i.pinimg.com/originals/aa/5a/27/aa5a270fc268cb82c66ef12e6def5a09.jpg' : 'https://www.solutions-numeriques.com/wp-content/uploads/2016/10/sopra-steria1.png'
     };
   }
 

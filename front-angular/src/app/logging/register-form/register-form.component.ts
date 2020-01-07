@@ -13,6 +13,8 @@ export class RegisterFormComponent implements OnInit {
   registerForm: FormGroup;
   loading = false;
   submitted = false;
+  isStudent: boolean;
+
   constructor(
       private formBuilder: FormBuilder,
       private router: Router,
@@ -27,16 +29,39 @@ export class RegisterFormComponent implements OnInit {
   }
 
   ngOnInit() {
+      this.isStudent = true;
       this.registerForm = this.formBuilder.group({
         firstName: ['', Validators.required],
-        lastName: ['', Validators.required],
+        name: ['', Validators.required],
         username: ['', Validators.required],
-        password: ['', [Validators.required, Validators.minLength(6)]]
+        password: ['', [Validators.required, Validators.minLength(6)]],
+        isStudent: [this.isStudent]
       });
     }
 
   // convenience getter for easy access to form fields
   get f() { return this.registerForm.controls; }
+
+  loginStudent = (e) => {
+    this.isStudent = true;
+    this.registerForm = this.formBuilder.group({
+      firstName: ['', Validators.required],
+      name: ['', Validators.required],
+      username: ['', Validators.required],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      isStudent: [this.isStudent]
+    });
+  }
+
+  loginCompany = (e) => {
+    this.isStudent = false;
+    this.registerForm = this.formBuilder.group({
+      name: ['', Validators.required],
+      username: ['', Validators.required],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      isStudent: [this.isStudent]
+    });
+  }
 
   onSubmit() {
       this.submitted = true;
@@ -49,16 +74,30 @@ export class RegisterFormComponent implements OnInit {
           return;
       }
       this.loading = true;
-      this.userService.register(this.registerForm.value)
-          .pipe(first())
-          .subscribe(
-              data => {
-                  this.alertService.success('Registration successful', true);
-                  this.router.navigate(['/login']);
-              },
-              error => {
-                  this.alertService.error(error);
-                  this.loading = false;
-              });
+      if (this.isStudent) {
+        this.userService.registerStudent(this.registerForm.value)
+            .pipe(first())
+            .subscribe(
+                data => {
+                    this.alertService.success('Registration successful', true);
+                    this.router.navigate(['/login']);
+                },
+                error => {
+                    this.alertService.error(error);
+                    this.loading = false;
+                });
+      } else {
+        this.userService.registerCompany(this.registerForm.value)
+        .pipe(first())
+        .subscribe(
+            data => {
+                this.alertService.success('Registration successful', true);
+                this.router.navigate(['/login']);
+            },
+            error => {
+                this.alertService.error(error);
+                this.loading = false;
+            });
+      }
   }
 }

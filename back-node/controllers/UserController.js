@@ -5,6 +5,7 @@ var router = express.Router();
 var bodyParser = require('body-parser');
 router.use(bodyParser.json());
 const User = require("./user.model");
+const UserCompany = require("./userCompany.model");
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
@@ -28,7 +29,12 @@ router.post('/register', function(req, res, next) {
     /*if (db.collection('users').findOne({ username: req.body.username })) {
         throw 'Username "' + req.body.username + '" is already taken';
     }*/
-    const user = new User(req.body);
+    let user = new Object();
+    if(req.body.isStudent){
+        user = new User(req.body);
+    }else{
+        user = new UserCompany(req.body)
+    }
     // hash password
     if (req.body.password) {
         user.hash = bcrypt.hashSync(req.body.password, 10);

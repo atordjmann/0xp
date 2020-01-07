@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 
-import { User } from '../../../models';
+import { User, UserCompany } from '../../../models';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
@@ -14,7 +14,11 @@ export class UserService {
         return this.http.get<User[]>(this.apiUrl + '/users');
     }
 
-    register(user: User) {
+    registerStudent(user: User) {
+        return this.http.post(this.apiUrl + '/users/register', user);
+    }
+
+    registerCompany(user: UserCompany) {
         return this.http.post(this.apiUrl + '/users/register', user);
     }
 
