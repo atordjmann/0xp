@@ -11,7 +11,7 @@ export class OfferViewService {
 
     apiUrl = environment.apiUrl;
 
-    listOffers: Offer[];
+    listOffers: Offer[] = [];
     listOffersSubject = new Subject<Offer[]>();
 
     isLoading = false;
@@ -80,5 +80,13 @@ export class OfferViewService {
         } else {
             this.fillListOffers();
         }
+    }
+
+    getOfferById(id: String) {
+        const offer : Offer = this.listOffers.find(
+            (s) => {
+                return s.id === id;
+            });
+        return offer;
     }
 }

@@ -14,8 +14,8 @@ const routes: Routes = [
   { path: 'login', component: LoggingComponent},
   { path: 'register', component: RegisterFormComponent},
   { path: 'offers', component: OffersComponent },
+  { path: 'offers/:id', component: OfferDetailComponent },
   { path: 'profile', component: ProfileComponent },
-  { path: 'offerDetail', component: OfferDetailComponent },
   { path: 'faq', component: FaqComponent },
   { path: '**', redirectTo: 'home'}
 ];
