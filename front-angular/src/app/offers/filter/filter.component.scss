@@ -86,10 +86,14 @@ img{
 }
 
 .moreFilterDiv{
-    height:10vh;
     width:80vw;
+    padding:1vw;
     margin: auto;
     box-shadow: var(--shadow-light);
+
+    p{
+        color:#adadad;
+    }
 }
 
 .moreFilterOpenImg{

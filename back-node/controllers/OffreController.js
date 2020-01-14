@@ -7,7 +7,7 @@ router.use(bodyParser.json());
 const escapeStringRegexp = require('escape-string-regexp')
 
 router.get('/', function (req, res) {
-    console.log("Request /offres")
+    console.log("Request /offres/")
     db.collection('offers').find().toArray(function(err, results) {
         res.json(results);
     })

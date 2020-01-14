@@ -5,6 +5,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import {MatSelectModule} from '@angular/material';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatInputModule} from '@angular/material';
+import {MatSliderModule} from '@angular/material/slider';
+import { SelectAutocompleteModule } from 'mat-select-autocomplete';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
@@ -52,12 +58,18 @@ import { FaqComponent } from './faq/faq.component';
     OfferSquareComponent,
     OfferCompanyComponent,
     AlertComponent,
-    FaqComponent
+    FaqComponent,
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     MatSelectModule,
+    MatButtonToggleModule,
+    MatSlideToggleModule,
+    MatDatepickerModule,
+    MatInputModule,
+    MatSliderModule,
+    SelectAutocompleteModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,

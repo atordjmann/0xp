@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 
-import { User, UserCompany } from '../../../models';
+import { User } from '../../../models';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
@@ -18,7 +18,7 @@ export class UserService {
         return this.http.post(this.apiUrl + '/users/register', user);
     }
 
-    registerCompany(user: UserCompany) {
+    registerCompany(user: any) {
         return this.http.post(this.apiUrl + '/users/register', user);
     }
 
