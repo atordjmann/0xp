@@ -12,8 +12,14 @@
     <li>
       <a routerLink="/profile" translate>Profile</a>
     </li>
-    <li>
-      <a routerLink="/FAQ">FAQ</a>
+    <li *ngIf="!currentUser">
+      <a routerLink="/login">Connexion</a>
+    </li>
+    <li *ngIf="currentUser">
+      <a routerLink="/profile">Mon Profil ({{currentUser.firstName}} {{currentUser.name}})</a>
+    </li>
+    <li *ngIf="currentUser">
+      <a (click)="logout()">Deconnexion</a>
     </li>
   </ul>
   <div>
