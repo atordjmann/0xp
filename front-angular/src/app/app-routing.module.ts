@@ -11,7 +11,6 @@ const routes: Routes = [
   { path: 'offers', component: OffersComponent },
   { path: 'profile', component: ProfileComponent },
   { path: 'offerDetail', component: OfferDetailComponent },
-  { path: 'faq', component: FaqComponent },
   { path: '**', redirectTo: 'home'} 
 ];
 
