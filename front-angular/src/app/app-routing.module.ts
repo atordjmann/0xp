@@ -17,7 +17,7 @@ const routes: Routes = [
   { path: 'profile', component: ProfileComponent },
   { path: 'offerDetail', component: OfferDetailComponent },
   { path: 'faq', component: FaqComponent },
-  { path: '**', redirectTo: 'home'}
+  { path: '**', redirectTo: 'home'} 
 ];
 
 @NgModule({
