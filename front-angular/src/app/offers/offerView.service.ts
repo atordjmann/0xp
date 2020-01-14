@@ -11,7 +11,7 @@ export class OfferViewService {
 
     apiUrl = environment.apiUrl;
 
-    listOffers: Offer[];
+    listOffers: Offer[] = [];
     listOffersSubject = new Subject<Offer[]>();
 
     isLoading = false;
@@ -67,7 +67,7 @@ export class OfferViewService {
     }
 
     emitListOffersSubject() {
-        this.listOffersSubject.next(this.listOffers.slice());
+        this.listOffersSubject.next(this.listOffers.length!==0 ? this.listOffers.slice() : []);
     }
 
     emitisLoadingSubject(isLoading: boolean) {
