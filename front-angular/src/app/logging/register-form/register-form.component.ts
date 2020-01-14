@@ -1,8 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { AuthenticationService, UserService, AlertService } from '../services';
-import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-register-form',
@@ -100,4 +96,5 @@ export class RegisterFormComponent implements OnInit {
             });
       }
   }
+
 }

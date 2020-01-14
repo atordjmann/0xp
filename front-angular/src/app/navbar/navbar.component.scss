@@ -7,7 +7,7 @@
     width:100%;
     align-items: center;
     justify-content: space-around;
-    height: 50px;
+    height: 60px;
     margin:0;padding:0;
     background-color: #3e4259;
     font-family: EvSansBold, Calibri;
@@ -18,14 +18,9 @@
 .navbar ul
 {
     display: flex;
-    justify-content: flex-end;
-    width: 70%;
+    justify-content: space-around;
+    width: 50%;
     list-style-type: none;
-}
-
-.navbar ul li
-{
-    margin-left:50px;
 }
 
 .navbar div
@@ -45,5 +40,4 @@ a:hover
     color: #FBFEF9;
     text-decoration:underline;
     text-decoration-color: #EA8122;
-    cursor:pointer;
 }

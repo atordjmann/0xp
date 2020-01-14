@@ -12,13 +12,13 @@ export class OffersComponent implements OnInit {
 
   listOffers: Offer[] = [];
   listArticlesSubscription: Subscription;
-  isLoading: boolean;
+  isLoading : Boolean;
   isLoadingSubscription: Subscription;
-
-  constructor(private offerViewService: OfferViewService) { }
+  
+  constructor(private offerViewService : OfferViewService) { }
 
   ngOnInit() {
-    this.offerViewService.fillListOffers();
+    this.offerViewService.fillListOffers()
     this.listArticlesSubscription = this.offerViewService.listOffersSubject.subscribe(
       (listOffers: any[]) => {
         this.listOffers = listOffers.slice();
@@ -26,7 +26,7 @@ export class OffersComponent implements OnInit {
     );
     this.offerViewService.emitListOffersSubject();
     this.isLoadingSubscription = this.offerViewService.isLoadingSubject.subscribe(
-      (isLoading: boolean) => {
+      (isLoading: Boolean) => {
         this.isLoading = isLoading;
       }
     );
