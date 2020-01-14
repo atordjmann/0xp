@@ -81,4 +81,12 @@ export class OfferViewService {
             this.fillListOffers()
         }
     }
+
+    getOfferById(id: Number) {
+        const offer : Offer = this.listOffers.find(
+            (s) => {
+                return s.id === id;
+            });
+        return offer;
+    }
 }
