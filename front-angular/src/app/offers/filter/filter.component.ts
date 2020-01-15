@@ -12,6 +12,7 @@ import { Filter } from 'src/models/Filter';
 import * as _moment from 'moment';
 // tslint:disable-next-line:no-duplicate-imports
 import {default as _rollupMoment, Moment} from 'moment';
+import { MatDatepicker } from '@angular/material';
 const moment = _rollupMoment || _moment;
 
 export const MY_FORMATS = {
@@ -48,7 +49,7 @@ export class FilterComponent implements OnInit {
 
   typeList: string[] = ['Stage', 'Alternance', 'Emploi'];
   timeList: string[] = ['1-2 mois', '6 mois'];
-  domainList: string[] = ['Audit / Conseil', 'Informatique', 'Mécanique'];
+  sectorList: string[] = ['Audit / Conseil', 'Informatique', 'Mécanique'];
 
   //Pour le filtre avancé
   isMoreFilterOpen = false;
@@ -73,7 +74,7 @@ export class FilterComponent implements OnInit {
   ngOnInit() {
     this.currentFilter.type = 'All';
     this.currentFilter.time = 'All';
-    this.currentFilter.domain = 'All';
+    this.currentFilter.sector = 'All';
 
     this.manageMoreFilter()
   }
@@ -85,8 +86,8 @@ export class FilterComponent implements OnInit {
     if (this.currentFilter.time === 'All') {
       this.currentFilter.time = '';
     }
-    if (this.currentFilter.domain === 'All') {
-      this.currentFilter.domain = '';
+    if (this.currentFilter.sector === 'All') {
+      this.currentFilter.sector = '';
     }
     this.offerViewService.filter(this.currentFilter);
     this.isMoreFilterOpen = false;
@@ -99,13 +100,18 @@ export class FilterComponent implements OnInit {
       //On récupère le nom des villes pour lesquelles on a des stages
       this.listArticlesSubscription = this.offerViewService.listOffersSubject.subscribe(
         (listOffers: any[]) => {
+          let setVille = new Set([]);
           listOffers.forEach((offer) => {
-            this.listOfferLocation.push(
-              {
-                display: offer['location'],
-                value: ''+this.listOfferLocation.length
-              }
-              );
+            if (!setVille.has(offer['location'])){
+              setVille.add(offer['location']);
+
+              this.listOfferLocation.push(
+                {
+                  display: offer['location'],
+                  value: ''+this.listOfferLocation.length
+                }
+                );
+            }
           })
         }
       );

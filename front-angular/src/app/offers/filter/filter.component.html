@@ -29,7 +29,7 @@
         <mat-label>Domaine</mat-label>
         <mat-select [(value)]="currentFilter.domain">
           <mat-option value="All">--</mat-option>
-          <mat-option *ngFor="let domain of domainList" [value]="domain">{{domain}}</mat-option>
+          <mat-option *ngFor="let domain of sectorList" [value]="domain">{{domain}}</mat-option>
         </mat-select>
       </mat-form-field>
     </div>
@@ -73,7 +73,7 @@
 
   <div>
     <p>Partenaire de l'école seulement</p>
-    <mat-slide-toggle>Slide me!</mat-slide-toggle>
+    <mat-slide-toggle></mat-slide-toggle>
   </div>
 
   <div>
