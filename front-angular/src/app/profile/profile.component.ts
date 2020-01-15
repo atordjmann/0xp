@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthenticationService } from '../logging/services';
+import { User } from 'src/models';
 
 @Component({
   selector: 'app-profile',
@@ -7,6 +9,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfileComponent implements OnInit {
 
+  currentUser: User;
   isStudent: boolean;
   isCompany: boolean;
   showProfile: boolean;
@@ -14,7 +17,10 @@ export class ProfileComponent implements OnInit {
   showNotifs: boolean;
   profile: any;
 
-  constructor() { }
+  constructor(private authenticationService: AuthenticationService) {
+    this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
+   }
+
   clicSection = (e, section) => {
     const buttons = document.getElementsByClassName('bar-button');
     for (let i=0 ; i < buttons.length ; i++) {

@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { GlobalService } from '../global.service';
+import { User } from 'src/models';
+import { AuthenticationService } from '../logging/services';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -7,14 +10,25 @@ import { GlobalService } from '../global.service';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
+  currentUser: User;
 
-  constructor(private globalService: GlobalService) { }
+  constructor(private globalService: GlobalService,
+              private authenticationService: AuthenticationService,
+              private router: Router
+    ) {
+      this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
+     }
 
   ngOnInit() {
   }
 
   openLoggingModal() {
     this.globalService.manageModale();
+  }
+
+  logout() {
+    this.authenticationService.logout();
+    this.router.navigate(['/login']);
   }
 
 }
