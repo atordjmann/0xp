@@ -67,7 +67,7 @@ export class OfferViewService {
     }
 
     emitListOffersSubject() {
-        this.listOffersSubject.next(this.listOffers.slice());
+        this.listOffersSubject.next(this.listOffers.length!==0 ? this.listOffers.slice() : []);
     }
 
     emitisLoadingSubject(isLoading: boolean) {
