@@ -1,5 +1,5 @@
 interface OfferData {
-    id: Number
+    _id: String
     title: String
     srcImgCompany : String 
     company : String 
@@ -10,7 +10,7 @@ interface OfferData {
 }
 
 export class Offer {
-    id: Number;
+    id: String;
     title: String = new String();
     srcImgCompany : String = new String();
     company : String = new String();
@@ -32,7 +32,7 @@ export class Offer {
     }
 
     fromHashMap(data: OfferData) {
-        this.id = Number(data.id);
+        this.id = String(data._id);
         this.title = String(data.title);
         this.srcImgCompany = String(data.srcImgCompany);
         this.company = String(data.company);

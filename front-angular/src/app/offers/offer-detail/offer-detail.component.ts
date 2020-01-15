@@ -1,4 +1,8 @@
+import { OfferViewService } from './../offerView.service';
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+
+import { Offer } from 'src/models/Offer';
 
 @Component({
   selector: 'app-offer-detail',
@@ -7,9 +11,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OfferDetailComponent implements OnInit {
 
-  constructor() { }
+  offer: Offer;
+
+  constructor(private route: ActivatedRoute, private offerViewService : OfferViewService) { }
 
   ngOnInit() {
+    let idOffer = this.route.snapshot.params['id'];
+    this.offer = this.offerViewService.getOfferById(idOffer)
   }
 
 }
