@@ -4,27 +4,40 @@
 }
 
 .logo-header {
-    margin-top: 50px;
-    margin-bottom: 180px;
+    display: flex;
+    flex-direction: column;
+    margin-top: 30vh;
+    margin-bottom: 20vh;
 }
 
 .logo-image {
-    width: 300px;
+    width: 330px;
 }
 
 .button1 {
     border: none;
     border-radius: 25px;
     padding: 10px 20px;
-    margin-top: 20px;
+    margin-top: 5vh;
     background-color: rgb(226, 125, 43);
+    color:white;
+    cursor:pointer;
+}
+
+button a{
+    text-decoration: none;
+    color:white;
+}
+
+.button1:hover {
+    color: white;
 }
 
 .grid-container {
     display: flex;
     justify-content: center;
     flex-direction: column;
-    margin-top: 70px;
+    margin-bottom: 12vh;
 }
 
 .grid-title {
@@ -34,24 +47,29 @@
 .grid {
     display: flex;
     justify-content: space-around;
-    width: 1000px;
-    align-items: center;  
-    margin-top: 30px;  
+    width: 75vw;
+    margin-top: 5vh;
 }
 
 .grid-item {
-    max-width: 280px;
+    max-width: 22vw;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
 }
 
-.minion {
-    height: 120px;
-    margin: 10px;
+.item {
+    margin: 0;
+}
+
+.illustration {
+    height: 20vh;
+    margin: 3vh;
 }
 
 .footer {
     display: flex;
     justify-content: center;
     flex-direction: column;
-    margin-top: 50px;
-    margin-bottom: 20px;
+    margin-bottom: 7vh;
 }

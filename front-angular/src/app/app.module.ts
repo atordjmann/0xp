@@ -1,9 +1,18 @@
+import { UserService } from './logging/services/user.service';
+import { ErrorInterceptor } from './logging/helpers/error.interceptor';
+import { JwtInterceptor } from './logging/helpers/jwt.interceptor';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import {MatSelectModule} from '@angular/material';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatInputModule} from '@angular/material';
+import {MatSliderModule} from '@angular/material/slider';
+import { SelectAutocompleteModule } from 'mat-select-autocomplete';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -25,6 +34,10 @@ import { OfferCompanyComponent } from './profile/application/offer-company/offer
 
 import { GlobalService } from './global.service';
 import { OfferViewService } from './offers/offerView.service';
+import { AlertComponent } from './alert/alert.component';
+
+//import { fakeBackendProvider } from '../app/logging/helpers';
+import { FaqComponent } from './faq/faq.component';
 
 @NgModule({
   declarations: [
@@ -43,18 +56,28 @@ import { OfferViewService } from './offers/offerView.service';
     ApplicationComponent,
     NotificationComponent,
     OfferSquareComponent,
-    OfferCompanyComponent
+    OfferCompanyComponent,
+    AlertComponent,
+    FaqComponent,
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     MatSelectModule,
+    MatButtonToggleModule,
+    MatSlideToggleModule,
+    MatDatepickerModule,
+    MatInputModule,
+    MatSliderModule,
+    SelectAutocompleteModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [GlobalService, OfferViewService],
+  providers: [GlobalService, OfferViewService, UserService,
+              {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
+              {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

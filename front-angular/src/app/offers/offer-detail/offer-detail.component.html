@@ -4,9 +4,9 @@
     <h1>
       <p class="logo-ent"></p>
       <img src="../../../assets/images/logo_orange.svg" alt="logo company" class="logo-ent"/><br/>
-      Développeur Full-Stack H/F<br/>
+      {{ offer.title }}<br/>
     </h1>
-    <h4>Zero XP</h4>
+    <h4>{{ offer.company }}</h4>
 </div>
 
 <div class="offer-sheet">
@@ -18,7 +18,7 @@
       <br/>
 
     <ul>
-      <li>Marseille, France</li>
+      <li>{{offer.location}}</li>
       <li>Stage 4 à 6 mois</li>
       <li>Bac +5</li>
       <li>IT/Conseil</li>

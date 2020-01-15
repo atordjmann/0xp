@@ -3,9 +3,8 @@
 <div *ngIf="isStudent">
   <div class="bar-details">
     <a class="bar-button current" (click)="clicSection($event,'profil')">Mon Profil</a>
-    <a class="bar-button" (click)="clicSection($event,'candidatures')">Mes candidatures</a>
+    <a class="bar-button" (click)="clicSection($event,'candidatures')">Mes favoris</a>
     <a class="bar-button" (click)="clicSection($event,'notif')">Mes notifications</a>
-
   </div>
   <div class="square-sections">
     <app-profile-detail [details]="profile" *ngIf="showProfile"></app-profile-detail>

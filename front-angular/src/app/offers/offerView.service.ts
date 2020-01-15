@@ -11,27 +11,27 @@ export class OfferViewService {
 
     apiUrl = environment.apiUrl;
 
-    listOffers : Offer[];
+    listOffers: Offer[] = [];
     listOffersSubject = new Subject<Offer[]>();
 
-    isLoading:Boolean=false;
-    isLoadingSubject = new Subject<Boolean>();
+    isLoading = false;
+    isLoadingSubject = new Subject<boolean>();
 
-    constructor(private httpClient : HttpClient) { }
+    constructor(private httpClient: HttpClient) { }
 
-    fillListOffers(){
-        this.emitisLoadingSubject(true)
-        this.httpClient.get<any>(this.apiUrl+"/offres").subscribe(
+    fillListOffers() {
+        this.emitisLoadingSubject(true);
+        this.httpClient.get<any>(this.apiUrl + '/offres').subscribe(
             (response) => {
                 this.listOffers = [];
-                console.log("Found "+response.length+" offers")
-                response.forEach((offerJson)=>{
-                    var offer = new Offer()
-                    offer.fromHashMap(offerJson)
-                    this.listOffers.push(offer)
-                })
+                console.log('Found ' + response.length + ' offers');
+                response.forEach((offerJson) => {
+                    const offer = new Offer();
+                    offer.fromHashMap(offerJson);
+                    this.listOffers.push(offer);
+                });
                 this.emitListOffersSubject();
-                this.emitisLoadingSubject(false)
+                this.emitisLoadingSubject(false);
             },
             (error) => {
                 console.log('Erreur ! : ' + error);
@@ -39,26 +39,26 @@ export class OfferViewService {
         );
     }
 
-    filterListOffers(currentFilter : Filter){
-        this.emitisLoadingSubject(true)
-        var query=currentFilter.toQuery()
-        if (query===""){
-            this.emitisLoadingSubject(false)
+    filterListOffers(currentFilter: Filter) {
+        this.emitisLoadingSubject(true);
+        const query = currentFilter.toQuery();
+        if (query === '') {
+            this.emitisLoadingSubject(false);
             return;
         }
 
-        console.log(this.apiUrl+"/offres/filtered?"+query)
-        this.httpClient.get<any>(this.apiUrl+"/offres/filtered?"+query).subscribe(
+        console.log(this.apiUrl + '/offres/filtered?' + query);
+        this.httpClient.get<any>(this.apiUrl + '/offres/filtered?' + query).subscribe(
             (response) => {
                 this.listOffers = [];
-                console.log("Found "+response.length+" offers matching the filter")
-                response.forEach((offerJson)=>{
-                    var offer = new Offer()
-                    offer.fromHashMap(offerJson)
-                    this.listOffers.push(offer)
-                })
+                console.log('Found ' + response.length + ' offers matching the filter');
+                response.forEach((offerJson) => {
+                    const offer = new Offer();
+                    offer.fromHashMap(offerJson);
+                    this.listOffers.push(offer);
+                });
                 this.emitListOffersSubject();
-                this.emitisLoadingSubject(false)
+                this.emitisLoadingSubject(false);
             },
             (error) => {
                 console.log('Erreur ! : ' + error);
@@ -66,19 +66,27 @@ export class OfferViewService {
         );
     }
 
-    emitListOffersSubject(){
-        this.listOffersSubject.next(this.listOffers.slice());
+    emitListOffersSubject() {
+        this.listOffersSubject.next(this.listOffers.length!==0 ? this.listOffers.slice() : []);
     }
 
-    emitisLoadingSubject(isLoading : Boolean){
+    emitisLoadingSubject(isLoading: boolean) {
         this.isLoadingSubject.next(isLoading);
     }
 
-    filter(currentFilter : Filter){
-        if (currentFilter.toQuery()!=""){
-            this.filterListOffers(currentFilter)
-        } else{
-            this.fillListOffers()
+    filter(currentFilter: Filter) {
+        if (currentFilter.toQuery() !== '') {
+            this.filterListOffers(currentFilter);
+        } else {
+            this.fillListOffers();
         }
+    }
+
+    getOfferById(id: String) {
+        const offer : Offer = this.listOffers.find(
+            (s) => {
+                return s.id === id;
+            });
+        return offer;
     }
 }
