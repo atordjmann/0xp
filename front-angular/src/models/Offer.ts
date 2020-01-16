@@ -33,25 +33,6 @@ export class Offer {
     softSkills : String[];
     domains : String[];
 
-
-    print() {
-        console.log("id: " + this.id)
-        console.log("title: " + this.title)
-        console.log("company: " + this.company)
-        console.log("id_company: " + this.id_company)
-        console.log("srcImgCompany: " + this.srcImgCompany)
-        console.log("location: " + this.location)
-        console.log("start_date: " + this.start_date)
-        console.log("created_date: " + this.created_date)
-        console.log("sector: " + this.sector)
-        console.log("type: " + this.type)
-        console.log("description: " + this.description)
-        console.log("duration: " + this.duration)
-        console.log("remuneration: " + this.remuneration)
-        console.log("softSkills: " + this.softSkills)
-        console.log("domains: " + this.domains)
-    }
-
     fromHashMap(data: OfferData) {
         this.id = String(data._id);
         this.title = String(data.title);
@@ -68,6 +49,5 @@ export class Offer {
         this.duration = String(data.duration);
         this.softSkills = data.softSkills
         this.domains = data.domains
-        
     }
 }
