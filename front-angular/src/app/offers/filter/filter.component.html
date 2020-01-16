@@ -18,7 +18,7 @@
     <div>
       <mat-form-field>
           <mat-label>Durée</mat-label>
-          <mat-select [(value)]="currentFilter.time">
+          <mat-select [(value)]="currentFilter.duration">
             <mat-option value="All">--</mat-option>
             <mat-option *ngFor="let time of timeList" [value]="time">{{time}}</mat-option>
           </mat-select>

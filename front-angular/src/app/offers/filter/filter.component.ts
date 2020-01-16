@@ -48,7 +48,7 @@ export class FilterComponent implements OnInit {
   currentFilter: Filter = new Filter();
 
   typeList: string[] = ['Stage', 'Alternance', 'Emploi'];
-  timeList: string[] = ['1-2 mois', '6 mois'];
+  timeList: string[] = ['1-2 mois', '6 mois', '2 ans'];
   sectorList: string[] = ['Audit / Conseil', 'Informatique', 'Mécanique'];
 
   //Pour le filtre avancé
@@ -72,7 +72,7 @@ export class FilterComponent implements OnInit {
   ngOnInit() {
     this.currentFilter.textInput = '';
     this.currentFilter.type = 'All';
-    this.currentFilter.time = 'All';
+    this.currentFilter.duration = 'All';
     this.currentFilter.sector = 'All';
     this.currentFilter.company = []
     this.currentFilter.location = [];
@@ -82,7 +82,6 @@ export class FilterComponent implements OnInit {
     this.currentFilter.matchingMini = 0;
     this.currentFilter.remunMini = 0;
     this.dateFromDate.setDate(1);
-    this.manageMoreFilter();
   }
 
   filter() {
@@ -91,8 +90,8 @@ export class FilterComponent implements OnInit {
     if (this.currentFilter.type === 'All') {
       this.currentFilter.type = '';
     }
-    if (this.currentFilter.time === 'All') {
-      this.currentFilter.time = '';
+    if (this.currentFilter.duration === 'All') {
+      this.currentFilter.duration = ''; 
     }
     if (this.currentFilter.sector === 'All') {
       this.currentFilter.sector = '';
@@ -104,7 +103,7 @@ export class FilterComponent implements OnInit {
       this.currentFilter.publicationDate = '';
     }
 
-    this.currentFilter.dateFrom = this.dateFromDate.getTime()
+    this.currentFilter.start_date = this.dateFromDate.getTime()
 
     this.offerViewService.filter(this.currentFilter);
     this.isMoreFilterOpen = false;
