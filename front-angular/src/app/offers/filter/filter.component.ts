@@ -74,6 +74,8 @@ export class FilterComponent implements OnInit {
     this.currentFilter.type = 'All';
     this.currentFilter.time = 'All';
     this.currentFilter.sector = 'All';
+    this.currentFilter.company = []
+    this.currentFilter.location = [];
     this.currentFilter.companySize = 'All';
     this.currentFilter.publicationDate = 'All';
     this.currentFilter.isPartner = false;
@@ -84,6 +86,8 @@ export class FilterComponent implements OnInit {
   }
 
   filter() {
+
+    console.log(this.companyForm)
     if (this.currentFilter.type === 'All') {
       this.currentFilter.type = '';
     }
@@ -120,7 +124,7 @@ export class FilterComponent implements OnInit {
               this.listOfferLocation.push(
                 {
                   display: offer['location'],
-                  value: ''+this.listOfferLocation.length
+                  value: offer['location']
                 }
                 );
             }
@@ -138,7 +142,7 @@ export class FilterComponent implements OnInit {
             this.listOfferCompany.push(
               {
                 display: offer['company'],
-                value: ''+this.listOfferCompany.length
+                value: offer['company']
               }
               );
           })
@@ -163,5 +167,13 @@ export class FilterComponent implements OnInit {
     this.dateStart.setValue(ctrlValue);
     datepicker.close();
     this.dateFromDate.setMonth(this.dateStart.value._d.getMonth());
+  }
+
+  getSelectedOptions(key:String, selected) {
+    if (key==='company'){
+      this.currentFilter.company = selected;
+    } else {
+      this.currentFilter.location = selected;
+    }
   }
 }

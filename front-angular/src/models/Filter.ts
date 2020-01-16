@@ -3,9 +3,9 @@ export class Filter {
     type : String = new String()
     time : String = new String()
     sector : String = new String()
-    location : any; //Dico avec pour chaque ville un boolean qui correspond à si elle est recherchée ou non
-    company : any; //Dico avec pour chaque ville un boolean qui correspond à si elle est recherchée ou non
-    isPartner : Boolean = false; //Dico avec pour chaque ville un boolean qui correspond à si elle est recherchée ou non
+    location : String[];
+    company : String[];
+    isPartner : Boolean = false;
     publicationDate : String = new String();
     companySize : String = new String();
     dateFrom : Number;

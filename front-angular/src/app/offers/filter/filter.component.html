@@ -46,12 +46,15 @@
       <form [formGroup]="locationForm">
         <mat-select-autocomplete
           [placeholder]="'--'"
-          [options]="listOfferLocation"
           [selectPlaceholder]="'Rechercher'"
+          [options]="listOfferLocation"
+          [display]="'display'"
+          [value]="'value'"
           [multiple]='true'
           name="optionsSelector"
           ngDefaultControl
-          [formControl]="locationForm.controls['selected']">
+          [formControl]="locationForm.controls['selected']"
+          (selectionChange)="getSelectedOptions('location', $event)">
         </mat-select-autocomplete>
       </form>
     </div>
@@ -63,10 +66,13 @@
           [placeholder]="'--'"
           [selectPlaceholder]="'Rechercher'"
           [options]="listOfferCompany"
+          [display]="'display'"
+          [value]="'value'"
           [multiple]='true'
           name="optionsSelector"
           ngDefaultControl
-          [formControl]="companyForm.controls['selected']">
+          [formControl]="companyForm.controls['selected']"
+          (selectionChange)="getSelectedOptions('company', $event)">
         </mat-select-autocomplete>
       </form>
     </div>
