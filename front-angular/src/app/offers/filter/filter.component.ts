@@ -64,10 +64,11 @@ export class FilterComponent implements OnInit {
   companyForm = new FormGroup({
     selected: new FormControl()
   });
-  datePubSelected = '';
+  datePubSelected = 'All';
+  sizeCompanySelected = 'All';
   dateStart = new FormControl(moment());
-  percentMini = 50;
-  remunMini = 800;
+  percentMini = 0;
+  remunMini = 0;
 
   constructor(private offerViewService: OfferViewService) { }
 
