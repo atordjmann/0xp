@@ -75,10 +75,11 @@ export class OfferViewService {
     }
 
     filter(currentFilter: Filter) {
-        if (currentFilter.toQuery() !== '') {
+        console.log(currentFilter);
+        /*if (currentFilter.toQuery() !== '') {
             this.filterListOffers(currentFilter);
         } else {
             this.fillListOffers();
-        }
+        }*/
     }
 }
