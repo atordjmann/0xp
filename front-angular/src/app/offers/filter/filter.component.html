@@ -47,6 +47,7 @@
         <mat-select-autocomplete
           [placeholder]="'--'"
           [options]="listOfferLocation"
+          [selectPlaceholder]="'Rechercher'"
           [multiple]='true'
           name="optionsSelector"
           ngDefaultControl
@@ -72,7 +73,7 @@
 
     <div style="width: 15vw;">
       <p style="text-align: center;">Partenaire de l'école seulement</p>
-      <mat-slide-toggle></mat-slide-toggle>
+      <mat-slide-toggle [(ngModel)]="currentFilter.isPartner"></mat-slide-toggle>
     </div>
   </div>
 
@@ -80,11 +81,11 @@
     <div>
       <mat-form-field>
         <mat-label>Date de publication</mat-label>
-        <mat-select [(value)]="datePubSelected">
+        <mat-select [(value)]="currentFilter.publicationDate">
           <mat-option value="All">--</mat-option>
-          <mat-option value="'today'">Aujourd'hui</mat-option>
-          <mat-option value="'week'">Cette semaine</mat-option>
-          <mat-option value="'month'">Ce mois</mat-option>
+          <mat-option value="today">Aujourd'hui</mat-option>
+          <mat-option value="week">Cette semaine</mat-option>
+          <mat-option value="month">Ce mois</mat-option>
         </mat-select>
       </mat-form-field>
     </div>
@@ -92,11 +93,11 @@
     <div>
       <mat-form-field>
         <mat-label>Taille de l'entreprise</mat-label>
-        <mat-select [(value)]="sizeCompanySelected">
+        <mat-select [(value)]="currentFilter.companySize">
           <mat-option value="All">--</mat-option>
-          <mat-option value="'small'">- 20 employés</mat-option>
-          <mat-option value="'medium'">- 200 employés</mat-option>
-          <mat-option value="'large'">+ 200 employés</mat-option>
+          <mat-option value="small">- 20 employés</mat-option>
+          <mat-option value="medium">- 200 employés</mat-option>
+          <mat-option value="large">+ 200 employés</mat-option>
         </mat-select>
       </mat-form-field>
     </div>
@@ -125,7 +126,7 @@
             min="0"
             thumbLabel="thumbLabel"
             tickInterval="1"
-            [(ngModel)]="percentMini">
+            [(ngModel)]="currentFilter.matchingMini">
         </mat-slider>
         <p>100%</p>
       </div>
@@ -139,7 +140,7 @@
             min="0"
             thumbLabel="thumbLabel"
             tickInterval="1"
-            [(ngModel)]="remunMini">
+            [(ngModel)]="currentFilter.remunMini">
         </mat-slider>
         <p>1461€</p>
       </div>

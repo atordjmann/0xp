@@ -64,20 +64,23 @@ export class FilterComponent implements OnInit {
   companyForm = new FormGroup({
     selected: new FormControl()
   });
-  datePubSelected = 'All';
-  sizeCompanySelected = 'All';
+  dateFromDate : Date = new Date();
   dateStart = new FormControl(moment());
-  percentMini = 0;
-  remunMini = 0;
 
   constructor(private offerViewService: OfferViewService) { }
 
   ngOnInit() {
+    this.currentFilter.textInput = '';
     this.currentFilter.type = 'All';
     this.currentFilter.time = 'All';
     this.currentFilter.sector = 'All';
-
-    this.manageMoreFilter()
+    this.currentFilter.companySize = 'All';
+    this.currentFilter.publicationDate = 'All';
+    this.currentFilter.isPartner = false;
+    this.currentFilter.matchingMini = 0;
+    this.currentFilter.remunMini = 0;
+    this.dateFromDate.setDate(1);
+    this.manageMoreFilter();
   }
 
   filter() {
@@ -90,10 +93,18 @@ export class FilterComponent implements OnInit {
     if (this.currentFilter.sector === 'All') {
       this.currentFilter.sector = '';
     }
+    if (this.currentFilter.companySize === 'All') {
+      this.currentFilter.companySize = '';
+    }
+    if (this.currentFilter.publicationDate === 'All') {
+      this.currentFilter.publicationDate = '';
+    }
+
+    this.currentFilter.dateFrom = this.dateFromDate.getTime()
+
     this.offerViewService.filter(this.currentFilter);
     this.isMoreFilterOpen = false;
   }
-
   manageMoreFilter() {
     this.isMoreFilterOpen = !this.isMoreFilterOpen;
 
@@ -143,6 +154,7 @@ export class FilterComponent implements OnInit {
     const ctrlValue = this.dateStart.value;
     ctrlValue.year(normalizedYear.year());
     this.dateStart.setValue(ctrlValue);
+    this.dateFromDate.setUTCFullYear(this.dateStart.value._d.getUTCFullYear());
   }
 
   chosenMonthHandler(normalizedMonth: Moment, datepicker: MatDatepicker<Moment>) {
@@ -150,5 +162,6 @@ export class FilterComponent implements OnInit {
     ctrlValue.month(normalizedMonth.month());
     this.dateStart.setValue(ctrlValue);
     datepicker.close();
+    this.dateFromDate.setMonth(this.dateStart.value._d.getMonth());
   }
 }

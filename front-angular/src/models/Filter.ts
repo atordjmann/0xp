@@ -8,7 +8,9 @@ export class Filter {
     isPartner : Boolean = false; //Dico avec pour chaque ville un boolean qui correspond à si elle est recherchée ou non
     publicationDate : String = new String();
     companySize : String = new String();
-    dateFrom : String = new String();
+    dateFrom : Number;
+    matchingMini : Number;
+    remunMini : Number;
 
 
     print() {
