@@ -13,6 +13,16 @@ export class OfferDetailComponent implements OnInit {
 
   offer: Offer;
 
+  public notNull(o) {
+    if(typeof o === 'undefined'){
+      return false;
+    } else if (o === null){
+      return false;
+    } else {
+      return true;
+    }
+  };
+
   constructor(private route: ActivatedRoute, private offerViewService : OfferViewService) { }
 
   ngOnInit() {
