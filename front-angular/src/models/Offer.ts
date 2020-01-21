@@ -14,6 +14,7 @@ interface OfferData {
     duration : String
     softSkills : String[]
     domains : String[]
+    matchingScore: Number
 }
 
 export class Offer {
@@ -32,6 +33,7 @@ export class Offer {
     duration : String = new String();
     softSkills : String[];
     domains : String[];
+    matchingScore: Number;
 
 
     print() {
@@ -68,6 +70,6 @@ export class Offer {
         this.duration = String(data.duration);
         this.softSkills = data.softSkills
         this.domains = data.domains
-        
+        this.matchingScore = Number(data.matchingScore);        
     }
 }

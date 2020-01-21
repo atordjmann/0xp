@@ -9,6 +9,7 @@ const escapeStringRegexp = require('escape-string-regexp')
 router.get('/', function (req, res) {
     console.log("Request /offres/")
     db.collection('offers').find().toArray(function(err, results) {
+        expandWithMatching(results);
         res.json(results);
     })
 });
@@ -30,3 +31,9 @@ router.get('/filtered', function (req, res) {
 });
 
 module.exports = router;
+
+function expandWithMatching(results) {
+    results.forEach((offre)=>{
+        offre.matchingScore = Math.floor(Math.random()*100);
+    })
+};
