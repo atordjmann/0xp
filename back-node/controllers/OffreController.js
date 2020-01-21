@@ -26,6 +26,7 @@ router.get('/filtered', function (req, res) {
     })
 
     db.collection('offers').find(query).toArray(function(err, results) {
+        expandWithMatching(results);
         res.json(results);
     })
 });

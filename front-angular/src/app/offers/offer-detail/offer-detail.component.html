@@ -11,8 +11,8 @@
 <div class="offer-sheet">
 
     <div class="matching">
-        <h1>{{ offer.matchingScore }}</h1>
-        <h4>%</h4>
+        <h1 [style]="colorScore">{{ offer.matchingScore }}</h1>
+        <h4 [style]="colorScore">%</h4>
       </div>
       <br/>
 
@@ -26,11 +26,13 @@
     
     <br/>
 
-    <h1>Mots clés</h1>
-    <ul>
-      <li *ngFor="let domain of offer.domains">{{ domain }}</li>
-    </ul>
-    <br/>
+    <div *ngIf="notNull(offer.domains)">
+      <h1>Mots clés</h1>
+      <ul>
+        <li *ngFor="let domain of offer.domains">{{ domain }}</li>
+      </ul>
+      <br/>
+    </div>
 
     <h1>Description du poste</h1>
     <p>

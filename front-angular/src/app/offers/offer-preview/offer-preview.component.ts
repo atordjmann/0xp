@@ -15,7 +15,7 @@ export class OfferPreviewComponent implements OnInit {
   constructor(private sanitizer: DomSanitizer) { }
 
   ngOnInit() {
-    this.colorScore = this.sanitizer.bypassSecurityTrustStyle("color:"+this.defineColor(this.offer.matchingScore))
+    this.colorScore = this.sanitizer.bypassSecurityTrustStyle("color:"+this.defineColor(this.offer.matchingScore));
   }
 
   defineColor(percentage : Number){
