@@ -10,14 +10,12 @@ import {SafeStyle, DomSanitizer } from '@angular/platform-browser';
 })
 export class OfferPreviewComponent implements OnInit {
   @Input() offer: Offer;
-  matchingScore:number;
   colorScore:SafeStyle;
 
   constructor(private sanitizer: DomSanitizer) { }
 
   ngOnInit() {
-    this.matchingScore = Math.floor(Math.random()*100)
-    this.colorScore = this.sanitizer.bypassSecurityTrustStyle("color:"+this.defineColor(this.matchingScore))
+    this.colorScore = this.sanitizer.bypassSecurityTrustStyle("color:"+this.defineColor(this.offer.matchingScore));
   }
 
   defineColor(percentage : Number){

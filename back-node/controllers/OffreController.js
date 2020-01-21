@@ -9,6 +9,7 @@ const escapeStringRegexp = require('escape-string-regexp')
 router.get('/', function (req, res) {
     console.log("Request /offres/")
     db.collection('offers').find().toArray(function(err, results) {
+        expandWithMatching(results);
         res.json(results);
     })
 });
@@ -62,6 +63,7 @@ router.get('/filtered', function (req, res) {
 
     console.log(query)
     db.collection('offers').find(query).toArray(function(err, results) {
+        expandWithMatching(results);
         if(Object.keys(req.query).indexOf("matchingMini")>-1){
             // TODO : Calculer le taux de matching avec l'offre et la garder ou non
         }
@@ -70,3 +72,9 @@ router.get('/filtered', function (req, res) {
 });
 
 module.exports = router;
+
+function expandWithMatching(results) {
+    results.forEach((offre)=>{
+        offre.matchingScore = Math.floor(Math.random()*100);
+    })
+};
