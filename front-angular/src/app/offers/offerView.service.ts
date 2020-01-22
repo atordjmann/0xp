@@ -67,6 +67,7 @@ export class OfferViewService {
     }
 
     emitListOffersSubject() {
+        this.sortArray(this.listOffers, 'matchingScore')
         this.listOffersSubject.next(this.listOffers.length!==0 ? this.listOffers.slice() : []);
     }
 
@@ -90,5 +91,13 @@ export class OfferViewService {
                 return s.id === id;
             });
         return offer;
+    }
+
+    sortArray(array : Offer[], key:String){
+        if (key=="matchingScore"){
+            array.sort(function(a:Offer, b:Offer) {
+                return +b.matchingScore - +a.matchingScore; 
+            });
+        }
     }
 }

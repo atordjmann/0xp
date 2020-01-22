@@ -60,14 +60,18 @@ router.get('/filtered', function (req, res) {
     if(Object.keys(req.query).indexOf("isPartner")>-1){
         // TODO : Aller regarder pour l'entreprise si elle est ou non partenaire
     }
-
-    console.log(query)
+    
     db.collection('offers').find(query).toArray(function(err, results) {
         expandWithMatching(results);
         if(Object.keys(req.query).indexOf("matchingMini")>-1){
-            // TODO : Calculer le taux de matching avec l'offre et la garder ou non
+            resultsFiltered=[]
+            results.forEach((offre)=>{
+                if (offre.matchingScore>=req.query["matchingMini"]){
+                    resultsFiltered.push(offre)
+                }
+            });
         }
-        res.json(results);
+        res.json(resultsFiltered);
     })
 });
 
