@@ -6,7 +6,42 @@ h1{
 }
 
 .listOffers{
-    padding: 5vh 0vw;
+    width: 75vw;
+    margin:auto;
+    position: relative;
+
+    .logoSort{
+        width: 2vw;
+        height: 2vw;
+        align-self: flex-end;
+        margin-right: -2vw;
+        padding: 0.5vw;
+    }
+
+    .choiceFilter{
+        position: absolute;
+        background-color:white;
+        padding:0px 1.5vw;
+        box-shadow: var(--shadow-light);
+        right: -5px;
+        top: 1.5vw;
+
+        .check{
+            margin-right: 15px;
+            font-weight: bold;
+            color:green;
+        }
+
+        .isSelectable{
+            cursor:pointer;
+            &:hover{
+                p{
+                    text-decoration: underline;
+                }
+            }
+        }
+    }
+
     .oneOffer{
         margin-bottom:1vh;
         &:focus, &:active, &:visited{

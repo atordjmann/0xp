@@ -99,6 +99,14 @@ export class OfferViewService {
             array.sort(function(a:Offer, b:Offer) {
                 return +b.matchingScore - +a.matchingScore; 
             });
+        } else if (key=="remuneration"){
+            array.sort(function(a:Offer, b:Offer) {
+                return +b.remuneration - +a.remuneration; 
+            });
+        } else if (key=="created_date"){
+            array.sort(function(a:Offer, b:Offer) {
+                return +b.created_date - +a.created_date; 
+            });
         }
     }
 }
