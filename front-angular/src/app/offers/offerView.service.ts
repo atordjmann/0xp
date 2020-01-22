@@ -30,6 +30,7 @@ export class OfferViewService {
                     offer.fromHashMap(offerJson);
                     this.listOffers.push(offer);
                 });
+                console.log(this.listOffers)
                 this.emitListOffersSubject();
                 this.emitisLoadingSubject(false);
             },

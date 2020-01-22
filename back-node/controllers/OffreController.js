@@ -2,6 +2,7 @@ var express = require('express');
 var app             = express();
 var router = express.Router();
 var bodyParser = require('body-parser');
+var ObjectId = require('mongodb').ObjectID
 router.use(bodyParser.json());
 
 const escapeStringRegexp = require('escape-string-regexp')
@@ -16,7 +17,6 @@ router.get('/', function (req, res) {
 
 router.get('/filtered', function (req, res) {
     console.log("Request /offres/filtered")
-    listParamFilter=["type","duration","sector","location","company","isPartner","publicationDate","companySize","start_date","matchingMini","remunMini"]
     query={}
     if(Object.keys(req.query).indexOf("type")>-1){
         query["type"] = new RegExp('^' + escapeStringRegexp(req.query["type"]) + '$', 'i');
@@ -52,27 +52,107 @@ router.get('/filtered', function (req, res) {
         //On cherche les offres dont la date de publication est en ts supérieure
         query["created_date"] = { $gte: ''+correspondance[req.query["publicationDate"]] }
     }
-
-    if(Object.keys(req.query).indexOf("companySize")>-1){
-        // TODO : Aller regarder pour l'entreprise si elle est ou de la bonne taille
-    }
-
-    if(Object.keys(req.query).indexOf("isPartner")>-1){
-        // TODO : Aller regarder pour l'entreprise si elle est ou non partenaire
-    }
     
-    db.collection('offers').find(query).toArray(function(err, results) {
-        expandWithMatching(results);
-        if(Object.keys(req.query).indexOf("matchingMini")>-1){
+    const promise = new Promise(function(resolve, reject) {
+        if(Object.keys(req.query).indexOf("companySize")>-1 || Object.keys(req.query).indexOf("isPartner")>-1){
+            db.collection('companies').find().toArray(function(err, resultsComp) {
+                resolve(resultsComp);
+            })
+        } else{
+            resolve([])
+        }
+    });
+
+    promise.then(function(resultsComp) {
+        companyDico={}
+        resultsComp.forEach((company) => {
+            companyDico[company["_id"]]=company
+        })
+
+        db.collection('offers').find(query).toArray(function(err, results) {
+            expandWithMatching(results);
             resultsFiltered=[]
             results.forEach((offre)=>{
-                if (offre.matchingScore>=req.query["matchingMini"]){
+                isInFilter=true;
+                if(Object.keys(req.query).indexOf("matchingMini")>-1){
+                    if (offre.matchingScore<req.query["matchingMini"]){
+                        isInFilter=false
+                    }
+                }
+                if(Object.keys(req.query).indexOf("companySize")>-1 || Object.keys(req.query).indexOf("isPartner")>-1){
+                    if (Object.keys(companyDico).indexOf(""+offre["id_company"])==-1){
+                        isInFilter=false
+                    } else{
+                        company = companyDico[offre["id_company"]]
+                        if(Object.keys(req.query).indexOf("companySize")>-1 && ""+company["taille"]!=""+req.query["companySize"]){
+                            isInFilter=false;
+                        }
+
+                        if(Object.keys(req.query).indexOf("isPartner")>-1 && !company["isPartner"]){
+                            isInFilter=false;
+                        }
+                    }
+                }
+
+                if (isInFilter){
                     resultsFiltered.push(offre)
                 }
             });
-        }
-        res.json(resultsFiltered);
-    })
+            res.json(resultsFiltered);
+        })
+    });
+    /*db.collection('offers').find(query).toArray(function(err, results) {
+        console.log("found "+results.length+" offers")
+        expandWithMatching(results);
+        resultsFiltered=[]
+        cpt=0
+        cpt2=0
+        results.forEach((offre)=>{
+            const promise = new Promise(function(resolve, reject) {
+                cpt2+=1
+                isInFilter=true;
+                if(Object.keys(req.query).indexOf("matchingMini")>-1){
+                    if (offre.matchingScore<req.query["matchingMini"]){
+                        isInFilter=false
+                    }
+                }
+                if(Object.keys(req.query).indexOf("companySize")>-1 || Object.keys(req.query).indexOf("isPartner")>-1){
+                    db.collection('companies').find({ _id: offre["id_company"] }).toArray(function(err, resultsComp) {
+                        if (resultsComp.length==0){
+                            isInFilter=false;
+                        } else{
+                            company=resultsComp[0]
+                            if(Object.keys(req.query).indexOf("companySize")>-1 && ""+company["taille"]!=""+req.query["companySize"]){
+                                isInFilter=false;
+                            }
+    
+                            if(Object.keys(req.query).indexOf("isPartner")>-1 && !company["isPartner"]){
+                                isInFilter=false;
+                            }
+                        }
+                        console.log(isInFilter, cpt2)
+                        resolve(isInFilter);
+                    })
+                } else {
+                    resolve(isInFilter);
+                }
+            });
+
+            promise.then(function(isInFilter) {
+                console.log(offre["title"])
+                cpt+=1
+                if (isInFilter){
+                    resultsFiltered.push(offre)
+                    console.log(resultsFiltered.length)
+                }
+                if (cpt==results.length){
+                    res.json(resultsFiltered);
+                }
+            });
+        });
+        
+    })*/
+    
 });
 
 module.exports = router;

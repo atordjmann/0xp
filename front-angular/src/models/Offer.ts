@@ -1,7 +1,7 @@
 interface OfferData {
     _id: String
     title: String
-    id_company : Number
+    id_company : String
     srcImgCompany : String 
     company : String 
     location : String 
@@ -21,7 +21,7 @@ export class Offer {
     id: String;
     title: String = new String();
     company : String = new String();
-    id_company : Number;
+    id_company : String = new String();
     srcImgCompany : String = new String();
     location : String = new String();
     start_date : Date = new Date();
@@ -38,7 +38,7 @@ export class Offer {
     fromHashMap(data: OfferData) {
         this.id = String(data._id);
         this.title = String(data.title);
-        this.id_company = Number(data.id_company);
+        this.id_company = String(data.id_company);
         this.srcImgCompany = String(data.srcImgCompany);
         this.company = String(data.company);
         this.location = String(data.location);

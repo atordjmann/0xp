@@ -48,7 +48,7 @@ export const MY_FORMATS = {
 export class FilterComponent implements OnInit {
   currentFilter: Filter = new Filter();
 
-  typeList: string[] = ['Stage', 'Alternance', 'Emploi'];
+  typeList: string[] = ['Stage', 'Alternance', 'Premier emploi'];
   timeList: string[] = ['1-2 mois', '6 mois', '2 ans'];
   sectorList: string[] = ['Audit / Conseil', 'Informatique', 'Mécanique'];
 
@@ -74,13 +74,13 @@ export class FilterComponent implements OnInit {
 
   ngOnInit() {
     this.currentFilter.textInput = '';
-    this.currentFilter.type = 'All';
-    this.currentFilter.duration = 'All';
-    this.currentFilter.sector = 'All';
+    this.currentFilter.type = '';
+    this.currentFilter.duration = '';
+    this.currentFilter.sector = '';
     this.currentFilter.company = []
     this.currentFilter.location = [];
-    this.currentFilter.companySize = 'All';
-    this.currentFilter.publicationDate = 'All';
+    this.currentFilter.companySize = '';
+    this.currentFilter.publicationDate = '';
     this.currentFilter.isPartner = false;
     this.currentFilter.matchingMini = 0;
     this.currentFilter.remunMini = 0;
@@ -90,22 +90,6 @@ export class FilterComponent implements OnInit {
   filter() {
 
     console.log(this.companyForm)
-    if (this.currentFilter.type === 'All') {
-      this.currentFilter.type = '';
-    }
-    if (this.currentFilter.duration === 'All') {
-      this.currentFilter.duration = ''; 
-    }
-    if (this.currentFilter.sector === 'All') {
-      this.currentFilter.sector = '';
-    }
-    if (this.currentFilter.companySize === 'All') {
-      this.currentFilter.companySize = '';
-    }
-    if (this.currentFilter.publicationDate === 'All') {
-      this.currentFilter.publicationDate = '';
-    }
-
     this.currentFilter.start_date = this.dateFromDate.getTime()
 
     this.offerViewService.filter(this.currentFilter);
