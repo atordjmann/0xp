@@ -38,8 +38,6 @@ import { AlertComponent } from './alert/alert.component';
 
 //import { fakeBackendProvider } from '../app/logging/helpers';
 import { FaqComponent } from './faq/faq.component';
-import { CompanyModalComponent } from './offers/offer-detail/company-modal/company-modal.component';
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -59,8 +57,7 @@ import { CompanyModalComponent } from './offers/offer-detail/company-modal/compa
     OfferSquareComponent,
     OfferCompanyComponent,
     AlertComponent,
-    FaqComponent,
-    CompanyModalComponent,
+    FaqComponent
   ],
   imports: [
     BrowserModule,
@@ -77,9 +74,10 @@ import { CompanyModalComponent } from './offers/offer-detail/company-modal/compa
     ReactiveFormsModule,
     HttpClientModule
   ],
+  exports:[OfferDetailComponent],
   providers: [GlobalService, OfferViewService, UserService,
               {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
               {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent, OfferDetailComponent]
 })
 export class AppModule { }

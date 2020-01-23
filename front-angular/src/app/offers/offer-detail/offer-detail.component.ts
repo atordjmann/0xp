@@ -1,5 +1,5 @@
 import { OfferViewService } from './../offerView.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { Offer } from 'src/models/Offer';
@@ -15,9 +15,15 @@ export class OfferDetailComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private offerViewService : OfferViewService) { }
 
+  isModalopen = false;
+
   ngOnInit() {
     let idOffer = this.route.snapshot.params['id'];
     this.offer = this.offerViewService.getOfferById(idOffer)
+  }
+
+  openOrClose() {
+    this.isModalopen=!this.isModalopen
   }
 
 }
