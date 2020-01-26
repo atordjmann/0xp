@@ -18,6 +18,7 @@ export class AuthenticationService {
     }
 
     public get currentUserValue(): User {
+        console.log(this.currentUser);
         return this.currentUserSubject.value;
     }
 

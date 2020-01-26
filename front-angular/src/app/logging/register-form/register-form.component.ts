@@ -35,31 +35,49 @@ export class RegisterFormComponent implements OnInit {
         name: ['', Validators.required],
         username: ['', Validators.required],
         password: ['', [Validators.required, Validators.minLength(6)]],
-        isStudent: [this.isStudent]
+        dateBirth: ['', Validators.required],
+        contactMail: [''],
+        contactTel: [''],
+        localisation: ['', Validators.required],
+        softSkills: [''],
+        interestCompany: [''],
+        interestDomain: [''],
+        isStudent: [true]
       });
     }
 
   // convenience getter for easy access to form fields
   get f() { return this.registerForm.controls; }
 
-  loginStudent = (e) => {
+  registerStudent = (e) => {
     this.isStudent = true;
     this.registerForm = this.formBuilder.group({
       firstName: ['', Validators.required],
       name: ['', Validators.required],
       username: ['', Validators.required],
       password: ['', [Validators.required, Validators.minLength(6)]],
-      isStudent: [this.isStudent]
+      dateBirth: ['', Validators.required],
+      contactMail: [''],
+      contactTel: [''],
+      localisation: ['', Validators.required],
+      softSkills: [''],
+      interestCompany: [''],
+      interestDomain: [''],
+      isStudent: [true]
     });
   }
 
-  loginCompany = (e) => {
+  registerCompany = (e) => {
     this.isStudent = false;
     this.registerForm = this.formBuilder.group({
       name: ['', Validators.required],
       username: ['', Validators.required],
       password: ['', [Validators.required, Validators.minLength(6)]],
-      isStudent: [this.isStudent]
+      isStudent: [false],
+      creationDate: ['', Validators.required],
+      description: ['', Validators.required],
+      taille: ['', Validators.required],
+      localisation: ['', Validators.required]
     });
   }
 

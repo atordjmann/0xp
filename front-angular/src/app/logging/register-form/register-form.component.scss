@@ -23,6 +23,12 @@ input{
     padding:5px;
 }
 
+textarea{
+    padding: 5px;
+    border: none;
+    border-bottom: grey 1px solid;
+}
+
 .form-buttons{
     display:flex;
     justify-content: space-evenly;
