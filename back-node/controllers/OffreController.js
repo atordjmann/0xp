@@ -71,6 +71,19 @@ router.get('/filtered', function (req, res) {
     })
 });
 
+router.get('/byCompanyId', function (req, res) {
+    console.log("Request /offres/byCompanyId")
+
+    var id = '5e2700cf1c9d44000011f2ba';
+
+    query={}
+    query["id_company"] = new RegExp('^' + escapeStringRegexp(id) + '$', 'i');
+
+    db.collection('offers').find(query).toArray(function(err, results) {
+        res.json(results);
+    })
+});
+
 module.exports = router;
 
 function expandWithMatching(results) {

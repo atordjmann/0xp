@@ -1,10 +1,10 @@
-<div class="offer-co-preview">
+<div *ngFor="let offre of listOfferCompany" class="offer-co-preview">
   <div class="infos">
     <div class="title">
-      <h2>Junior Dev Full-Stack (H/F)</h2>
-      <h5>Stage 4-6 mois</h5>
+      <h2>{{offre.title}}</h2>
+      <p>{{offre.type}} - {{offre.duration}} - Il y a deux heures</p>
     </div>
-    <h3>12 candidats | 0 refus | 12 en attente</h3>
+    <h4>12 candidats | 0 refus | 12 en attente</h4>
   </div>
   <div class="modify"><img src="https://image.flaticon.com/icons/svg/1159/1159633.svg" alt="modify" class="logo-mod"/></div>
   <div class="delete"><img src="https://image.flaticon.com/icons/svg/1656/1656830.svg" alt="delete" class="logo-del"/></div>  
