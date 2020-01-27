@@ -1,4 +1,26 @@
+<div *ngIf="isModalopen" class="modal">
 
+  <div class="modal-header">
+    <div class="cancel button" (click) = "openOrClose()"><img src="https://image.flaticon.com/icons/svg/22/22108.svg"></div>
+    <div class="modal-header-content">
+      <img src="https://www.soprasteria.com/images/librariesprovider2/sopra-steria-corporate-images/logos---home/logo-sopra-steria.png?sfvrsn=ea7573dc_8" alt="logo company" class="logo-company"/>
+      <h1>Sopra Steria</h1>
+      <h4>Entreprise partenaire</h4>
+    </div>
+  </div>
+
+  <div class="modal-body">
+    <p id="location">Marseille, France</p>
+    <h2>Description :</h2>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus blandit a erat eu bibendum. Pellentesque vitae tincidunt nisl, eget commodo orci. Pellentesque vitae gravida diam. Sed quis est non felis ullamcorper porttitor. Nulla facilisi. Suspendisse in eros ornare, vulputate turpis sed, vestibulum nisi. Nulla lacus elit, aliquet nec elementum suscipit, mattis ut massa. Nunc nec orci sit amet enim mattis tempus ut non velit. Integer quis euismod nunc. Praesent sit amet congue urna. Phasellus hendrerit, ligula sed bibendum venenatis, risus nisi lacinia ligula, quis fermentum nunc felis id metus. Vivamus eu condimentum arcu. Aenean gravida nisl elit, at commodo diam mattis id. Sed id magna eget nisi congue blandit. Pellentesque tellus nibh, feugiat sit amet dui eu, interdum pellentesque augue.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus blandit a erat eu bibendum. Pellentesque vitae tincidunt nisl, eget commodo orci. Pellentesque vitae gravida diam. Sed quis est non felis ullamcorper porttitor. Nulla facilisi. Suspendisse in eros ornare, vulputate turpis sed, vestibulum nisi. Nulla lacus elit, aliquet nec elementum suscipit, mattis ut massa. Nunc nec orci sit amet enim mattis tempus ut non velit. Integer quis euismod nunc. Praesent sit amet congue urna. Phasellus hendrerit, ligula sed bibendum venenatis, risus nisi lacinia ligula, quis fermentum nunc felis id metus. Vivamus eu condimentum arcu. Aenean gravida nisl elit, at commodo diam mattis id. Sed id magna eget nisi congue blandit. Pellentesque tellus nibh, feugiat sit amet dui eu, interdum pellentesque augue.</p>
+    <p><strong>Contact :</strong> monsieur@soprasteria.fr</p>
+  </div>
+
+  <div class="modal-footer">
+    <button class="button" (click) = "openOrClose()">Fermer</button>
+  </div>
+</div>
 
 <div class="banner">
     <h1>
@@ -7,10 +29,6 @@
       {{ offer.title }}<br/>
     </h1>
     <h4 *ngIf="!isModalopen" class="button" (click) = "openOrClose()">{{ offer.company }}</h4>
-    <div *ngIf="isModalopen" class="modal">
-      <p>Coucou je suis la modale</p>
-      <h4 class="button" (click) = "openOrClose()">Close</h4>
-    </div>
 </div>
 
 <div class="offer-sheet">
