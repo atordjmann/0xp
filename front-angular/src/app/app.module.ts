@@ -24,7 +24,6 @@ import { ProfileComponent } from './profile/profile.component';
 import { FilterComponent } from './offers/filter/filter.component';
 import { OfferPreviewComponent } from './offers/offer-preview/offer-preview.component';
 import { OfferDetailComponent } from './offers/offer-detail/offer-detail.component';
-import { ModalLoginComponent } from './logging/modal-login/modal-login.component';
 import { RegisterFormComponent } from './logging/register-form/register-form.component';
 import { ProfileDetailComponent } from './profile/profile-detail/profile-detail.component';
 import { ApplicationComponent } from './profile/application/application.component';
@@ -49,7 +48,6 @@ import { FaqComponent } from './faq/faq.component';
     FilterComponent,
     OfferPreviewComponent,
     OfferDetailComponent,
-    ModalLoginComponent,
     RegisterFormComponent,
     ProfileDetailComponent,
     ApplicationComponent,

@@ -15,9 +15,13 @@ export class OffersComponent implements OnInit {
   isLoading: boolean;
   isLoadingSubscription: Subscription;
 
+  sortedBy:String;
+  isSortingPopupOpen:Boolean=false;
+
   constructor(private offerViewService: OfferViewService) { }
 
   ngOnInit() {
+    this.sortedBy="matchingScore";
     this.offerViewService.fillListOffers();
     this.listArticlesSubscription = this.offerViewService.listOffersSubject.subscribe(
       (listOffers: any[]) => {
@@ -30,6 +34,18 @@ export class OffersComponent implements OnInit {
         this.isLoading = isLoading;
       }
     );
+  }
+
+  openOrClosePopup(){
+    this.isSortingPopupOpen=!this.isSortingPopupOpen;
+  }
+  
+  changeSortBy(key:String){
+    if(key!=this.sortedBy){
+      this.offerViewService.sortArray(this.listOffers,key)
+      this.sortedBy=key;
+      this.isSortingPopupOpen=false;
+    }
   }
 
 }

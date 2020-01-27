@@ -12,8 +12,7 @@ import { Router } from '@angular/router';
 export class NavbarComponent implements OnInit {
   currentUser: User;
 
-  constructor(private globalService: GlobalService,
-              private authenticationService: AuthenticationService,
+  constructor(private authenticationService: AuthenticationService,
               private router: Router
     ) {
       this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
@@ -21,11 +20,6 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit() {
   }
-
-  openLoggingModal() {
-    this.globalService.manageModale();
-  }
-
   logout() {
     this.authenticationService.logout();
     this.router.navigate(['/login']);
