@@ -33,4 +33,9 @@ export class OfferCompanyComponent implements OnInit {
     this.modalSwitch = false;
   }
 
+  deleteItem(item) {
+    this.listOfferCompany.splice(this.listOfferCompany.indexOf(item),1);
+    this.modalSwitch = false;
+  }
+
 }
