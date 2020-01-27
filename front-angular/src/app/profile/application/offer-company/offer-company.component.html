@@ -1,3 +1,12 @@
+<div *ngIf="this.modalSwitch" class="modalDelete">
+  <p>Êtes-vous de vouloir supprimer cette offre ?</p>
+  <div>
+    <div class="btn-delete">Confirmer</div>
+    <div class="btn-cancel" (click)="modalOff()">Annuler</div>
+  </div>
+</div>
+
+
 <div *ngFor="let offre of listOfferCompany" class="offer-co-preview">
   <div class="infos">
     <div class="title">
@@ -7,6 +16,6 @@
     <h4>12 candidats | 0 refus | 12 en attente</h4>
   </div>
   <div class="modify"><img src="https://image.flaticon.com/icons/svg/1159/1159633.svg" alt="modify" class="logo-mod"/></div>
-  <div class="delete"><img src="https://image.flaticon.com/icons/svg/1656/1656830.svg" alt="delete" class="logo-del"/></div>  
+  <div class="delete" (click)="modalOn()"><img src="https://image.flaticon.com/icons/svg/1656/1656830.svg" alt="delete" class="logo-del"/></div>  
 </div>
 

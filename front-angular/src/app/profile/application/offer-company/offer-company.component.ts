@@ -13,6 +13,8 @@ export class OfferCompanyComponent implements OnInit {
   constructor(private offerViewService : OfferViewService) { }
   listOfferCompany:Offer[] = [];
   listOffersSubscription: Subscription;
+  modalSwitch = false;
+
   ngOnInit() {
     this.offerViewService.getListOfferByCompanyId()
 
@@ -21,6 +23,14 @@ export class OfferCompanyComponent implements OnInit {
         this.listOfferCompany = listOffers.slice();
       }
     );
+  }
+
+  modalOn() {
+    this.modalSwitch = true;
+  }
+  
+  modalOff() {
+    this.modalSwitch = false;
   }
 
 }
