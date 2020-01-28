@@ -1,7 +1,8 @@
+import { UserCompany } from './../../../models/userCompany';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthenticationService, UserService, AlertService } from '../services';
+import { AuthenticationService, UserService, AlertService, UserCompanyService } from '../services';
 import { first } from 'rxjs/operators';
 
 @Component({
@@ -20,7 +21,8 @@ export class RegisterFormComponent implements OnInit {
       private router: Router,
       private authenticationService: AuthenticationService,
       private userService: UserService,
-      private alertService: AlertService
+      private userCompanyService: UserCompanyService,
+      private alertService: AlertService,
   ) {
       // redirect to home if already logged in
       if (this.authenticationService.currentUserValue) {
@@ -93,7 +95,7 @@ export class RegisterFormComponent implements OnInit {
       }
       this.loading = true;
       if (this.isStudent) {
-        this.userService.registerStudent(this.registerForm.value)
+        this.userService.register(this.registerForm.value)
             .pipe(first())
             .subscribe(
                 data => {
@@ -105,7 +107,7 @@ export class RegisterFormComponent implements OnInit {
                     this.loading = false;
                 });
       } else {
-        this.userService.registerCompany(this.registerForm.value)
+        this.userCompanyService.register(this.registerForm.value)
         .pipe(first())
         .subscribe(
             data => {

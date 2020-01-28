@@ -27,6 +27,8 @@ export class AlertService {
     }
 
     success(message: string, keepAfterRouteChange = false) {
+        document.getElementById("alert-success-register").hidden = false;
+        setTimeout(function(){ document.getElementById("alert-success-register").hidden = true; }, 2000);
         this.keepAfterRouteChange = keepAfterRouteChange;
         this.subject.next({ type: 'success', text: message });
     }
