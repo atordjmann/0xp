@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Offer } from 'src/models/Offer';
 import { CompanyViewService } from './companyView.service';
 import { SafeStyle,DomSanitizer } from '@angular/platform-browser';
+import { Company } from 'src/models/Company';
 
 @Component({
   selector: 'app-offer-detail',
@@ -14,7 +15,8 @@ import { SafeStyle,DomSanitizer } from '@angular/platform-browser';
 export class OfferDetailComponent implements OnInit {
 
   offer: Offer;
-  colorScore:SafeStyle;
+  colorScore: SafeStyle;
+  company: Company;
 
   constructor(private route: ActivatedRoute, private offerViewService : OfferViewService, private sanitizer: DomSanitizer, private companyViewService: CompanyViewService) { }
 
@@ -37,6 +39,14 @@ export class OfferDetailComponent implements OnInit {
     this.colorScore = this.sanitizer.bypassSecurityTrustStyle("color:"+this.defineColor(this.offer.matchingScore));
 
     //appeler CompanyViewService
+    this.companyViewService.getById(this.offer.id_company).subscribe(
+      value => {
+          this.company = value;            
+      },
+      error => {
+          console.log('Erreur ! : ' + error);
+      }
+    );
   }
 
   openOrClose() {

@@ -1,5 +1,5 @@
 export class Company {
-    id: Number;
+    id: String;
     name: String;
     date_of_creation: Date;
     description: String;

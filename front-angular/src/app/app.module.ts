@@ -33,6 +33,7 @@ import { OfferCompanyComponent } from './profile/application/offer-company/offer
 
 import { GlobalService } from './global.service';
 import { OfferViewService } from './offers/offerView.service';
+import { CompanyViewService } from './offers/offer-detail/companyView.service';
 import { AlertComponent } from './alert/alert.component';
 
 //import { fakeBackendProvider } from '../app/logging/helpers';
@@ -73,7 +74,7 @@ import { FaqComponent } from './faq/faq.component';
     HttpClientModule
   ],
   exports:[OfferDetailComponent],
-  providers: [GlobalService, OfferViewService, UserService,
+  providers: [GlobalService, OfferViewService,CompanyViewService, UserService,
               {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
               {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}],
   bootstrap: [AppComponent, OfferDetailComponent]
