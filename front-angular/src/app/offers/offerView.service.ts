@@ -116,4 +116,33 @@ export class OfferViewService {
             }
         );
     }
+
+    addOffer(offer: Offer) {
+        console.log(offer)
+        console.log(JSON.stringify(offer))
+        this.httpClient.post<Offer>(this.apiUrl + '/offres/post',offer).subscribe(
+            (response) => {
+                console.log('offre ajoutée avec succès')
+            },
+            (error) => {
+                console.log('Erreur ! : ' + error);
+            }
+        );
+
+    }
+
+
+    deleteOffer(id: String) {
+        console.log(id)
+        this.httpClient.delete<String>(this.apiUrl + '/offres/deleteById/'+id).subscribe(
+            (response) => {
+                console.log('Offre ' + id + ' supprimée')
+            },
+            (error) => {
+                console.log('Erreur ! : ' + error);
+            }
+        );
+
+    }
+
 }

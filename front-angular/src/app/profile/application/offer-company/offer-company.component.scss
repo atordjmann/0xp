@@ -16,7 +16,7 @@
     padding:2%;
 }
 
-.button
+.btn
 {
     box-shadow: var(--shadow-light);
     padding:3%; padding-right: 5%;padding-left: 5%;
@@ -58,7 +58,7 @@ h2,h3, h4, p {padding:0;margin:0;}
 .modify
 {
     height:5vh;
-    width:5%;
+    width:5vh;
     justify-items: center;
 }
 
@@ -84,4 +84,16 @@ h2,h3, h4, p {padding:0;margin:0;}
     max-height: 100%;
     margin-left:auto;
     margin-right:auto;
+}
+
+// Add element
+
+.addOffer
+{
+    width:20%;
+    align-items: center;
+    margin-right: 0;
+    margin-left: auto;
+    justify-content: space-between;
+    margin-bottom: 2vh;
 }

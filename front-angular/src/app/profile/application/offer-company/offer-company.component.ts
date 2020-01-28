@@ -14,6 +14,7 @@ export class OfferCompanyComponent implements OnInit {
   listOfferCompany:Offer[] = [];
   listOffersSubscription: Subscription;
   modalSwitch = false;
+  offreToBeDeleted:Offer;
 
   ngOnInit() {
     this.offerViewService.getListOfferByCompanyId()
@@ -25,17 +26,20 @@ export class OfferCompanyComponent implements OnInit {
     );
   }
 
-  modalOn() {
+  deleteElement(offreToBeDeleted : Offer) {
     this.modalSwitch = true;
+    this.offreToBeDeleted = offreToBeDeleted;
   }
-  
-  modalOff() {
+
+  cancelDelete(){
+    this.offreToBeDeleted = new Offer()
     this.modalSwitch = false;
   }
 
-  deleteItem(item) {
-    this.listOfferCompany.splice(this.listOfferCompany.indexOf(item),1);
+  deleteItem() {
+    this.listOfferCompany.splice(this.listOfferCompany.indexOf(this.offreToBeDeleted),1);
     this.modalSwitch = false;
+    this.offerViewService.deleteOffer(this.offreToBeDeleted.id);
   }
 
 }

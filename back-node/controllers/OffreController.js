@@ -85,6 +85,25 @@ router.get('/byCompanyId', function (req, res) {
     })
 });
 
+
+router.post('/post', function (req, res) {
+    console.log("Post /offres/post");
+    console.log(req.body);
+    db.collection('offers').insertOne(req.body);
+    res.send(req.body);
+});
+
+router.delete('/deleteById/:id', function (req, res) {
+    console.log("Post /offres/post");
+    console.log();
+
+    var id = mongoose.Types.ObjectId(req.params.id);
+
+    db.collection('offers').remove({_id : id});
+    res.send(req.body);
+});
+
+
 module.exports = router;
 
 function expandWithMatching(results) {
