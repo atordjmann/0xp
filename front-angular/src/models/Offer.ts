@@ -5,8 +5,8 @@ interface OfferData {
     srcImgCompany : String 
     company : String 
     location : String 
-    start_date : Date
-    created_date : Date
+    start_date_ts : String
+    created_date_ts : String
     sector : String
     type : String
     description : String
@@ -24,8 +24,8 @@ export class Offer {
     id_company : String = new String();
     srcImgCompany : String = new String();
     location : String = new String();
-    start_date : Date = new Date();
-    created_date : Date = new Date();
+    start_date_ts : String = new String();
+    created_date_ts : String = new String();
     sector : String = new String();
     type : String = new String();
     description : String = new String();
@@ -42,8 +42,8 @@ export class Offer {
         this.srcImgCompany = String(data.srcImgCompany);
         this.company = String(data.company);
         this.location = String(data.location);
-        this.start_date = data.start_date;
-        this.created_date = data.created_date;
+        this.start_date_ts = String(data.start_date_ts);
+        this.created_date_ts = String(data.created_date_ts);
         this.sector = String(data.sector);
         this.type = String(data.type);
         this.description = String(data.description);

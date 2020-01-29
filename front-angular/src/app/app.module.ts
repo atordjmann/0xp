@@ -5,6 +5,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import {MatSelectModule} from '@angular/material';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatDatepickerModule} from '@angular/material/datepicker';
@@ -12,6 +13,7 @@ import {MatInputModule} from '@angular/material';
 import {MatSliderModule} from '@angular/material/slider';
 import { SelectAutocompleteModule } from 'mat-select-autocomplete';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -64,6 +66,7 @@ import { AddOfferComponent } from './profile/application/offer-company/add-offer
     BrowserModule,
     BrowserAnimationsModule,
     MatSelectModule,
+    MatAutocompleteModule,
     MatButtonToggleModule,
     MatSlideToggleModule,
     MatDatepickerModule,
@@ -73,7 +76,8 @@ import { AddOfferComponent } from './profile/application/offer-company/add-offer
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    CKEditorModule
   ],
   providers: [GlobalService, OfferViewService, UserService,
               {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},

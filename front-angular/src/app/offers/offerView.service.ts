@@ -110,9 +110,9 @@ export class OfferViewService {
             array.sort(function(a:Offer, b:Offer) {
                 return +b.remuneration - +a.remuneration; 
             });
-        } else if (key=="created_date"){
+        } else if (key=="created_date_ts"){
             array.sort(function(a:Offer, b:Offer) {
-                return +b.created_date - +a.created_date; 
+                return +b.created_date_ts - +a.created_date_ts; 
             });
         }
     }
