@@ -65,6 +65,10 @@ img{
     background-color:transparent !important;
 }
 
+::ng-deep .mat-select-value-text{
+    color:#adadad !important;
+}
+
 .textOpenMoreCriteria{
     text-align: center;
     margin-bottom:1vh;
@@ -82,16 +86,53 @@ img{
 }
 
 .moreFilterDiv{
-    height:10vh;
     width:80vw;
+    padding:1vw;
     margin: auto;
     box-shadow: var(--shadow-light);
+
+    p{
+        color:#adadad;
+        margin-bottom: 0px;
+    }
+
+    .formLine{
+        margin:auto;
+        justify-content: space-between;
+        padding-bottom:3vh;
+    }
+
+    .line1{
+        width:60%;
+    }
+    .line2{
+        width:70%;
+    }
+    .line3{
+        width:40%;
+        text-align: center;
+        padding-bottom:0vh;
+    }
+
+    .sliderValue{
+        width: 200px;
+        justify-content: space-between;
+    }
 }
 
 .moreFilterOpenImg{
     transform: rotate(180deg);
 }
 
-/*::ng-deep .mat-option-text,::ng-deep .mat-select-value-text{
-    text-transform: capitalize !important;
-}*/
+::ng-deep .mat-form-field-infix{
+    padding-bottom: .5em;
+    padding-top: 0px;
+    border-top: 0px solid transparent;
+}
+
+::ng-deep .mat-slide-toggle{
+    display: flex !important;
+    margin: auto;
+    width: fit-content;
+    padding: 0.5em;
+}

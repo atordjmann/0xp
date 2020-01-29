@@ -11,7 +11,22 @@
     </div>
 
     <div *ngIf="!isLoading && listOffers.length!=0" class="flexCol listOffers">
-        <app-offer-preview class="oneOffer button" *ngFor="let offer of listOffers" [offer]="offer" routerLink="/offerDetail"></app-offer-preview>
+        <img class="button logoSort" (click)="openOrClosePopup()" src="https://image.flaticon.com/icons/svg/162/162735.svg"/>
+        <div *ngIf="isSortingPopupOpen" class="choiceFilter">
+            <div [ngClass]="{'isSelectable':sortedBy!='matchingScore'}" class="flexRow">
+                <p [ngStyle]="{'visibility':sortedBy=='matchingScore' ? 'visible' : 'hidden' }" class="check">✓</p>
+                <p (click)="changeSortBy('matchingScore')">Taux de matching</p>
+            </div>
+            <div [ngClass]="{'isSelectable':sortedBy!='remuneration'}" class="flexRow">
+                <p [ngStyle]="{'visibility':sortedBy=='remuneration' ? 'visible' : 'hidden' }" class="check">✓</p>
+                <p (click)="changeSortBy('remuneration')">Rémunération</p>
+            </div>
+            <div [ngClass]="{'isSelectable':sortedBy!='created_date'}" class="flexRow">
+                <p [ngStyle]="{'visibility':sortedBy=='created_date' ? 'visible' : 'hidden' }" class="check">✓</p>
+                <p (click)="changeSortBy('created_date')">Date de publication</p>
+            </div>
+        </div>
+        <app-offer-preview class="oneOffer button" *ngFor="let offer of listOffers" [offer]="offer"></app-offer-preview>
     </div>
 
     <div *ngIf="listOffers.length===0" class="noOffersDiv">

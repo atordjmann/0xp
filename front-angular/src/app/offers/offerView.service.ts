@@ -11,7 +11,7 @@ export class OfferViewService {
 
     apiUrl = environment.apiUrl;
 
-    listOffers: Offer[];
+    listOffers: Offer[] = [];
     listOffersSubject = new Subject<Offer[]>();
 
     isLoading = false;
@@ -30,6 +30,7 @@ export class OfferViewService {
                     offer.fromHashMap(offerJson);
                     this.listOffers.push(offer);
                 });
+                console.log(this.listOffers)
                 this.emitListOffersSubject();
                 this.emitisLoadingSubject(false);
             },
@@ -67,7 +68,8 @@ export class OfferViewService {
     }
 
     emitListOffersSubject() {
-        this.listOffersSubject.next(this.listOffers.slice());
+        this.sortArray(this.listOffers, 'matchingScore')
+        this.listOffersSubject.next(this.listOffers.length!==0 ? this.listOffers.slice() : []);
     }
 
     emitisLoadingSubject(isLoading: boolean) {
@@ -75,10 +77,36 @@ export class OfferViewService {
     }
 
     filter(currentFilter: Filter) {
+        console.log(currentFilter);
+        console.log(currentFilter.toQuery());
         if (currentFilter.toQuery() !== '') {
             this.filterListOffers(currentFilter);
         } else {
             this.fillListOffers();
+        }
+    }
+
+    getOfferById(id: String) {
+        const offer : Offer = this.listOffers.find(
+            (s) => {
+                return s.id === id;
+            });
+        return offer;
+    }
+
+    sortArray(array : Offer[], key:String){
+        if (key=="matchingScore"){
+            array.sort(function(a:Offer, b:Offer) {
+                return +b.matchingScore - +a.matchingScore; 
+            });
+        } else if (key=="remuneration"){
+            array.sort(function(a:Offer, b:Offer) {
+                return +b.remuneration - +a.remuneration; 
+            });
+        } else if (key=="created_date"){
+            array.sort(function(a:Offer, b:Offer) {
+                return +b.created_date - +a.created_date; 
+            });
         }
     }
 }

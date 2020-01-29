@@ -1,45 +1,104 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';
 
-/* Fonts */
+/* FONTS */
+
+// Conduit Font
 
 @font-face {
-    font-family: 'EvSansBold';
-    src: url('/assets/fonts/EvSansBold.otf');
+    font-family: 'CdtBlack';
+    src: url('/assets/fonts/Conduit/ConduitITCStd-Black.otf');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
-    font-family: 'EvSansLight';
-    src: url('/assets/fonts/EvSansLight.otf');
+    font-family: 'CdtXBold';
+    src: url('/assets/fonts/Conduit/ConduitITCStd-ExtraBold.otf');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
-    font-family: 'EvSansMedium';
-    src: url('/assets/fonts/EvSansMedium.otf');
+    font-family: 'CdtBold';
+    src: url('/assets/fonts/Conduit/ConduitITCStd-Bold.otf');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
-    font-family: 'EvSansRegular';
-    src: url('/assets/fonts/EvSansRegular.otf');
+    font-family: 'CdtMed';
+    src: url('/assets/fonts/Conduit/ConduitITCStd-Medium.otf');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
-    font-family: 'EvSansThin';
-    src: url('/assets/fonts/EvSansThin.otf');
+    font-family: 'CdtStd';
+    src: url('/assets/fonts/Conduit/ConduitITCStd.otf');
     font-weight: normal;
     font-style: normal;
 }
 
+@font-face {
+    font-family: 'CdtLight';
+    src: url('/assets/fonts/Conduit/ConduitITCStd-Light.otf');
+    font-weight: normal;
+    font-style: normal;
+}
 
-/* Styles */
+@font-face {
+    font-family: 'CdtXLight';
+    src: url('/assets/fonts/Conduit/ConduitITCStd-ExtraLight.otf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+// Foro Font
+
+@font-face {
+    font-family: 'ForoBlack';
+    src: url('/assets/fonts/Conduit/ForoBla.otf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'ForoBold';
+    src: url('/assets/fonts/Conduit/ForoBol.otf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'ForoMed';
+    src: url('/assets/fonts/Conduit/ForoMed.otf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'ForoReg';
+    src: url('/assets/fonts/Conduit/ForoReg.otf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'ForoThi';
+    src: url('/assets/fonts/Conduit/ForoThi.otf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'ForoIta';
+    src: url('/assets/fonts/Conduit/ForoIta.otf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* STYLES */
 
 body {
     margin: 0;
@@ -47,23 +106,31 @@ body {
 }
 
 h1 {
-    font-family: EvSansBold, Calibri;
+    font-family: CdtBlack, Calibri;
 }
 
 h2 {
-    font-family: EvSansMedium, Calibri;
+    font-family: CdtXBold, Calibri;
 }
 
-h3, p, a, span, label {
-    font-family: EvSansRegular, Calibri;
+h3 {
+    font-family: CdtBold, Calibri;
 }
 
 h4 {
-    font-family: EvSansLight, Calibri;
+    font-family: CdtMed, Calibri;
 }
 
 h5 {
-    font-family: EvSansThin, Calibri;
+    font-family: CdtReg, Calibri;
+}
+
+h6 {
+    font-family: CdtLight, Calibri;
+}
+
+p {
+    font-family: ForoReg, Calibri;
 }
 
 body::-webkit-scrollbar-track 

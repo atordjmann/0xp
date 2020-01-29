@@ -1,32 +1,164 @@
 var express = require('express');
-var app = express();
+var app             = express();
 var router = express.Router();
 var bodyParser = require('body-parser');
+var ObjectId = require('mongodb').ObjectID
 router.use(bodyParser.json());
 
 const escapeStringRegexp = require('escape-string-regexp')
 
 router.get('/', function (req, res) {
-    console.log("Request /offres")
+    console.log("Request /offres/")
     db.collection('offers').find().toArray(function(err, results) {
+        expandWithMatching(results);
         res.json(results);
     })
 });
 
 router.get('/filtered', function (req, res) {
     console.log("Request /offres/filtered")
-    listParamFilter=["type", "domain"]
     query={}
-    Object.keys(req.query).forEach( param => {
-        //Au cas ou quelqu'un s'amuse à rajouter des paramètres, un peu inutile mais toujours sympa
-        if (listParamFilter.indexOf(param)!=-1){
-            query[param] = new RegExp('^' + escapeStringRegexp(req.query[param]) + '$', 'i');
+    if(Object.keys(req.query).indexOf("type")>-1){
+        query["type"] = new RegExp('^' + escapeStringRegexp(req.query["type"]) + '$', 'i');
+    }
+    if(Object.keys(req.query).indexOf("duration")>-1){
+        query["duration"] = new RegExp('^' + escapeStringRegexp(req.query["duration"]) + '$', 'i');
+    }
+    if(Object.keys(req.query).indexOf("sector")>-1){
+        query["sector"] = new RegExp('^' + escapeStringRegexp(req.query["sector"]) + '$', 'i');
+    }
+    if(Object.keys(req.query).indexOf("start_date")>-1){
+        query["start_date"] = { $gte: req.query["start_date"] }
+    }
+    if(Object.keys(req.query).indexOf("remunMini")>-1){
+        query["remuneration"] = { $gte: +req.query["remunMini"] }
+    }
+    if(Object.keys(req.query).indexOf("location")>-1){
+        locations=req.query["location"].split(";")
+        locations.splice(-1,1)
+        query["location"] = { $in: locations }
+    }
+    if(Object.keys(req.query).indexOf("company")>-1){
+        companies=req.query["company"].split(";")
+        companies.splice(-1,1)
+        query["company"] = { $in: companies }
+    }
+    if(Object.keys(req.query).indexOf("publicationDate")>-1){
+        correspondance={
+            "today":(new Date()).getTime()-24*60*60*1000,
+            "week":(new Date()).getTime()-7*24*60*60*1000,
+            "month":(new Date()).getTime()-30*24*60*60*1000
         }
-    })
+        //On cherche les offres dont la date de publication est en ts supérieure
+        query["created_date"] = { $gte: ''+correspondance[req.query["publicationDate"]] }
+    }
+    
+    const promise = new Promise(function(resolve, reject) {
+        if(Object.keys(req.query).indexOf("companySize")>-1 || Object.keys(req.query).indexOf("isPartner")>-1){
+            db.collection('companies').find().toArray(function(err, resultsComp) {
+                resolve(resultsComp);
+            })
+        } else{
+            resolve([])
+        }
+    });
 
-    db.collection('offers').find(query).toArray(function(err, results) {
-        res.json(results);
-    })
+    promise.then(function(resultsComp) {
+        companyDico={}
+        resultsComp.forEach((company) => {
+            companyDico[company["_id"]]=company
+        })
+
+        db.collection('offers').find(query).toArray(function(err, results) {
+            expandWithMatching(results);
+            resultsFiltered=[]
+            results.forEach((offre)=>{
+                isInFilter=true;
+                if(Object.keys(req.query).indexOf("matchingMini")>-1){
+                    if (offre.matchingScore<req.query["matchingMini"]){
+                        isInFilter=false
+                    }
+                }
+                if(Object.keys(req.query).indexOf("companySize")>-1 || Object.keys(req.query).indexOf("isPartner")>-1){
+                    if (Object.keys(companyDico).indexOf(""+offre["id_company"])==-1){
+                        isInFilter=false
+                    } else{
+                        company = companyDico[offre["id_company"]]
+                        if(Object.keys(req.query).indexOf("companySize")>-1 && ""+company["taille"]!=""+req.query["companySize"]){
+                            isInFilter=false;
+                        }
+
+                        if(Object.keys(req.query).indexOf("isPartner")>-1 && !company["isPartner"]){
+                            isInFilter=false;
+                        }
+                    }
+                }
+
+                if (isInFilter){
+                    resultsFiltered.push(offre)
+                }
+            });
+            res.json(resultsFiltered);
+        })
+    });
+    /*db.collection('offers').find(query).toArray(function(err, results) {
+        console.log("found "+results.length+" offers")
+        expandWithMatching(results);
+        resultsFiltered=[]
+        cpt=0
+        cpt2=0
+        results.forEach((offre)=>{
+            const promise = new Promise(function(resolve, reject) {
+                cpt2+=1
+                isInFilter=true;
+                if(Object.keys(req.query).indexOf("matchingMini")>-1){
+                    if (offre.matchingScore<req.query["matchingMini"]){
+                        isInFilter=false
+                    }
+                }
+                if(Object.keys(req.query).indexOf("companySize")>-1 || Object.keys(req.query).indexOf("isPartner")>-1){
+                    db.collection('companies').find({ _id: offre["id_company"] }).toArray(function(err, resultsComp) {
+                        if (resultsComp.length==0){
+                            isInFilter=false;
+                        } else{
+                            company=resultsComp[0]
+                            if(Object.keys(req.query).indexOf("companySize")>-1 && ""+company["taille"]!=""+req.query["companySize"]){
+                                isInFilter=false;
+                            }
+    
+                            if(Object.keys(req.query).indexOf("isPartner")>-1 && !company["isPartner"]){
+                                isInFilter=false;
+                            }
+                        }
+                        console.log(isInFilter, cpt2)
+                        resolve(isInFilter);
+                    })
+                } else {
+                    resolve(isInFilter);
+                }
+            });
+
+            promise.then(function(isInFilter) {
+                console.log(offre["title"])
+                cpt+=1
+                if (isInFilter){
+                    resultsFiltered.push(offre)
+                    console.log(resultsFiltered.length)
+                }
+                if (cpt==results.length){
+                    res.json(resultsFiltered);
+                }
+            });
+        });
+        
+    })*/
+    
 });
 
 module.exports = router;
+
+function expandWithMatching(results) {
+    results.forEach((offre)=>{
+        offre.matchingScore = Math.floor(Math.random()*100);
+    })
+};

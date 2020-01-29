@@ -5,6 +5,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import {MatSelectModule} from '@angular/material';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatInputModule} from '@angular/material';
+import {MatSliderModule} from '@angular/material/slider';
+import { SelectAutocompleteModule } from 'mat-select-autocomplete';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
@@ -18,7 +24,6 @@ import { ProfileComponent } from './profile/profile.component';
 import { FilterComponent } from './offers/filter/filter.component';
 import { OfferPreviewComponent } from './offers/offer-preview/offer-preview.component';
 import { OfferDetailComponent } from './offers/offer-detail/offer-detail.component';
-import { ModalLoginComponent } from './logging/modal-login/modal-login.component';
 import { RegisterFormComponent } from './logging/register-form/register-form.component';
 import { ProfileDetailComponent } from './profile/profile-detail/profile-detail.component';
 import { ApplicationComponent } from './profile/application/application.component';
@@ -44,7 +49,6 @@ import { FaqComponent } from './faq/faq.component';
     FilterComponent,
     OfferPreviewComponent,
     OfferDetailComponent,
-    ModalLoginComponent,
     RegisterFormComponent,
     ProfileDetailComponent,
     ApplicationComponent,
@@ -52,12 +56,18 @@ import { FaqComponent } from './faq/faq.component';
     OfferSquareComponent,
     OfferCompanyComponent,
     AlertComponent,
-    FaqComponent
+    FaqComponent,
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     MatSelectModule,
+    MatButtonToggleModule,
+    MatSlideToggleModule,
+    MatDatepickerModule,
+    MatInputModule,
+    MatSliderModule,
+    SelectAutocompleteModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
