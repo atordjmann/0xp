@@ -1,9 +1,10 @@
 var express = require('express');
-var app             = express();
+var app = express();
 var router = express.Router();
 var bodyParser = require('body-parser');
 var ObjectId = require('mongodb').ObjectID
 router.use(bodyParser.json());
+var mongoose = require('mongoose');
 
 const escapeStringRegexp = require('escape-string-regexp')
 
@@ -27,8 +28,8 @@ router.get('/filtered', function (req, res) {
     if(Object.keys(req.query).indexOf("sector")>-1){
         query["sector"] = new RegExp('^' + escapeStringRegexp(req.query["sector"]) + '$', 'i');
     }
-    if(Object.keys(req.query).indexOf("start_date")>-1){
-        query["start_date"] = { $gte: req.query["start_date"] }
+    if(Object.keys(req.query).indexOf("start_date_ts")>-1){
+        query["start_date"] = { $gte: req.query["start_date_ts"] }
     }
     if(Object.keys(req.query).indexOf("remunMini")>-1){
         query["remuneration"] = { $gte: +req.query["remunMini"] }
@@ -154,6 +155,38 @@ router.get('/filtered', function (req, res) {
     })*/
     
 });
+
+router.get('/byCompanyId', function (req, res) {
+    console.log("Request /offres/byCompanyId")
+
+    var id = mongoose.Types.ObjectId("5e2700cf1c9d44000011f2ba");
+
+    //query={}
+    //query["id_company"] = new RegExp('^' + escapeStringRegexp(id) + '$', 'i');
+
+    db.collection('offers').find({"id_company": id}).toArray(function(err, results) {
+        res.json(results);
+    })
+});
+
+
+router.post('/post', function (req, res) {
+    console.log("Post /offres/post");
+    console.log(req.body);
+    db.collection('offers').insertOne(req.body);
+    res.send(req.body);
+});
+
+router.delete('/deleteById/:id', function (req, res) {
+    console.log("Post /offres/post");
+    console.log();
+
+    var id = mongoose.Types.ObjectId(req.params.id);
+
+    db.collection('offers').remove({_id : id});
+    res.send(req.body);
+});
+
 
 module.exports = router;
 

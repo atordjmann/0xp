@@ -8,7 +8,7 @@ export class Filter {
     isPartner : Boolean = false;
     publicationDate : String = new String();
     companySize : String = new String();
-    start_date : Number;
+    start_date_ts : Number;
     matchingMini : Number;
     remunMini : Number;
 
@@ -35,7 +35,7 @@ export class Filter {
         query+= this.isPartner ? "isPartner=true&" : "";
         query+= this.publicationDate!="" ? "publicationDate="+this.publicationDate+"&" : "";
         query+= this.companySize!="" ? "companySize="+this.companySize+"&" : "";
-        query+= this.start_date>(new Date()).getTime() ? "start_date="+this.start_date+"&" : "";
+        query+= this.start_date_ts>(new Date()).getTime() ? "start_date_ts="+this.start_date_ts+"&" : "";
         query+= this.matchingMini!=0 ? "matchingMini="+this.matchingMini+"&" : "";
         query+= this.remunMini!=0 ? "remunMini="+this.remunMini+"&" : "";
 
