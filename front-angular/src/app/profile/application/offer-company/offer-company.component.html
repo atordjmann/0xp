@@ -12,7 +12,7 @@
       </div>
       <h4>12 candidats | 0 refus | 12 en attente</h4>
     </div>
-    <p class="modify"><img src="https://image.flaticon.com/icons/svg/1159/1159633.svg" alt="modify" class="logo-mod"/></p>
+    <p class="button modify" (click)="openEditModale(offre)"><img src="https://image.flaticon.com/icons/svg/1159/1159633.svg" alt="modify" class="logo-mod"/></p>
     <p class="button delete" (click)="deleteElement(offre)"><img src="https://image.flaticon.com/icons/svg/1656/1656830.svg" alt="delete" class="logo-del"/></p> 
   </div>
 </div>
@@ -27,3 +27,7 @@
   </div>
 </div>
 
+<div *ngIf="isEditingOffer" class="modaleEdition">
+  <img class="button closeLogo" (click)="closeEdition()" src="../../../../assets/images/cross-light.svg">
+  <app-add-offer [offreEdited]="offreToBeEdited"></app-add-offer>
+</div>

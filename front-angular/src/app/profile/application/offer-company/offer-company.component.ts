@@ -14,7 +14,9 @@ export class OfferCompanyComponent implements OnInit {
   listOfferCompany:Offer[] = [];
   listOffersSubscription: Subscription;
   modalSwitch = false;
-  offreToBeDeleted:Offer;
+  isEditingOffer = false;
+  offreToBeDeleted: Offer;
+  offreToBeEdited: Offer;
 
   ngOnInit() {
     this.offerViewService.getListOfferByCompanyId()
@@ -42,4 +44,13 @@ export class OfferCompanyComponent implements OnInit {
     this.offerViewService.deleteOffer(this.offreToBeDeleted.id);
   }
 
+  openEditModale(offreToBeEdited : Offer){
+    this.isEditingOffer=true;
+    this.offreToBeEdited = offreToBeEdited;
+  }
+
+  closeEdition(){
+    this.isEditingOffer=false;
+    this.offreToBeEdited = new Offer();
+  }
 }

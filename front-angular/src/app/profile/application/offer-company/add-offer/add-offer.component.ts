@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import {MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS} from '@angular/material-moment-adapter';
@@ -44,6 +44,9 @@ export const MY_FORMATS = {
 })
 export class AddOfferComponent implements OnInit {
 
+  @Input() offreEdited : Offer;
+  isEdition : Boolean = false;
+
   editor = ClassicEditor;
 
   typeList: string[] = ['Stage', 'Alternance', 'Premier emploi'];
@@ -51,7 +54,7 @@ export class AddOfferComponent implements OnInit {
   sectorList: string[] = ['Audit / Conseil', 'Informatique', 'Mécanique'];
   listCountries: string[] = ['France', 'Espagne', 'Angleterre', 'Inde', 'Chine']
  
-  newOffer: Offer = new Offer()
+  offerOnForm: Offer = new Offer()
   dateFromDate : Date = new Date();
   dateStart = new FormControl(moment());
   locationCountry:String;
@@ -88,15 +91,19 @@ export class AddOfferComponent implements OnInit {
   constructor(private offerViewService : OfferViewService) { }
 
   ngOnInit() {
+    if(this.offreEdited){
+      this.offerOnForm=this.offreEdited
+      this.isEdition=true;
+    }
   }
 
   addOffer() {
 
-    this.newOffer.start_date_ts = ""+this.dateFromDate.getTime()
-    this.newOffer.created_date_ts=""+(new Date()).getTime() //TODO : Changer les types pour que rien soit cassé même si ça fonctionne
-    this.newOffer.location=this.locationCity+", "+this.locationCountry
-    console.log(this.newOffer);
-    this.offerViewService.addOffer(this.newOffer);
+    this.offerOnForm.start_date_ts = ""+this.dateFromDate.getTime()
+    this.offerOnForm.created_date_ts=""+(new Date()).getTime() //TODO : Changer les types pour que rien soit cassé même si ça fonctionne
+    this.offerOnForm.location=this.locationCity+", "+this.locationCountry
+    console.log(this.offerOnForm);
+    this.offerViewService.addOffer(this.offerOnForm);
   }
   
   chosenYearHandler(normalizedYear: Moment) {
@@ -116,9 +123,9 @@ export class AddOfferComponent implements OnInit {
 
   getSelectedOptions(key:String, selected) {
     if (key==='softskill'){
-      this.newOffer.softSkills = selected;
+      this.offerOnForm.softSkills = selected;
     } else {
-      this.newOffer.domains = selected;
+      this.offerOnForm.domains = selected;
     }
   }
 }
