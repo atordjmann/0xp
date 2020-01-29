@@ -37,6 +37,7 @@ import { AlertComponent } from './alert/alert.component';
 
 //import { fakeBackendProvider } from '../app/logging/helpers';
 import { FaqComponent } from './faq/faq.component';
+import { AddOfferComponent } from './profile/application/offer-company/add-offer/add-offer.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +58,7 @@ import { FaqComponent } from './faq/faq.component';
     OfferCompanyComponent,
     AlertComponent,
     FaqComponent,
+    AddOfferComponent,
   ],
   imports: [
     BrowserModule,

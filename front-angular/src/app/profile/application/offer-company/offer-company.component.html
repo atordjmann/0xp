@@ -1,12 +1,29 @@
-<div class="offer-co-preview">
-  <div class="infos">
-    <div class="title">
-      <h2>Junior Dev Full-Stack (H/F)</h2>
-      <h5>Stage 4-6 mois</h5>
+<div class="button flexRow addOffer" routerLink="/addOffer">
+  <p>Ajouter une offre</p>
+  <img class="modify" src="../../../../assets/images/btnAdd.svg">
+</div>
+
+<div *ngFor="let offre of listOfferCompany">
+  <div class="offer-co-preview">
+    <div class="infos">
+      <div class="title">
+        <h2>{{offre.title}}</h2>
+        <p>{{offre.type}} - {{offre.duration}} - Il y a deux heures</p>
+      </div>
+      <h4>12 candidats | 0 refus | 12 en attente</h4>
     </div>
-    <h3>12 candidats | 0 refus | 12 en attente</h3>
+    <p class="modify"><img src="https://image.flaticon.com/icons/svg/1159/1159633.svg" alt="modify" class="logo-mod"/></p>
+    <p class="button delete" (click)="deleteElement(offre)"><img src="https://image.flaticon.com/icons/svg/1656/1656830.svg" alt="delete" class="logo-del"/></p> 
   </div>
-  <div class="modify"><img src="https://image.flaticon.com/icons/svg/1159/1159633.svg" alt="modify" class="logo-mod"/></div>
-  <div class="delete"><img src="https://image.flaticon.com/icons/svg/1656/1656830.svg" alt="delete" class="logo-del"/></div>  
+</div>
+
+<div *ngIf="modalSwitch" class="modalDelete">
+  <h3>Êtes-vous de vouloir supprimer cette offre ?</h3>
+  <h4>{{offreToBeDeleted.title}}</h4>
+  <br/>
+  <div style="display: flex; justify-content: space-evenly;">
+    <p class="button btn btn-delete" (click)="deleteItem()">Confirmer</p>
+    <p class="button btn" (click)="cancelDelete()">Annuler</p>
+  </div>
 </div>
 
