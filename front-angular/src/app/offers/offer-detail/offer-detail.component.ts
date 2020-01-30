@@ -31,11 +31,11 @@ export class OfferDetailComponent implements OnInit {
 
   ngOnInit() {
     window.scroll(0,0);
+    this.offerViewService.fillListOffers();
     let idOffer = this.route.snapshot.params['id'];
     this.offerSubscription = this.offerViewService.listOffersSubject.subscribe(
       (listOffers: Offer[]) => {
         listOffers.forEach((offer) => {
-          console.log("hello")
           if (offer.id==idOffer){
             this.offer=offer;
             this.colorScore = this.sanitizer.bypassSecurityTrustStyle("color:"+this.defineColor(this.offer.matchingScore));
