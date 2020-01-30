@@ -30,9 +30,6 @@ export const MY_FORMATS = {
   templateUrl: './add-offer.component.html',
   styleUrls: ['./add-offer.component.scss'],
   providers: [
-    // `MomentDateAdapter` can be automatically provided by importing `MomentDateModule` in your
-    // application's root module. We provide it at the component level here, due to limitations of
-    // our example generation script.
     {
       provide: DateAdapter,
       useClass: MomentDateAdapter,
