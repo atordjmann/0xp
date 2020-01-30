@@ -70,9 +70,7 @@ export class AddOfferComponent implements OnInit {
       value: 'Organisation'
     }
   ];
-  softSkillForm = new FormGroup({
-    selected: new FormControl()
-  });
+  softSkillForm :FormGroup;
   
   listDomains = [
     {
@@ -84,9 +82,7 @@ export class AddOfferComponent implements OnInit {
       value: 'devWeb'
     }
   ];
-  domainsForm = new FormGroup({
-    selected: new FormControl()
-  });
+  domainsForm : FormGroup;
 
   constructor(private offerViewService : OfferViewService) { }
 
@@ -94,7 +90,15 @@ export class AddOfferComponent implements OnInit {
     if(this.offreEdited){
       this.offerOnForm=this.offreEdited
       this.isEdition=true;
+      this.locationCity = this.offerOnForm.location.split(",")[0]
+      this.locationCountry = this.offerOnForm.location.split(",")[1].trim()
     }
+    this.softSkillForm = new FormGroup({
+      selected: new FormControl(this.offerOnForm.softSkills)
+    });
+    this.domainsForm = new FormGroup({
+      selected: new FormControl(this.offerOnForm.domains)
+    });
   }
 
   addOffer() {
