@@ -98,13 +98,18 @@ export class AddOfferComponent implements OnInit {
     });
   }
 
-  addOffer() {
-
-    this.offerOnForm.start_date_ts = ""+this.dateFromDate.getTime()
-    this.offerOnForm.created_date_ts=""+(new Date()).getTime() //TODO : Changer les types pour que rien soit cassé même si ça fonctionne
-    this.offerOnForm.location=this.locationCity+", "+this.locationCountry
-    console.log(this.offerOnForm);
-    this.offerViewService.addOffer(this.offerOnForm);
+  addOrEditOffer() {
+    if(!this.isEdition){
+      this.offerOnForm.start_date_ts = ""+this.dateFromDate.getTime()
+      this.offerOnForm.created_date_ts=""+(new Date()).getTime() //TODO : Changer les types pour que rien soit cassé même si ça fonctionne
+      this.offerOnForm.location=this.locationCity+", "+this.locationCountry
+      this.offerViewService.addOffer(this.offerOnForm);
+    } else {
+      this.offerOnForm.start_date_ts = ""+this.dateFromDate.getTime()
+      this.offerOnForm.location=this.locationCity+", "+this.locationCountry
+      this.offerViewService.editOffer(this.offerOnForm);
+    }
+    
   }
   
   chosenYearHandler(normalizedYear: Moment) {

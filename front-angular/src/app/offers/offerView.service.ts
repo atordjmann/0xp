@@ -136,8 +136,6 @@ export class OfferViewService {
     }
 
     addOffer(offer: Offer) {
-        console.log(offer)
-        console.log(JSON.stringify(offer))
         this.httpClient.post<Offer>(this.apiUrl + '/offres/post',offer).subscribe(
             (response) => {
                 console.log('offre ajoutée avec succès')
@@ -151,7 +149,6 @@ export class OfferViewService {
 
 
     deleteOffer(id: String) {
-        console.log(id)
         this.httpClient.delete<String>(this.apiUrl + '/offres/deleteById/'+id).subscribe(
             (response) => {
                 console.log('Offre ' + id + ' supprimée')
@@ -161,6 +158,17 @@ export class OfferViewService {
             }
         );
 
+    }
+
+    editOffer(offer : Offer){
+        this.httpClient.post<Offer>(this.apiUrl + '/offres/update', offer).subscribe(
+            (response) => {
+                console.log('Offre ' + offer.id + ' editée')
+            },
+            (error) => {
+                console.log('Erreur ! : ' + error);
+            }
+        );
     }
 
 }

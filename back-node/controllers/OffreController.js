@@ -102,58 +102,6 @@ router.get('/filtered', function (req, res) {
             res.json(resultsFiltered);
         })
     });
-    /*db.collection('offers').find(query).toArray(function(err, results) {
-        console.log("found "+results.length+" offers")
-        expandWithMatching(results);
-        resultsFiltered=[]
-        cpt=0
-        cpt2=0
-        results.forEach((offre)=>{
-            const promise = new Promise(function(resolve, reject) {
-                cpt2+=1
-                isInFilter=true;
-                if(Object.keys(req.query).indexOf("matchingMini")>-1){
-                    if (offre.matchingScore<req.query["matchingMini"]){
-                        isInFilter=false
-                    }
-                }
-                if(Object.keys(req.query).indexOf("companySize")>-1 || Object.keys(req.query).indexOf("isPartner")>-1){
-                    db.collection('companies').find({ _id: offre["id_company"] }).toArray(function(err, resultsComp) {
-                        if (resultsComp.length==0){
-                            isInFilter=false;
-                        } else{
-                            company=resultsComp[0]
-                            if(Object.keys(req.query).indexOf("companySize")>-1 && ""+company["taille"]!=""+req.query["companySize"]){
-                                isInFilter=false;
-                            }
-    
-                            if(Object.keys(req.query).indexOf("isPartner")>-1 && !company["isPartner"]){
-                                isInFilter=false;
-                            }
-                        }
-                        console.log(isInFilter, cpt2)
-                        resolve(isInFilter);
-                    })
-                } else {
-                    resolve(isInFilter);
-                }
-            });
-
-            promise.then(function(isInFilter) {
-                console.log(offre["title"])
-                cpt+=1
-                if (isInFilter){
-                    resultsFiltered.push(offre)
-                    console.log(resultsFiltered.length)
-                }
-                if (cpt==results.length){
-                    res.json(resultsFiltered);
-                }
-            });
-        });
-        
-    })*/
-    
 });
 
 router.get('/byCompanyId', function (req, res) {
@@ -171,15 +119,24 @@ router.get('/byCompanyId', function (req, res) {
 
 
 router.post('/post', function (req, res) {
-    console.log("Post /offres/post");
-    console.log(req.body);
+    console.log("Request /offres/post");
     db.collection('offers').insertOne(req.body);
     res.send(req.body);
 });
 
+router.post('/update', function (req, res) {
+    console.log("Request /offres/update");
+    console.log(req.body);
+    var idOffer = mongoose.Types.ObjectId(req.body["id"])
+    delete req.body.id;
+    delete req.body.matchingScore;
+    req.body.id_company = mongoose.Types.ObjectId(req.body.id_company)
+    db.collection('offers').update({"_id":idOffer}, req.body);
+    res.send(req.body);
+});
+
 router.delete('/deleteById/:id', function (req, res) {
-    console.log("Post /offres/post");
-    console.log();
+    console.log("Request /offres/delete");
 
     var id = mongoose.Types.ObjectId(req.params.id);
 
