@@ -93,13 +93,13 @@ export class OfferViewService {
         }
     }
 
-    getOfferById(id: String) {
+    /*getOfferById(id: String) {
         const offer : Offer = this.listOffers.find(
             (s) => {
                 return s.id === id;
             });
         return offer;
-    }
+    }*/
 
     sortArray(array : Offer[], key:String){
         if (key=="matchingScore"){

@@ -1,3 +1,4 @@
+import { Subscription } from 'rxjs';
 import { OfferViewService } from './../offerView.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
@@ -12,8 +13,9 @@ import { SafeStyle,DomSanitizer } from '@angular/platform-browser';
 })
 export class OfferDetailComponent implements OnInit {
 
-  offer: Offer;
+  offer: Offer = new Offer();
   colorScore:SafeStyle;
+  offerSubscription : Subscription
 
   public notNull(o) {
     if(typeof o === 'undefined'){
@@ -30,8 +32,19 @@ export class OfferDetailComponent implements OnInit {
   ngOnInit() {
     window.scroll(0,0);
     let idOffer = this.route.snapshot.params['id'];
-    this.offer = this.offerViewService.getOfferById(idOffer);
-    this.colorScore = this.sanitizer.bypassSecurityTrustStyle("color:"+this.defineColor(this.offer.matchingScore));
+    this.offerSubscription = this.offerViewService.listOffersSubject.subscribe(
+      (listOffers: Offer[]) => {
+        listOffers.forEach((offer) => {
+          console.log("hello")
+          if (offer.id==idOffer){
+            this.offer=offer;
+            this.colorScore = this.sanitizer.bypassSecurityTrustStyle("color:"+this.defineColor(this.offer.matchingScore));
+          }
+        })
+      }
+    );
+    this.offerViewService.emitListOffersSubject();
+    //this.offer = this.offerViewService.getOfferById(idOffer);
   }
 
   defineColor(percentage : Number){
