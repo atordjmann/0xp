@@ -7,7 +7,7 @@
     <a class="bar-button" (click)="clicSection($event,'notif')">Mes notifications</a>
   </div>
   <div class="square-sections">
-    <app-profile-detail [details]="profile" *ngIf="showProfile"></app-profile-detail>
+    <app-profile-detail [details]="profile" [type]="profile.isStudent" *ngIf="showProfile"></app-profile-detail>
     <app-offer-square *ngIf="showCandidatures"></app-offer-square>
     <app-notification *ngIf="showNotifs"></app-notification>
   </div>

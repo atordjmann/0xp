@@ -1,5 +1,4 @@
-//TODO : revoir cette classe
-export class User {
+export class UserStudent {
     id: number;
     username: string;
     password: string;
@@ -13,10 +12,6 @@ export class User {
     interestCompany: string;
     interestDomain: string;
     favoris: string;
-    creationDate: string;
-    description: string;
-    taille: string;
-    contact: string;
     token: string;
     isStudent: string;
 }
