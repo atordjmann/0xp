@@ -3,6 +3,10 @@
     margin: auto;
 }
 
+h1, h2{
+    color:gray;
+}
+
 .logo-header {
     display: flex;
     flex-direction: column;
@@ -19,14 +23,15 @@
     border-radius: 25px;
     padding: 10px 20px;
     margin-top: 5vh;
-    background-color: rgb(226, 125, 43);
+    background-color: var(--color-blue-medium);
     color:white;
     cursor:pointer;
 }
 
-button a{
+button a, .footer a{
     text-decoration: none;
     color:white;
+    font-size:large;
 }
 
 .button1:hover {
@@ -41,7 +46,7 @@ button a{
 }
 
 .grid-title {
-    color: rgb(226, 125, 43);
+    color: var(--color-orange);
 }
 
 .grid {

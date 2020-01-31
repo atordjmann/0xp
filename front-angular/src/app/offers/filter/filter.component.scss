@@ -1,31 +1,30 @@
 img{
-    width: 2vh;
-    height: 2vh;
+    align-self: center;
+    width: 3vh;
+    height: 3vh;
 }
 
 .mainFilterText{
-    margin-top: 10vh;
-    width: 50vw;
+    width: 54vw;
     margin: auto;
+    margin-top: 8vh;
     padding: 1vh 2vw 1vh 5vw;
     border-radius:50px;
     box-shadow: var(--shadow-light);
 
     input{
-        font-size: 1.4em;
-        border-bottom:1px solid var(--color-blue-light);    //TODO: j'aime pas trop le soulignage et le Rechercher en gros
-        width:30vw;
+        height: 6vh;
     }
 }
 
 .boxMandatory{
     box-shadow: #00000447 0px 3px 5px;
-    width: 50vw;
+    width: 54vw;
     margin:auto;
     padding: 1vh;
     position: relative;
     margin-bottom: 5px;
-    h1{
+    h3{
         text-align: center;
     }
     p{
@@ -36,7 +35,10 @@ img{
 .listSelect{
     width:90%;
     margin:auto;
-    margin-top: 3vh;
+    margin-top: 6vh;
+    div{
+        margin-right: 10px;
+    }
 }
 
 ::ng-deep .mat-form-field-appearance-legacy .mat-form-field-infix{
