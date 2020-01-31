@@ -13,7 +13,7 @@
     </div>
   </div>
 
-  <h5>{{offer.created_date}}</h5>
+  <h5>{{offer.created_date | date: 'mediumDate'}}</h5>
 
   <h1 class="percentageMatching" [style]="colorScore">{{offer.matchingScore}}%</h1>
 </div>

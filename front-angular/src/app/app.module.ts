@@ -38,6 +38,12 @@ import { AlertComponent } from './alert/alert.component';
 
 //import { fakeBackendProvider } from '../app/logging/helpers';
 import { FaqComponent } from './faq/faq.component';
+
+import { registerLocaleData } from '@angular/common';
+import localeFr from '@angular/common/locales/fr';
+registerLocaleData(localeFr, 'fr');
+import { LOCALE_ID } from '@angular/core';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -76,7 +82,8 @@ import { FaqComponent } from './faq/faq.component';
   exports:[OfferDetailComponent],
   providers: [GlobalService, OfferViewService,CompanyViewService, UserService,
               {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
-              {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}],
+              {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
+              { provide : LOCALE_ID, useValue: 'fr'}],
   bootstrap: [AppComponent, OfferDetailComponent]
 })
 export class AppModule { }
