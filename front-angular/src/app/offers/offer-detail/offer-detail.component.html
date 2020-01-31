@@ -3,17 +3,17 @@
   <div class="modal-header">
     <div class="cancel button" (click) = "openOrClose()"><img src="https://image.flaticon.com/icons/svg/22/22108.svg"></div>
     <div class="modal-header-content">
-      <img src="https://www.soprasteria.com/images/librariesprovider2/sopra-steria-corporate-images/logos---home/logo-sopra-steria.png?sfvrsn=ea7573dc_8" alt="logo company" class="logo-company"/>
+      <img src="{{ company.srcImage }}" alt="logo company" class="logo-company"/>
     <h1>{{company.name}}</h1>
-      <h4>Entreprise partenaire</h4>
+      <h3 *ngIf=company.isPartner>Entreprise partenaire</h3>
     </div>
   </div>
 
   <div class="modal-body">
-    <p id="location">Marseille, France</p>
+    <p id="location">{{ company.location }}</p>
     <h2>Description :</h2>
-    <p>{{company.description}}</p>
-   <p><strong>Contact :</strong> monsieur@soprasteria.fr</p>
+    <p>{{ company.description }}</p>
+   <p><strong>Contact :</strong> {{ company.contact }}</p>
   </div>
 
   <div class="modal-footer">
