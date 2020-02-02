@@ -1,3 +1,18 @@
-<p>{{details.firstname}}</p>
-<p>{{details.name}}</p>
+<div *ngIf="type">
+    <p><span class="label">Nom : </span>{{details.name}}</p>
+    <p><span class="label">Prénom : </span>{{details.firstName}}</p>
+    <p><span class="label">Date de naissance : </span>{{details.dateBirth}}</p>
+    <p><span class="label">Email : </span>{{details.contactMail}}</p>
+    <p><span class="label">Numéro de téléphone : </span>{{details.contactTel}}</p>
+    <p><span class="label">Localisation : </span>{{details.localisation}}</p>
+</div>
+<div *ngIf="!type">
+    <p><span class="label">Nom de l'entreprise : </span>{{details.name}}</p>
+    <p><span class="label">Date de création : </span>{{details.creationDate}}</p>
+    <p><span class="label">Description : </span>{{details.description}}</p>
+    <p><span class="label">Taille : </span>{{details.taille}}</p>
+    <p><span class="label">Contact : </span>{{details.contact}}</p>
+    <p><span class="label">Localisation : </span>{{details.localisation}}</p>
+</div>
+
 

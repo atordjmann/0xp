@@ -2,19 +2,19 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 
-import { UserStudent } from '../../../models';
+import { UserCompany } from '../../../models';
 
 @Injectable({ providedIn: 'root' })
-export class UserService {
+export class UserCompanyService {
     constructor(private http: HttpClient) { }
 
     apiUrl = environment.apiUrl;
 
     getAll() {
-        return this.http.get<UserStudent[]>(this.apiUrl + '/users');
+        return this.http.get<UserCompany[]>(this.apiUrl + '/users');
     }
 
-    register(user: UserStudent) {
+    register(user: UserCompany) {
         return this.http.post(this.apiUrl + '/users/register', user);
     }
 

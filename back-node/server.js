@@ -10,6 +10,7 @@ var server = app.listen(port, function() {
 var express = require('express');
 var app = express();
 var http = require('http');
+//var cors = require('cors')
 var bodyParser = require('body-parser');
 var PORT = 3000;
 
@@ -18,7 +19,7 @@ const MongoClient = require('mongodb').MongoClient
 //CORS Middleware
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
+    res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT, DELETE");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
     next();
 });

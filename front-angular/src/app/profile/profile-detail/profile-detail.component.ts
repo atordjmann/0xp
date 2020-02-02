@@ -8,10 +8,13 @@ import { Component, OnInit, Input } from '@angular/core';
 export class ProfileDetailComponent implements OnInit {
 
   @Input() details: any;
-
+  @Input() type: boolean;
+  isStudent: boolean;
   constructor() { }
 
   ngOnInit() {
+    this.isStudent = this.details.isStudent;
+    console.log(this.isStudent);
   }
 
 }

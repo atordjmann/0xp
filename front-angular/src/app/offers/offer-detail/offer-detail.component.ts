@@ -1,3 +1,4 @@
+import { Subscription } from 'rxjs';
 import { OfferViewService } from './../offerView.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
@@ -14,9 +15,10 @@ import { Company } from 'src/models/Company';
 })
 export class OfferDetailComponent implements OnInit {
 
-  offer: Offer;
+  offer: Offer = new Offer();
   colorScore: SafeStyle;
   company: Company;
+  offerSubscription : Subscription
 
   constructor(private route: ActivatedRoute, private offerViewService : OfferViewService, private sanitizer: DomSanitizer, private companyViewService: CompanyViewService) { }
 
@@ -35,9 +37,7 @@ export class OfferDetailComponent implements OnInit {
   ngOnInit() {
     window.scroll(0,0);
     let idOffer = this.route.snapshot.params['id'];
-    this.offer = this.offerViewService.getOfferById(idOffer);
-    this.colorScore = this.sanitizer.bypassSecurityTrustStyle("color:"+this.defineColor(this.offer.matchingScore));
-
+    
     //appeler CompanyViewService
     this.companyViewService.getById(this.offer.id_company).subscribe(
       value => {
@@ -47,6 +47,19 @@ export class OfferDetailComponent implements OnInit {
           console.log('Erreur ! : ' + error);
       }
     );
+    this.offerSubscription = this.offerViewService.listOffersSubject.subscribe(
+      (listOffers: Offer[]) => {
+        listOffers.forEach((offer) => {
+          console.log("hello")
+          if (offer.id==idOffer){
+            this.offer=offer;
+            this.colorScore = this.sanitizer.bypassSecurityTrustStyle("color:"+this.defineColor(this.offer.matchingScore));
+          }
+        })
+      }
+    );
+    this.offerViewService.emitListOffersSubject();
+    //this.offer = this.offerViewService.getOfferById(idOffer);
   }
 
   openOrClose() {

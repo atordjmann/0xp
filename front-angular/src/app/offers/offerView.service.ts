@@ -17,6 +17,9 @@ export class OfferViewService {
     isLoading = false;
     isLoadingSubject = new Subject<boolean>();
 
+    customListOffers : Offer[] = [];
+    customListOffersSubject = new Subject<Offer[]>();
+
     constructor(private httpClient: HttpClient) { }
 
     fillListOffers() {
@@ -76,6 +79,10 @@ export class OfferViewService {
         this.isLoadingSubject.next(isLoading);
     }
 
+    emitCustomListOffersSubject() {
+        this.customListOffersSubject.next(this.customListOffers.length!==0 ? this.customListOffers.slice() : []);
+    }
+
     filter(currentFilter: Filter) {
         console.log(currentFilter);
         console.log(currentFilter.toQuery());
@@ -86,13 +93,13 @@ export class OfferViewService {
         }
     }
 
-    getOfferById(id: String) {
+    /*getOfferById(id: String) {
         const offer : Offer = this.listOffers.find(
             (s) => {
                 return s.id === id;
             });
         return offer;
-    }
+    }*/
 
     sortArray(array : Offer[], key:String){
         if (key=="matchingScore"){
@@ -103,10 +110,65 @@ export class OfferViewService {
             array.sort(function(a:Offer, b:Offer) {
                 return +b.remuneration - +a.remuneration; 
             });
-        } else if (key=="created_date"){
+        } else if (key=="created_date_ts"){
             array.sort(function(a:Offer, b:Offer) {
-                return +b.created_date - +a.created_date; 
+                return +b.created_date_ts - +a.created_date_ts; 
             });
         }
     }
+    
+    getListOfferByCompanyId(){
+        this.httpClient.get<any>(this.apiUrl + '/offres/byCompanyId').subscribe(
+            (response) => {
+                this.customListOffers = [];
+                console.log('Found ' + response.length + ' offers matching the company');
+                response.forEach((offerJson) => {
+                    const offer = new Offer();
+                    offer.fromHashMap(offerJson);
+                    this.customListOffers.push(offer);
+                });
+                this.emitCustomListOffersSubject()
+            },
+            (error) => {
+                console.log('Erreur ! : ' + error);
+            }
+        );
+    }
+
+    addOffer(offer: Offer) {
+        this.httpClient.post<Offer>(this.apiUrl + '/offres/post',offer).subscribe(
+            (response) => {
+                console.log('offre ajoutée avec succès')
+            },
+            (error) => {
+                console.log('Erreur ! : ' + error);
+            }
+        );
+
+    }
+
+
+    deleteOffer(id: String) {
+        this.httpClient.delete<String>(this.apiUrl + '/offres/deleteById/'+id).subscribe(
+            (response) => {
+                console.log('Offre ' + id + ' supprimée')
+            },
+            (error) => {
+                console.log('Erreur ! : ' + error);
+            }
+        );
+
+    }
+
+    editOffer(offer : Offer){
+        this.httpClient.post<Offer>(this.apiUrl + '/offres/update', offer).subscribe(
+            (response) => {
+                console.log('Offre ' + offer.id + ' editée')
+            },
+            (error) => {
+                console.log('Erreur ! : ' + error);
+            }
+        );
+    }
+
 }

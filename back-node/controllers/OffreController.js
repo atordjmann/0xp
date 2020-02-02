@@ -1,9 +1,10 @@
 var express = require('express');
-var app             = express();
+var app = express();
 var router = express.Router();
 var bodyParser = require('body-parser');
 var ObjectId = require('mongodb').ObjectID
 router.use(bodyParser.json());
+var mongoose = require('mongoose');
 
 const escapeStringRegexp = require('escape-string-regexp')
 
@@ -27,8 +28,8 @@ router.get('/filtered', function (req, res) {
     if(Object.keys(req.query).indexOf("sector")>-1){
         query["sector"] = new RegExp('^' + escapeStringRegexp(req.query["sector"]) + '$', 'i');
     }
-    if(Object.keys(req.query).indexOf("start_date")>-1){
-        query["start_date"] = { $gte: req.query["start_date"] }
+    if(Object.keys(req.query).indexOf("start_date_ts")>-1){
+        query["start_date"] = { $gte: req.query["start_date_ts"] }
     }
     if(Object.keys(req.query).indexOf("remunMini")>-1){
         query["remuneration"] = { $gte: +req.query["remunMini"] }
@@ -101,59 +102,48 @@ router.get('/filtered', function (req, res) {
             res.json(resultsFiltered);
         })
     });
-    /*db.collection('offers').find(query).toArray(function(err, results) {
-        console.log("found "+results.length+" offers")
-        expandWithMatching(results);
-        resultsFiltered=[]
-        cpt=0
-        cpt2=0
-        results.forEach((offre)=>{
-            const promise = new Promise(function(resolve, reject) {
-                cpt2+=1
-                isInFilter=true;
-                if(Object.keys(req.query).indexOf("matchingMini")>-1){
-                    if (offre.matchingScore<req.query["matchingMini"]){
-                        isInFilter=false
-                    }
-                }
-                if(Object.keys(req.query).indexOf("companySize")>-1 || Object.keys(req.query).indexOf("isPartner")>-1){
-                    db.collection('companies').find({ _id: offre["id_company"] }).toArray(function(err, resultsComp) {
-                        if (resultsComp.length==0){
-                            isInFilter=false;
-                        } else{
-                            company=resultsComp[0]
-                            if(Object.keys(req.query).indexOf("companySize")>-1 && ""+company["taille"]!=""+req.query["companySize"]){
-                                isInFilter=false;
-                            }
-    
-                            if(Object.keys(req.query).indexOf("isPartner")>-1 && !company["isPartner"]){
-                                isInFilter=false;
-                            }
-                        }
-                        console.log(isInFilter, cpt2)
-                        resolve(isInFilter);
-                    })
-                } else {
-                    resolve(isInFilter);
-                }
-            });
-
-            promise.then(function(isInFilter) {
-                console.log(offre["title"])
-                cpt+=1
-                if (isInFilter){
-                    resultsFiltered.push(offre)
-                    console.log(resultsFiltered.length)
-                }
-                if (cpt==results.length){
-                    res.json(resultsFiltered);
-                }
-            });
-        });
-        
-    })*/
-    
 });
+
+router.get('/byCompanyId', function (req, res) {
+    console.log("Request /offres/byCompanyId")
+
+    var id = mongoose.Types.ObjectId("5e2700cf1c9d44000011f2ba");
+
+    //query={}
+    //query["id_company"] = new RegExp('^' + escapeStringRegexp(id) + '$', 'i');
+
+    db.collection('offers').find({"id_company": id}).toArray(function(err, results) {
+        res.json(results);
+    })
+});
+
+
+router.post('/post', function (req, res) {
+    console.log("Request /offres/post");
+    db.collection('offers').insertOne(req.body);
+    res.send(req.body);
+});
+
+router.post('/update', function (req, res) {
+    console.log("Request /offres/update");
+    console.log(req.body);
+    var idOffer = mongoose.Types.ObjectId(req.body["id"])
+    delete req.body.id;
+    delete req.body.matchingScore;
+    req.body.id_company = mongoose.Types.ObjectId(req.body.id_company)
+    db.collection('offers').update({"_id":idOffer}, req.body);
+    res.send(req.body);
+});
+
+router.delete('/deleteById/:id', function (req, res) {
+    console.log("Request /offres/delete");
+
+    var id = mongoose.Types.ObjectId(req.params.id);
+
+    db.collection('offers').remove({_id : id});
+    res.send(req.body);
+});
+
 
 module.exports = router;
 

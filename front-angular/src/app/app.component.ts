@@ -1,3 +1,4 @@
+import { OfferViewService } from 'src/app/offers/offerView.service';
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { GlobalService } from './global.service';
@@ -10,8 +11,9 @@ import { GlobalService } from './global.service';
 export class AppComponent implements OnInit {
   title = 'zero-xp';
 
-  constructor() {}
+  constructor(private offerViewService : OfferViewService) {}
 
   ngOnInit() {
+    this.offerViewService.fillListOffers();
   }
 }
