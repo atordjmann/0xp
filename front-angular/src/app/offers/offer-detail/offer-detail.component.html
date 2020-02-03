@@ -1,7 +1,30 @@
+<div *ngIf="isModalopen" class="modal">
+
+  <div class="modal-header">
+    <div class="cancel button" (click) = "openOrClose()"><img src="https://image.flaticon.com/icons/svg/22/22108.svg"></div>
+    <div class="modal-header-content">
+      <img src="{{ company.srcImage }}" alt="logo company" class="logo-company"/>
+    <h1>{{company.name}}</h1>
+      <h3 *ngIf=company.isPartner>Entreprise partenaire</h3>
+    </div>
+  </div>
+
+  <div class="modal-body">
+    <p id="location">{{ company.location }}</p>
+    <h2>Description :</h2>
+    <p>{{ company.description }}</p>
+   <p><strong>Contact :</strong> {{ company.contact }}</p>
+  </div>
+
+  <div class="modal-footer">
+    <button class="button" (click) = "openOrClose()">Fermer</button>
+  </div>
+</div>
+    
 <div class="banner">
   <h2><img style="max-width:15vw; max-height: 15vw;" src="{{ offer.srcImgCompany }}" alt="logo company"/></h2>
   <h2>{{ offer.title }}</h2><br/>
-  <h4>{{ offer.company }}</h4>
+  <h4 *ngIf="!isModalopen" class="button" (click) = "openOrClose()">{{ offer.company }}</h4>
 </div> 
 <div class="bg">
   <img style="width:100%;"src="../../../assets/images/background-test.jpg" alt="banner"/>
@@ -19,7 +42,6 @@
     <ul class="main_infos">
       <li>{{ offer.location }}</li>
       <li>{{ offer.type }} - {{ offer.duration }}</li>
-      <li *ngIf="notNull(offer.level)">{{ offer.level }}</li>
       <li>{{ offer.sector }}</li>
       <li *ngIf="notNull(offer.remuneration)">{{ offer.remuneration }} €</li>
     </ul>
