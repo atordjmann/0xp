@@ -1,10 +1,12 @@
 import { Subscription } from 'rxjs';
 import { OfferViewService } from './../offerView.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { Offer } from 'src/models/Offer';
+import { CompanyViewService } from './companyView.service';
 import { SafeStyle,DomSanitizer } from '@angular/platform-browser';
+import { Company } from 'src/models/Company';
 
 @Component({
   selector: 'app-offer-detail',
@@ -14,8 +16,13 @@ import { SafeStyle,DomSanitizer } from '@angular/platform-browser';
 export class OfferDetailComponent implements OnInit {
 
   offer: Offer = new Offer();
-  colorScore:SafeStyle;
+  colorScore: SafeStyle;
+  company: Company;
   offerSubscription : Subscription
+
+  constructor(private route: ActivatedRoute, private offerViewService : OfferViewService, private sanitizer: DomSanitizer, private companyViewService: CompanyViewService) { }
+
+  isModalopen = false;
 
   public notNull(o) {
     if(typeof o === 'undefined'){
@@ -27,11 +34,19 @@ export class OfferDetailComponent implements OnInit {
     }
   };
 
-  constructor(private route: ActivatedRoute, private offerViewService : OfferViewService,private sanitizer: DomSanitizer) { }
-
   ngOnInit() {
     window.scroll(0,0);
     let idOffer = this.route.snapshot.params['id'];
+    
+    //appeler CompanyViewService
+    this.companyViewService.getById(this.offer.id_company).subscribe(
+      value => {
+          this.company = value;            
+      },
+      error => {
+          console.log('Erreur ! : ' + error);
+      }
+    );
     this.offerSubscription = this.offerViewService.listOffersSubject.subscribe(
       (listOffers: Offer[]) => {
         listOffers.forEach((offer) => {
@@ -47,6 +62,10 @@ export class OfferDetailComponent implements OnInit {
     //this.offer = this.offerViewService.getOfferById(idOffer);
   }
 
+  openOrClose() {
+    this.isModalopen=!this.isModalopen
+  }
+  
   defineColor(percentage : Number){
     percentage = +percentage/100;
     let percentColors = [
