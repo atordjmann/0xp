@@ -37,20 +37,10 @@ export class OfferDetailComponent implements OnInit {
   ngOnInit() {
     window.scroll(0,0);
     let idOffer = this.route.snapshot.params['id'];
-    
-    //appeler CompanyViewService
-    this.companyViewService.getById(this.offer.id_company).subscribe(
-      value => {
-          this.company = value;            
-      },
-      error => {
-          console.log('Erreur ! : ' + error);
-      }
-    );
+
     this.offerSubscription = this.offerViewService.listOffersSubject.subscribe(
       (listOffers: Offer[]) => {
         listOffers.forEach((offer) => {
-          console.log("hello")
           if (offer.id==idOffer){
             this.offer=offer;
             this.colorScore = this.sanitizer.bypassSecurityTrustStyle("color:"+this.defineColor(this.offer.matchingScore));
@@ -58,8 +48,19 @@ export class OfferDetailComponent implements OnInit {
         })
       }
     );
+
     this.offerViewService.emitListOffersSubject();
     //this.offer = this.offerViewService.getOfferById(idOffer);
+
+    this.companyViewService.getById(this.offer.id_company).subscribe(
+      value => {
+          this.company = value;          
+      },
+      error => {
+          console.log('Erreur ! : ' + error);
+      }
+    );
+
   }
 
   openOrClose() {

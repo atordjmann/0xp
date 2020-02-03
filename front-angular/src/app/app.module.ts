@@ -90,6 +90,6 @@ import { LOCALE_ID } from '@angular/core';
               {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
               {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
               { provide : LOCALE_ID, useValue: 'fr'}],
-  bootstrap: [AppComponent, OfferDetailComponent]
+  bootstrap: [AppComponent]
 })
 export class AppModule { }
