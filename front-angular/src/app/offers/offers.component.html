@@ -11,7 +11,7 @@
     </div>
 
     <div *ngIf="!isLoading && listOffers.length!=0" class="flexCol listOffers">
-        <img class="button logoSort" (click)="openOrClosePopup()" src="https://image.flaticon.com/icons/svg/162/162735.svg"/>
+        <img class="button logoSort" (click)="openOrClosePopup()" src="../../assets/images/sort-logo.png"/>
         <div *ngIf="isSortingPopupOpen" class="choiceFilter">
             <div [ngClass]="{'isSelectable':sortedBy!='matchingScore'}" class="flexRow">
                 <p [ngStyle]="{'visibility':sortedBy=='matchingScore' ? 'visible' : 'hidden' }" class="check">✓</p>
