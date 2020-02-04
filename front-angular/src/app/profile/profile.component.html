@@ -1,6 +1,9 @@
-<img class="img-center" src="{{profile.photo}}">
+<img class="img-center" src="../../assets/images/0xpuser.png">
+<div class="logout">
+  <a (click)="logout()">Deconnexion</a>
+</div>
 
-<div *ngIf="isStudent">
+<div class="profile-box" *ngIf="isStudent">
   <div class="bar-details">
     <a class="bar-button current" (click)="clicSection($event,'profil')">Mon Profil</a>
     <a class="bar-button" (click)="clicSection($event,'candidatures')">Mes favoris</a>
@@ -13,7 +16,7 @@
   </div>
 </div>
 
-<div *ngIf="isCompany">
+<div class="profile-box" *ngIf="isCompany">
   <div class="bar-details">
     <a class="bar-button current" (click)="clicSection($event,'profil')">Mon Profil</a>
     <a class="bar-button" (click)="clicSection($event,'candidatures')">Mes offres</a>

@@ -43,7 +43,7 @@ h1{
     }
 
     .oneOffer{
-        margin-bottom:1vh;
+        margin-bottom:2vh;
         &:focus, &:active, &:visited{
             outline: none;
             -moz-outline-style: none;
@@ -101,4 +101,5 @@ h1{
 
 .slogan{
     text-align:center;
+    color:gray;
 }

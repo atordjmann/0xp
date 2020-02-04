@@ -1,49 +1,98 @@
-
-.navbar
-{
+.navbar {
     display: flex;
     position: fixed;
-    top:0;
-    width:100%;
+    top: 0;
+    width: 100%;
     align-items: center;
     justify-content: space-around;
-    height: 50px;
-    margin:0;padding:0;
+    height: 60px;
+    margin: 0;
+    padding: 0;
     background-color: #3e4259;
-    font-family: EvSansBold, Calibri;
-    box-shadow: #000004 0px 0px 10px;
+    //box-shadow: #000004 0px 0px 10px;
     z-index: 1001;
 }
 
-.navbar ul
-{
-    display: flex;
+.nav-left {
+    width: 70%
+}
+
+.nav-right {
+    width: 30%
+}
+
+.nav-left ul {
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.nav-right ul {
     justify-content: flex-end;
+    align-items: center;
+}
+
+ul {
+    display: flex;
     width: 70%;
     list-style-type: none;
 }
 
-.navbar ul li
-{
-    margin-left:50px;
+ul li {
+    margin-left: 50px;
+    width: fit-content;
 }
 
-.navbar div
-{
-    width: 5%;
-    font-family: EvSansRegular, Calibri;
+img {
+    width: 60px;
+    margin-top: 25px;
 }
 
-a
-{
-    text-decoration:none;
+a {
+    text-decoration: none;
     color: #FBFEF9;
 }
 
-a:hover
-{
+a:hover {
     color: #FBFEF9;
-    text-decoration:underline;
-    text-decoration-color: #EA8122;
-    cursor:pointer;
+    text-decoration: underline;
+    text-decoration-color: var(--color-orange);
+    cursor: pointer;
+}
+
+.profilBox {
+    position: relative;
+
+    &:focus {
+        outline: none;
+    }
+}
+
+.notifInfo,
+.notifAlert {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    right: 5px;
+    top: 75px;
+    border-radius: 100%;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+
+    p {
+        width: 100%;
+        margin: 0px;
+        color: white;
+        font-weight: 700;
+        text-align: center;
+        font-size: smaller;
+    }
+}
+
+.notifInfo {
+    background-color: orange;
+}
+
+.notifAlert {
+    background-color: red;
 }

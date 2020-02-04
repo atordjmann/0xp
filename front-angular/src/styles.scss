@@ -3,53 +3,39 @@
 
 /* FONTS */
 
-// Conduit Font
+//MADE Evolv Sans
 
 @font-face {
-    font-family: 'CdtBlack';
-    src: url('/assets/fonts/Conduit/ConduitITCStd-Black.otf');
+    font-family: 'MadeBold';
+    src: url('/assets/fonts/MadeEvolvSans/MADE Evolve Sans Bold.otf');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
-    font-family: 'CdtXBold';
-    src: url('/assets/fonts/Conduit/ConduitITCStd-ExtraBold.otf');
+    font-family: 'MadeLight';
+    src: url('/assets/fonts/MadeEvolvSans/MADE Evolve Sans Light.otf');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
-    font-family: 'CdtBold';
-    src: url('/assets/fonts/Conduit/ConduitITCStd-Bold.otf');
+    font-family: 'MadeMedium';
+    src: url('/assets/fonts/MadeEvolvSans/MADE Evolve Sans Medium.otf');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
-    font-family: 'CdtMed';
-    src: url('/assets/fonts/Conduit/ConduitITCStd-Medium.otf');
+    font-family: 'MadeRegular';
+    src: url('/assets/fonts/MadeEvolvSans/MADE Evolve Sans Regular.otf');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
-    font-family: 'CdtStd';
-    src: url('/assets/fonts/Conduit/ConduitITCStd.otf');
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'CdtLight';
-    src: url('/assets/fonts/Conduit/ConduitITCStd-Light.otf');
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'CdtXLight';
-    src: url('/assets/fonts/Conduit/ConduitITCStd-ExtraLight.otf');
+    font-family: 'MadeThin';
+    src: url('/assets/fonts/MadeEvolvSans/MADE Evolve Sans Thin.otf');
     font-weight: normal;
     font-style: normal;
 }
@@ -105,32 +91,28 @@ body {
     margin-top: 60px;
 }
 
-h1 {
-    font-family: CdtBlack, Calibri;
-}
-
-h2 {
-    font-family: CdtXBold, Calibri;
-}
-
-h3 {
-    font-family: CdtBold, Calibri;
+h1, h2, h3 {
+    font-family: MadeBold, Calibri;
 }
 
 h4 {
-    font-family: CdtMed, Calibri;
+    font-family: MadeMedium, Calibri;
 }
 
 h5 {
-    font-family: CdtReg, Calibri;
+    font-family: MadeRegular, Calibri;
 }
 
 h6 {
-    font-family: CdtLight, Calibri;
+    font-family: MadeLight, Calibri;
 }
 
-p {
-    font-family: ForoReg, Calibri;
+p, a, label, button, span {
+    font-family: MadeRegular, Calibri;
+}
+
+ul, li{
+    font-family: MadeLight, Calibri;
 }
 
 body::-webkit-scrollbar-track 

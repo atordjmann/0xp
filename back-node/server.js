@@ -27,10 +27,12 @@ app.use(function (req, res, next) {
 // custom routes
 var OffreController = require('./controllers/OffreController');
 var UserController = require('./controllers/UserController');
+var CompanyController = require('./controllers/CompanyController');
 
 // Set our routes
 app.use('/offres', OffreController);
-app.use('/users', UserController)
+app.use('/users', UserController);
+app.use('/companies', CompanyController);
 
 // Handle 404
 app.use(function (req, res) {

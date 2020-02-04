@@ -1,3 +1,67 @@
+.modal {
+    position: absolute;
+    width:76%;
+    margin: auto 12%;
+    height: auto;
+    background-color:white;
+    z-index:3;
+    border-radius: 10px;
+    box-shadow: #0000047a 0px 0px 10px;
+}
+
+.cancel {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 22px;
+    width: 22px;
+    margin: 10px;
+}
+
+.logo-company {
+    filter: drop-shadow(#0000047a 0px 0px 4px);
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+.modal-header-content {
+    text-align: center;
+}
+
+.modal-header-content h1 {
+    font-size: 28px;
+    margin: 0;
+}
+
+.modal-header-content h4 {
+    font-size: 18px;
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+.modal-body {
+    width: 90%;
+    margin: auto;
+    text-align: justify;
+}
+
+#location {
+    text-align: right;
+}
+
+.modal-footer {
+    text-align: center;  
+    margin: 25px;  
+}
+
+button{
+    color: white;
+    border: none;
+    border-radius: 20px;
+    background-color: var(--color-blue-medium);
+    padding: 10px 20px;
+}
+
 .banner h2, h4
 {   
     padding:0;margin:0;

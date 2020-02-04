@@ -2,13 +2,15 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const schema = new Schema({
+    id: { type: String, unique: true, required: true },
     name: { type: String, required: true },
-    creationDate: { type: String, required: true },
+    date_of_creation: { type: Date },
     description: { type: String, required: true },
     taille: { type: String, required: true },
     contact: { type: String, required: true },
-    localisation: { type: String, required: true },
-    createdDate: { type: Date, default: Date.now }
+    location: { type: String, required: true },
+    srcImage: { type: String, required: true },
+    isPartner: { type: String, required: true }
 });
 
 schema.set('toJSON', { virtuals: true });

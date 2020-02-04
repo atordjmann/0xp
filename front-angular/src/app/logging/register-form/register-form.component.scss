@@ -38,7 +38,7 @@ button{
     color: white;
     border: none;
     border-radius: 20px;
-    background-color: rgb(226, 125, 43);
+    background-color: var(--color-orange);
     padding: 10px 20px;
 }
 
@@ -61,7 +61,7 @@ a{
 }
 
 .bar-button{
-    padding: 5px 10px 5px 10px;
+    padding: 7px 12px 7px 12px;
     border-radius: 30px;
     color:#707070;
     font-family: EvSansBold, Calibri;
@@ -72,6 +72,14 @@ a{
 }
 
 .current{
-    background-color: #ea8122;
+    background-color: var(--color-orange);
     color: #ffffff;
+}
+
+select{
+    width:30vh;
+}
+
+form{
+    margin-bottom:7vh;
 }

@@ -8,7 +8,6 @@ $details-width:70%;
     margin-bottom: 30px;
     max-width: 140px;
     border-radius: 140px;
-    box-shadow: #000004 0px 0px 3px;
 }
 
 .bar-details{
@@ -26,7 +25,7 @@ $details-width:70%;
     padding:20px 30px 20px 30px;
     border-radius: 30px;
     color:#707070;
-    font-family: EvSansBold, Calibri;
+    font-family: MadeBold;
 }
 
 .bar-button:hover{
@@ -45,4 +44,24 @@ $details-width:70%;
     box-shadow: #00000424 0px 0px 5px;
     padding: 20px;
     margin-top: 10px;
+}
+
+.logout{
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.logout a{
+    padding: 10px 20px;
+    border-radius: 20px;
+    background-color: var(--color-orange);
+    color: white;
+}
+
+.logout a{
+    cursor:pointer;
+}
+
+.profile-box{
+    margin-bottom: 7vh;
 }

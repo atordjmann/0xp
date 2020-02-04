@@ -1,0 +1,71 @@
+.bg
+{
+    width:100%;
+    display: block;
+    position: fixed;
+    overflow: hidden;
+    top:0;
+    align-items: center;
+    z-index:-50;
+}
+
+
+.offer-sheet
+{
+    background-color: white;
+    padding:5%;margin:10%;
+    margin-top:40vh;
+    margin-bottom:5vh;
+    box-shadow:#0000047a 0px 0px 10px; 
+    text-align: justify;
+    display: block;
+    position: relative;
+}
+
+p {margin-bottom: -4vh;padding: 0;}
+
+.center
+{
+    text-align: center;
+    padding-left:3vh;
+    padding-right:3vh;
+    margin:1vh;
+}
+
+.title
+{
+    width:60vw
+}
+
+.ligne
+{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.qcm
+{
+    width:30vw;
+}
+
+
+.btn-success
+{
+    color:white;
+    background-color:#03C9D3;
+    border-color: transparent;
+    box-shadow: #0000047a 0px 0px 5px;
+    margin:auto;
+    height:5vh;
+    width:10vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5vh; 
+    border-color: transparent;  
+}
+
+.btn-success:hover
+{
+    background-color:rgb(6, 173, 182);
+}

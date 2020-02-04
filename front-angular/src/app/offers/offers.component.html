@@ -2,7 +2,7 @@
 <div style="padding-top: 2vh;">
 
     <img class="logo" src="../../assets/images/logo_blue.svg"/>
-    <p class="slogan">Naviguez parmi les offres et trouvez celle qui vous correspond !</p>
+    <h1 class="slogan">Naviguez parmi les offres et trouvez celle qui vous correspond !</h1>
     <app-filter ></app-filter>
 
     <div class="loadingScreen" *ngIf="isLoading">
@@ -11,7 +11,7 @@
     </div>
 
     <div *ngIf="!isLoading && listOffers.length!=0" class="flexCol listOffers">
-        <img class="button logoSort" (click)="openOrClosePopup()" src="https://image.flaticon.com/icons/svg/162/162735.svg"/>
+        <img class="button logoSort" (click)="openOrClosePopup()" src="../../assets/images/sort-logo.png"/>
         <div *ngIf="isSortingPopupOpen" class="choiceFilter">
             <div [ngClass]="{'isSelectable':sortedBy!='matchingScore'}" class="flexRow">
                 <p [ngStyle]="{'visibility':sortedBy=='matchingScore' ? 'visible' : 'hidden' }" class="check">✓</p>
@@ -21,9 +21,9 @@
                 <p [ngStyle]="{'visibility':sortedBy=='remuneration' ? 'visible' : 'hidden' }" class="check">✓</p>
                 <p (click)="changeSortBy('remuneration')">Rémunération</p>
             </div>
-            <div [ngClass]="{'isSelectable':sortedBy!='created_date_ts'}" class="flexRow">
-                <p [ngStyle]="{'visibility':sortedBy=='created_date_ts' ? 'visible' : 'hidden' }" class="check">✓</p>
-                <p (click)="changeSortBy('created_date_ts')">Date de publication</p>
+            <div [ngClass]="{'isSelectable':sortedBy!='created_date'}" class="flexRow">
+                <p [ngStyle]="{'visibility':sortedBy=='created_date' ? 'visible' : 'hidden' }" class="check">✓</p>
+                <p (click)="changeSortBy('created_date')">Date de publication</p>
             </div>
         </div>
         <app-offer-preview class="oneOffer button" *ngFor="let offer of listOffers" [offer]="offer"></app-offer-preview>

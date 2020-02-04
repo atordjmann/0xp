@@ -28,8 +28,8 @@ router.get('/filtered', function (req, res) {
     if(Object.keys(req.query).indexOf("sector")>-1){
         query["sector"] = new RegExp('^' + escapeStringRegexp(req.query["sector"]) + '$', 'i');
     }
-    if(Object.keys(req.query).indexOf("start_date_ts")>-1){
-        query["start_date"] = { $gte: req.query["start_date_ts"] }
+    if(Object.keys(req.query).indexOf("start_date")>-1){
+        query["start_date"] = { $gte: req.query["start_date"] }
     }
     if(Object.keys(req.query).indexOf("remunMini")>-1){
         query["remuneration"] = { $gte: +req.query["remunMini"] }
