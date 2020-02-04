@@ -100,12 +100,12 @@ export class AddOfferComponent implements OnInit {
 
   addOrEditOffer() {
     if(!this.isEdition){
-      this.offerOnForm.start_date_ts = ""+this.dateFromDate.getTime()
-      this.offerOnForm.created_date_ts=""+(new Date()).getTime() //TODO : Changer les types pour que rien soit cassé même si ça fonctionne
+      this.offerOnForm.start_date = ""+this.dateFromDate.getTime()
+      this.offerOnForm.created_date=""+(new Date()).getTime() //TODO : Changer les types pour que rien soit cassé même si ça fonctionne
       this.offerOnForm.location=this.locationCity+", "+this.locationCountry
       this.offerViewService.addOffer(this.offerOnForm);
     } else {
-      this.offerOnForm.start_date_ts = ""+this.dateFromDate.getTime()
+      this.offerOnForm.start_date = ""+this.dateFromDate.getTime()
       this.offerOnForm.location=this.locationCity+", "+this.locationCountry
       this.offerViewService.editOffer(this.offerOnForm);
     }

@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 import { Offer } from '../../../models/Offer';
-import {SafeStyle, DomSanitizer } from '@angular/platform-browser';
+import { SafeStyle, DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-offer-preview',
@@ -10,24 +10,26 @@ import {SafeStyle, DomSanitizer } from '@angular/platform-browser';
 })
 export class OfferPreviewComponent implements OnInit {
   @Input() offer: Offer;
-  colorScore:SafeStyle;
+  colorScore: SafeStyle;
+  strDateCreated: String;
 
   constructor(private sanitizer: DomSanitizer) { }
 
   ngOnInit() {
-    this.colorScore = this.sanitizer.bypassSecurityTrustStyle("color:"+this.defineColor(this.offer.matchingScore));
+    this.defineStrDateCreated();
+    this.colorScore = this.sanitizer.bypassSecurityTrustStyle('color:' + this.defineColor(this.offer.matchingScore));
   }
 
-  defineColor(percentage : Number){
-    percentage = +percentage/100;
-    let percentColors = [
+  defineColor(percentage: Number) {
+    percentage = +percentage / 100;
+    const percentColors = [
       { pct: 0.0, color: { r: 0xff, g: 0x00, b: 0 } },
       { pct: 0.5, color: { r: 0xff, g: 0xff, b: 0 } },
-      { pct: 1.0, color: { r: 0x00, g: 0xff, b: 0 } } ];
-    
+      { pct: 1.0, color: { r: 0x00, g: 0xff, b: 0 } }];
+
     for (var i = 1; i < percentColors.length - 1; i++) {
       if (percentage < percentColors[i].pct) {
-          break;
+        break;
       }
     }
     var lower = percentColors[i - 1];
@@ -42,5 +44,26 @@ export class OfferPreviewComponent implements OnInit {
       b: Math.floor(lower.color.b * pctLower + upper.color.b * pctUpper)
     };
     return 'rgb(' + [color.r, color.g, color.b].join(',') + ')';
+  }
+
+  defineStrDateCreated() {
+    this.strDateCreated = 'Aujourd\'hui'
+    const deltaTs = (new Date()).getTime() - +this.offer.created_date;
+    //Si plus d'un an
+    if (deltaTs > 1000 * 60 * 60 * 24 * 635) {
+      this.strDateCreated = 'Il y a ' + Math.floor(deltaTs / (1000 * 60 * 60 * 24 * 365)) + ' ans'
+    }
+    //Si plusieurs mois
+    else if (deltaTs > 1000 * 60 * 60 * 24 * 30) {
+      this.strDateCreated = 'Il y a ' + Math.floor(deltaTs / (1000 * 60 * 60 * 24 * 30)) + ' mois'
+    }
+    //Si ce mois ci
+    else if (deltaTs > 1000 * 60 * 60 * 24 * 7) {
+      this.strDateCreated = 'Ce mois ci'
+    }
+    //Si cette semaine
+    else if (deltaTs > 1000 * 60 * 60 * 24) {
+      this.strDateCreated = 'Cette semaine'
+    }
   }
 }
