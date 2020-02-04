@@ -9,7 +9,7 @@ const schema = new Schema({
     dateBirth: { type: String, required: true },
     contactMail: { type: String, required: false },
     contactTel: { type: String, required: false },
-    localisation: { type: String, required: true },
+    location: { type: String, required: true },
     isStudent: { type: String, required: true },
     createdDate: { type: Date, default: Date.now }
 });

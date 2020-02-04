@@ -9,7 +9,6 @@ var mongoose = require('mongoose');
 const escapeStringRegexp = require('escape-string-regexp')
 
 router.get('/', function (req, res) {
-    console.log("Request /offres/")
     db.collection('offers').find().toArray(function(err, results) {
         expandWithMatching(results);
         res.json(results);
@@ -17,7 +16,6 @@ router.get('/', function (req, res) {
 });
 
 router.get('/filtered', function (req, res) {
-    console.log("Request /offres/filtered")
     query={}
     if(Object.keys(req.query).indexOf("type")>-1){
         query["type"] = new RegExp('^' + escapeStringRegexp(req.query["type"]) + '$', 'i');
@@ -105,8 +103,6 @@ router.get('/filtered', function (req, res) {
 });
 
 router.get('/byCompanyId', function (req, res) {
-    console.log("Request /offres/byCompanyId")
-
     var id = mongoose.Types.ObjectId("5e2700cf1c9d44000011f2ba");
 
     //query={}
@@ -119,14 +115,11 @@ router.get('/byCompanyId', function (req, res) {
 
 
 router.post('/post', function (req, res) {
-    console.log("Request /offres/post");
     db.collection('offers').insertOne(req.body);
     res.send(req.body);
 });
 
 router.post('/update', function (req, res) {
-    console.log("Request /offres/update");
-    console.log(req.body);
     var idOffer = mongoose.Types.ObjectId(req.body["id"])
     delete req.body.id;
     delete req.body.matchingScore;
@@ -136,8 +129,6 @@ router.post('/update', function (req, res) {
 });
 
 router.delete('/deleteById/:id', function (req, res) {
-    console.log("Request /offres/delete");
-
     var id = mongoose.Types.ObjectId(req.params.id);
 
     db.collection('offers').remove({_id : id});

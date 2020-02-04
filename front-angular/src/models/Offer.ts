@@ -33,7 +33,7 @@ export class Offer {
     duration: String = new String();
     softSkills: String[];
     domains: String[];
-    matchingScore: Number;
+    matchingScore: number;
 
     fromHashMap(data: OfferData) {
         this.id = String(data._id);

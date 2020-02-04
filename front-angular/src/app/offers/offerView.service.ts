@@ -27,13 +27,11 @@ export class OfferViewService {
         this.httpClient.get<any>(this.apiUrl + '/offres').subscribe(
             (response) => {
                 this.listOffers = [];
-                console.log('Found ' + response.length + ' offers');
                 response.forEach((offerJson) => {
                     const offer = new Offer();
                     offer.fromHashMap(offerJson);
                     this.listOffers.push(offer);
                 });
-                console.log(this.listOffers)
                 this.emitListOffersSubject();
                 this.emitisLoadingSubject(false);
             },
@@ -51,11 +49,9 @@ export class OfferViewService {
             return;
         }
 
-        console.log(this.apiUrl + '/offres/filtered?' + query);
         this.httpClient.get<any>(this.apiUrl + '/offres/filtered?' + query).subscribe(
             (response) => {
                 this.listOffers = [];
-                console.log('Found ' + response.length + ' offers matching the filter');
                 response.forEach((offerJson) => {
                     const offer = new Offer();
                     offer.fromHashMap(offerJson);
@@ -84,8 +80,6 @@ export class OfferViewService {
     }
 
     filter(currentFilter: Filter) {
-        console.log(currentFilter);
-        console.log(currentFilter.toQuery());
         if (currentFilter.toQuery() !== '') {
             this.filterListOffers(currentFilter);
         } else {

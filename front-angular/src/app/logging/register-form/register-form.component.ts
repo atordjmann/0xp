@@ -40,7 +40,7 @@ export class RegisterFormComponent implements OnInit {
         dateBirth: ['', Validators.required],
         contactMail: [''],
         contactTel: [''],
-        localisation: ['', Validators.required],
+        location: ['', Validators.required],
         softSkills: [''],
         interestCompany: [''],
         interestDomain: [''],
@@ -61,7 +61,7 @@ export class RegisterFormComponent implements OnInit {
       dateBirth: ['', Validators.required],
       contactMail: [''],
       contactTel: [''],
-      localisation: ['', Validators.required],
+      location: ['', Validators.required],
       softSkills: [''],
       interestCompany: [''],
       interestDomain: [''],
@@ -76,10 +76,10 @@ export class RegisterFormComponent implements OnInit {
       username: ['', Validators.required],
       password: ['', [Validators.required, Validators.minLength(6)]],
       isStudent: [false],
-      creationDate: ['', Validators.required],
+      date_of_creation: ['', Validators.required],
       description: ['', Validators.required],
       taille: ['', Validators.required],
-      localisation: ['', Validators.required]
+      location: ['', Validators.required]
     });
   }
 

@@ -1,11 +1,11 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs/Subject';
-import { Company } from '../../../models/Company';
+import { Company } from '../models/Company';
 import { environment } from 'src/environments/environment';
 
 @Injectable()
-export class CompanyViewService {
+export class CompanyService {
 
 
     constructor(private http: HttpClient) {}
