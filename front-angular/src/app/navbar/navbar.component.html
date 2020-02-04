@@ -19,9 +19,15 @@
         <a routerLink="/login">Se connecter</a>
       </li>
       <li *ngIf="currentUser">
-        <a *ngIf="currentUser.isStudent" routerLink="/profile">
+        <div class="button profilBox" *ngIf="currentUser.isStudent" routerLink="/profile">
           <img src="../../assets/images/0xpuser.png" alt="Profile logo">
-        </a>
+          <div class="notifInfo">
+            <p>!</p>
+          </div>
+          <div class="notifAlert">
+            <p>2</p>
+          </div>
+        </div>
       </li>
     </ul>
   </div>
