@@ -1,3 +1,4 @@
+import { EntreprisesComponent } from './entreprises/entreprises.component';
 import { FaqComponent } from './faq/faq.component';
 import { RegisterFormComponent } from './logging/register-form/register-form.component';
 import { LoggingComponent } from './logging/logging.component';
@@ -19,6 +20,7 @@ const routes: Routes = [
   { path: 'profile', component: ProfileComponent },
   { path: 'faq', component: FaqComponent },
   { path: 'addOffer', component: AddOfferComponent },
+  { path: 'companies', component: EntreprisesComponent},
   { path: '**', redirectTo: 'home'}
 ];
 

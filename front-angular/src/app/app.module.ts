@@ -46,6 +46,8 @@ import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
 registerLocaleData(localeFr, 'fr');
 import { LOCALE_ID } from '@angular/core';
+import { EntreprisesComponent } from './entreprises/entreprises.component';
+import { DetailAvisComponent } from './entreprises/detail-avis/detail-avis.component';
 
 @NgModule({
   declarations: [
@@ -67,6 +69,8 @@ import { LOCALE_ID } from '@angular/core';
     AlertComponent,
     FaqComponent,
     AddOfferComponent,
+    EntreprisesComponent,
+    DetailAvisComponent,
   ],
   imports: [
     BrowserModule,

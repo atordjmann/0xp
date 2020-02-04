@@ -12,6 +12,9 @@ export class CompanyService {
 
     apiUrl = environment.apiUrl;
 
+    getAll() {
+        return this.http.get<Company[]>(this.apiUrl + '/companies');
+    }
 
     getById(id: any) {
         return this.http.get<Company>(this.apiUrl + '/companies/'+id)
