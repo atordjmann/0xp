@@ -1,3 +1,4 @@
+import { NotificationsService } from './../../profile/notification/notifications.service';
 import { Subscription } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
@@ -70,7 +71,10 @@ export class FilterComponent implements OnInit {
   dateFromDate : Date = new Date();
   dateStart = new FormControl(moment());
 
-  constructor(private offerViewService: OfferViewService) { }
+  isNotifAdded: Boolean;
+  isNotifAddedSubscription: Subscription;
+
+  constructor(private offerViewService: OfferViewService, private notificationsService : NotificationsService) { }
 
   ngOnInit() {
     this.currentFilter.textInput = '';
@@ -85,15 +89,26 @@ export class FilterComponent implements OnInit {
     this.currentFilter.matchingMini = 0;
     this.currentFilter.remunMini = 0;
     this.dateFromDate.setDate(1);
+
+    this.isNotifAddedSubscription = this.notificationsService.isNotifAddedSubject.subscribe(
+      (isNotifAdded: Boolean) => {
+        this.isNotifAdded = isNotifAdded;
+        if(this.isNotifAdded){
+          this.notificationsService.majFilterForNotif(this.currentFilter)
+        }
+      }
+    );
   }
 
   filter() {
-
-    console.log(this.companyForm)
+    console.log(this.currentFilter)
     this.currentFilter.start_date = this.dateFromDate.getTime()
 
     this.offerViewService.filter(this.currentFilter);
     this.isMoreFilterOpen = false;
+
+    this.isNotifAdded=false;
+    this.notificationsService.switchIsNotifAdded(this.isNotifAdded)
   }
   manageMoreFilter() {
     this.isMoreFilterOpen = !this.isMoreFilterOpen;
@@ -176,5 +191,11 @@ export class FilterComponent implements OnInit {
     } else {
       this.currentFilter.location = selected;
     }
+  }
+
+  addNotif(){
+    this.isNotifAdded=true;
+    this.notificationsService.switchIsNotifAdded(this.isNotifAdded)
+    this.notificationsService.majFilterForNotif(this.currentFilter)
   }
 }

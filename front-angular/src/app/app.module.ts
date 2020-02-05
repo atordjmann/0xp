@@ -36,9 +36,9 @@ import { OfferCompanyComponent } from './profile/application/offer-company/offer
 import { GlobalService } from './global.service';
 import { OfferViewService } from './offers/offerView.service';
 import { CompanyViewService } from './offers/offer-detail/companyView.service';
+import { NotificationsService } from './profile/notification/notifications.service';
 import { AlertComponent } from './alert/alert.component';
 
-//import { fakeBackendProvider } from '../app/logging/helpers';
 import { FaqComponent } from './faq/faq.component';
 import { AddOfferComponent } from './profile/application/offer-company/add-offer/add-offer.component';
 
@@ -86,7 +86,7 @@ import { LOCALE_ID } from '@angular/core';
     CKEditorModule
   ],
   exports:[OfferDetailComponent],
-  providers: [GlobalService, OfferViewService,CompanyViewService, UserService,
+  providers: [GlobalService, OfferViewService,CompanyViewService, UserService,NotificationsService,
               {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
               {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
               { provide : LOCALE_ID, useValue: 'fr'}],

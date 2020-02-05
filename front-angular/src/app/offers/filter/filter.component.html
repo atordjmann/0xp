@@ -1,6 +1,8 @@
 <div class="mainFilterText flexRow-spaceBet">
   <input type="text" placeholder="Rechercher" (keyup.enter)="filter()" [(ngModel)]="currentFilter.textInput"/>
-  <img src="https://image.flaticon.com/icons/svg/149/149309.svg"/>
+  <img class="button" src="https://image.flaticon.com/icons/svg/149/149309.svg" (click)="filter()"/>
+  <img class="button notifOnFilter" *ngIf="!isNotifAdded" (click)="addNotif()" src="https://image.flaticon.com/icons/svg/2489/2489081.svg"/>
+  <img class="button notifOnFilter" *ngIf="isNotifAdded" src="https://image.flaticon.com/icons/svg/845/845646.svg"/>
 </div>
 
 <div class="boxMandatory">

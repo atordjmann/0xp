@@ -99,6 +99,17 @@ router.delete('/:id', function(req, res, next) {
         .catch(err => next(err));
 });
 
+router.post('/addAlert', function(req, res, next){
+    db.collection('users').update(
+        { _id: ObjectId(req.body["user"]["_id"]) },
+        { $set:
+           {
+            filterAlert: req.body["filter"],
+           }
+        }
+     )
+});
+
 async function toAuthenticate({ username, password }) {
     const user = await db.collection('users').findOne({ username });
     //TODO ajout des autres champs avec user.idCompany

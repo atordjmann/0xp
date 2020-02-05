@@ -10,7 +10,7 @@
         <h1>Chargement des offres correspondant le plus à votre recherche !</h1>
     </div>
 
-    <div *ngIf="!isLoading && listOffers.length!=0" class="flexCol listOffers">
+    <div *ngIf="!isLoading && filteredListOffers.length!=0" class="flexCol listOffers">
         <img class="button logoSort" (click)="openOrClosePopup()" src="../../assets/images/sort-logo.png"/>
         <div *ngIf="isSortingPopupOpen" class="choiceFilter">
             <div [ngClass]="{'isSelectable':sortedBy!='matchingScore'}" class="flexRow">
@@ -26,10 +26,20 @@
                 <p (click)="changeSortBy('created_date')">Date de publication</p>
             </div>
         </div>
-        <app-offer-preview class="oneOffer button" *ngFor="let offer of listOffers" [offer]="offer"></app-offer-preview>
+        <app-offer-preview class="oneOffer button" *ngFor="let offer of filteredListOffers" [offer]="offer"></app-offer-preview>
     </div>
 
-    <div *ngIf="listOffers.length===0" class="noOffersDiv">
+    <div *ngIf="filteredListOffers.length===0" class="noOffersDiv">
         <h1>Désolé aucune offre ne semble correspondre à votre filtrage pour le moment...</h1>
+
+        <p style="text-align: center;">Vous pouvez ajouter une alerte qui vous notifiera si une offre correspondant à ce filtrage est rajoutée</p>
+        <div class="button flexRow addNotif" *ngIf="!isNotifAdded" (click)="addAlert()">
+            <img src="https://image.flaticon.com/icons/svg/2489/2489081.svg"/>
+            <p>Ajouter une alerte</p>
+        </div>
+
+        <div class="flexRow notifAdded" *ngIf="isNotifAdded">
+            <p>Alerte ajoutée</p>
+        </div>
     </div>
 </div>

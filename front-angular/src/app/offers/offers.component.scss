@@ -91,6 +91,9 @@ h1{
 
 .noOffersDiv{
     margin-top:10vh;
+    h1{
+        margin-bottom: 5vh;
+    }
 }
 
 .logo{
@@ -102,4 +105,33 @@ h1{
 .slogan{
     text-align:center;
     color:gray;
+}
+
+.addNotif, .notifAdded{
+    border:1px solid black;
+    width:10vw;
+    padding: 1vh 2vw;
+    margin:auto;
+    justify-content: space-between;
+    text-align: center;
+    border-radius: 0.43em;
+    align-content: center;
+    p{
+        margin:0px;
+    }
+}
+
+.addNotif{
+    background-color: #fcffc8;
+    img{
+        width:1vw;
+        display: block;
+    }
+}
+
+.notifAdded{
+    background-color: #c8ffcd;
+    p{
+        width: 100%;
+    }
 }

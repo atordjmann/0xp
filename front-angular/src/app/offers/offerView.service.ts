@@ -12,7 +12,10 @@ export class OfferViewService {
     apiUrl = environment.apiUrl;
 
     listOffers: Offer[] = [];
-    listOffersSubject = new Subject<Offer[]>();
+    listOffersSubject= new Subject<Offer[]>();
+
+    filteredListOffers: Offer[] = [];
+    filteredListOffersSubject = new Subject<Offer[]>();
 
     isLoading = false;
     isLoadingSubject = new Subject<boolean>();
@@ -20,10 +23,12 @@ export class OfferViewService {
     customListOffers : Offer[] = [];
     customListOffersSubject = new Subject<Offer[]>();
 
+    remunMax=0
+
     constructor(private httpClient: HttpClient) { }
 
     fillListOffers() {
-        this.emitisLoadingSubject(true);
+        this.emitIsLoadingSubject(true);
         this.httpClient.get<any>(this.apiUrl + '/offres').subscribe(
             (response) => {
                 this.listOffers = [];
@@ -34,8 +39,10 @@ export class OfferViewService {
                     this.listOffers.push(offer);
                 });
                 console.log(this.listOffers)
+                this.filteredListOffers=this.listOffers;
                 this.emitListOffersSubject();
-                this.emitisLoadingSubject(false);
+                this.emitFilteredListOffersSubject();
+                this.emitIsLoadingSubject(false);
             },
             (error) => {
                 console.log('Erreur ! : ' + error);
@@ -44,25 +51,25 @@ export class OfferViewService {
     }
 
     filterListOffers(currentFilter: Filter) {
-        this.emitisLoadingSubject(true);
+        this.emitIsLoadingSubject(true);
         const query = currentFilter.toQuery();
         if (query === '') {
-            this.emitisLoadingSubject(false);
+            this.emitIsLoadingSubject(false);
             return;
         }
 
         console.log(this.apiUrl + '/offres/filtered?' + query);
         this.httpClient.get<any>(this.apiUrl + '/offres/filtered?' + query).subscribe(
             (response) => {
-                this.listOffers = [];
+                this.filteredListOffers = [];
                 console.log('Found ' + response.length + ' offers matching the filter');
                 response.forEach((offerJson) => {
                     const offer = new Offer();
                     offer.fromHashMap(offerJson);
-                    this.listOffers.push(offer);
+                    this.filteredListOffers.push(offer);
                 });
-                this.emitListOffersSubject();
-                this.emitisLoadingSubject(false);
+                this.emitFilteredListOffersSubject();
+                this.emitIsLoadingSubject(false);
             },
             (error) => {
                 console.log('Erreur ! : ' + error);
@@ -70,12 +77,17 @@ export class OfferViewService {
         );
     }
 
-    emitListOffersSubject() {
+    emitListOffersSubject(){
         this.sortArray(this.listOffers, 'matchingScore')
         this.listOffersSubject.next(this.listOffers.length!==0 ? this.listOffers.slice() : []);
     }
 
-    emitisLoadingSubject(isLoading: boolean) {
+    emitFilteredListOffersSubject() {
+        this.sortArray(this.filteredListOffers, 'matchingScore')
+        this.filteredListOffersSubject.next(this.filteredListOffers.length!==0 ? this.filteredListOffers.slice() : []);
+    }
+
+    emitIsLoadingSubject(isLoading: boolean) {
         this.isLoadingSubject.next(isLoading);
     }
 
@@ -92,14 +104,6 @@ export class OfferViewService {
             this.fillListOffers();
         }
     }
-
-    /*getOfferById(id: String) {
-        const offer : Offer = this.listOffers.find(
-            (s) => {
-                return s.id === id;
-            });
-        return offer;
-    }*/
 
     sortArray(array : Offer[], key:String){
         if (key=="matchingScore"){
@@ -170,5 +174,4 @@ export class OfferViewService {
             }
         );
     }
-
 }
