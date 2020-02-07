@@ -19,7 +19,7 @@ export class ProfileComponent implements OnInit {
   profile: any;
 
   constructor(private authenticationService: AuthenticationService,
-    private router: Router) {
+              private router: Router) {
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
    }
 
@@ -52,6 +52,11 @@ export class ProfileComponent implements OnInit {
     this.showCandidatures = false;
     this.showNotifs = false;
     this.profile = this.currentUser;
+    if (!this.profile.isStudent || this.profile.isStudent === 'false') {
+      const date = new Date(this.profile.date_of_creation);
+      this.profile.date_of_creation = date.toLocaleDateString();
+    }
+    console.log(this.profile)
     this.profile.photo = this.isStudent ?
     'https://i.pinimg.com/originals/aa/5a/27/aa5a270fc268cb82c66ef12e6def5a09.jpg' :
     'https://www.solutions-numeriques.com/wp-content/uploads/2016/10/sopra-steria1.png';

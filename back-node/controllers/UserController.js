@@ -49,8 +49,7 @@ router.post('/register', function(req, res, next) {
         db.collection('companies').insertOne(company, function(err){
             if (err) return;
             // Object inserted successfully.
-            user.idCompany = company._id; 
-            console.log(user)
+            user.idCompany = new ObjectId(company._id); 
             db.collection('users').insertOne(user).then(() => res.json({}))
             .catch(err => next(err));
         })
@@ -100,8 +99,19 @@ router.delete('/:id', function(req, res, next) {
 });
 
 async function toAuthenticate({ username, password }) {
-    const user = await db.collection('users').findOne({ username });
-    //TODO ajout des autres champs avec user.idCompany
+    let user = await db.collection('users').findOne({ username });
+    if (!user.isStudent || user.isStudent === 'false') {  
+        const oid = new ObjectId(user.idCompany)
+        const company = await db.collection('companies').findOne({_id : oid});
+        console.log(company)
+        user.date_of_creation = company.date_of_creation;
+        user.description = company.description;
+        user.taille = company.taille;
+        user.contact = company.contact;
+        user.location = company.location;
+        user.srcImage = company.srcImage;
+        user.isPartner = company.isPartner;
+    }
     if (user && bcrypt.compareSync(password, user.hash)) {
         const { hash, ...userWithoutHash } = user;
         const token = jwt.sign({ sub: user.id }, config.secret);

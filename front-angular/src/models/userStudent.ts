@@ -7,7 +7,7 @@ export class UserStudent {
     dateBirth: string;
     contactMail: string;
     contactTel: string;
-    localisation: string;
+    location: string;
     softSkills: string;
     interestCompany: string;
     interestDomain: string;

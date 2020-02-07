@@ -89,7 +89,6 @@ export class FilterComponent implements OnInit {
 
   filter() {
 
-    console.log(this.companyForm)
     this.currentFilter.start_date = this.dateFromDate.getTime()
 
     this.offerViewService.filter(this.currentFilter);

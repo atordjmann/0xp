@@ -8,12 +8,12 @@ export class User {
     dateBirth: string;
     contactMail: string;
     contactTel: string;
-    localisation: string;
+    location: string;
     softSkills: string;
     interestCompany: string;
     interestDomain: string;
     favoris: string;
-    creationDate: string;
+    date_of_creation: string;
     description: string;
     taille: string;
     contact: string;
