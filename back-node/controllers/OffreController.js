@@ -123,7 +123,7 @@ router.get('/byCompanyId', function (req, res) {
 
 router.post('/post', function (req, res) {
     console.log("Request /offres/post");
-    //db.collection('offers').insertOne(req.body);
+    db.collection('offers').insertOne(req.body);
     //On check si quelqu'un attendait une offre de ce type
     notificationModule.checkNotifForAllUsers(req.body)
     res.send(req.body);
@@ -137,6 +137,8 @@ router.post('/update', function (req, res) {
     delete req.body.matchingScore;
     req.body.id_company = mongoose.Types.ObjectId(req.body.id_company)
     db.collection('offers').update({"_id":idOffer}, req.body);
+    //On check si quelqu'un attendait une offre de ce type
+    notificationModule.checkNotifForAllUsers(req.body)
     res.send(req.body);
 });
 
