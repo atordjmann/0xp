@@ -6,6 +6,9 @@ var ObjectId = require('mongodb').ObjectID
 router.use(bodyParser.json());
 var mongoose = require('mongoose');
 
+var notificationModule = require('../modules/notificationModule.js')
+var matchingModule = require('../modules/matchingModule.js')
+
 const escapeStringRegexp = require('escape-string-regexp')
 
 router.get('/', function (req, res) {
@@ -120,7 +123,9 @@ router.get('/byCompanyId', function (req, res) {
 
 router.post('/post', function (req, res) {
     console.log("Request /offres/post");
-    db.collection('offers').insertOne(req.body);
+    //db.collection('offers').insertOne(req.body);
+    //On check si quelqu'un attendait une offre de ce type
+    notificationModule.checkNotifForAllUsers(req.body)
     res.send(req.body);
 });
 
@@ -149,6 +154,6 @@ module.exports = router;
 
 function expandWithMatching(results) {
     results.forEach((offre)=>{
-        offre.matchingScore = Math.floor(Math.random()*100);
+        offre.matchingScore = matchingModule.matchingWithUser(offre)
     })
 };

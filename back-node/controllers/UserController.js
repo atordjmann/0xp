@@ -100,6 +100,7 @@ router.delete('/:id', function(req, res, next) {
 });
 
 router.post('/addAlert', function(req, res, next){
+    console.log("Request /users/addAlert")
     db.collection('users').update(
         { _id: ObjectId(req.body["user"]["_id"]) },
         { $set:

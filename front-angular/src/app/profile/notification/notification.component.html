@@ -1,5 +1,17 @@
-<p style="text-align: center; color: gray;">Aucune nouvelle notification</p>
-<div class="flexRow notification newNotif">
+<p *ngIf="!listNotif" style="text-align: center; color: gray;">Aucune nouvelle notification</p>
+
+<div *ngFor="let notif of listNotif">
+  <div class="flexRow notification newNotif">
+    <div class="imageNotif">
+      <img *ngIf="notif.type=='filterNotif'" src="https://image.flaticon.com/icons/svg/616/616656.svg" />
+      <img *ngIf="notif.type!='filterNotif'" src="https://eska.com/wp-content/uploads/2019/09/eska-mono-black-voor.jpg" />
+    </div>
+    <p class="infoNotif">Une offre correspondant à votre filtrage préférentiel a été ajoutée !</p>
+    <p class="timestamp">{{notif.tsStr}}</p>
+  </div>
+</div>
+
+<!--<div class="flexRow notification">
   <div class="imageNotif">
     <img src="https://image.flaticon.com/icons/svg/616/616656.svg" />
   </div>
@@ -22,4 +34,4 @@
   </div>
   <p class="infoNotif">Une offre correspondant à votre filtrage préférentiel a été ajoutée !</p>
   <p class="timestamp">Il y a un mois</p>
-</div>
+</div>-->
