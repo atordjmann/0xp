@@ -18,5 +18,5 @@ export class User {
     taille: string;
     contact: string;
     token: string;
-    isStudent: string;
+    isStudent: boolean;
 }

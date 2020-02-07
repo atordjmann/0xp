@@ -14,7 +14,6 @@ export class ProfileDetailComponent implements OnInit {
 
   ngOnInit() {
     this.isStudent = this.details.isStudent;
-    console.log(this.isStudent);
   }
 
 }

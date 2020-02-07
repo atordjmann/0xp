@@ -1,9 +1,9 @@
 <div *ngIf="isStudent" class="mainFilterText flexRow-spaceBet">
   <input type="text" placeholder="Rechercher" (keyup.enter)="filter()" [(ngModel)]="currentFilter.textInput" />
   <img class="button" src="https://image.flaticon.com/icons/svg/149/149309.svg" (click)="filter()" />
-  <img class="button notifOnFilter" *ngIf="!isNotifAdded && isStudent=='true'" (click)="addNotif()"
+  <img class="button notifOnFilter" *ngIf="!isNotifAdded && isStudent" (click)="addNotif()"
     src="https://image.flaticon.com/icons/svg/2489/2489081.svg" />
-  <img class="button notifOnFilter" *ngIf="isNotifAdded && isStudent=='true'"
+  <img class="button notifOnFilter" *ngIf="isNotifAdded && isStudent"
     src="https://image.flaticon.com/icons/svg/845/845646.svg" />
 </div>
 

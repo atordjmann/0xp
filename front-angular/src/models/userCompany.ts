@@ -4,5 +4,5 @@ export class UserCompany {
     password: string;
     idCompany: string;
     token: string;
-    isStudent: string;
+    isStudent: boolean;
 }

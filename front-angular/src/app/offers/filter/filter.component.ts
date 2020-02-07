@@ -79,7 +79,6 @@ export class FilterComponent implements OnInit {
 
   ngOnInit() {
     this.isStudent = this.notificationsService.currentUser.isStudent;
-    console.log('isStudent ' + this.isStudent);
     this.currentFilter.textInput = '';
     this.currentFilter.type = '';
     this.currentFilter.duration = '';

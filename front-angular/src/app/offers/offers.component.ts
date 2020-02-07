@@ -26,7 +26,7 @@ export class OffersComponent implements OnInit {
   constructor(private offerViewService: OfferViewService, private notificationsService: NotificationsService) { }
 
   ngOnInit() {
-    this.isStudent = this.notificationsService.currentUser.isStudent
+    this.isStudent = this.notificationsService.currentUser.isStudent;
     this.sortedBy = 'matchingScore';
     this.offerViewService.fillListOffers();
     this.filteredListOffersSubscription = this.offerViewService.filteredListOffersSubject.subscribe(

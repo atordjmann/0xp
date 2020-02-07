@@ -33,7 +33,7 @@
     <div *ngIf="filteredListOffers.length===0" class="noOffersDiv">
         <h1>Désolé aucune offre ne semble correspondre à votre filtrage pour le moment...</h1>
 
-        <div *ngIf="isStudent=='true'">
+        <div *ngIf="isStudent">
             <p style="text-align: center;">Vous pouvez ajouter une alerte qui vous notifiera si une offre correspondant
                 à ce filtrage est rajoutée</p>
             <div class="button flexRow addNotif" *ngIf="!isNotifAdded" (click)="addAlert()">
