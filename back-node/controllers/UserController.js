@@ -15,7 +15,7 @@ const ObjectId = require('mongodb').ObjectId;
 const escapeStringRegexp = require('escape-string-regexp')
 
 router.get('/', function (req, res) {
-    db.collection('users').find().toArray(function(err, results) {
+    db.collection('users').find().toArray(function (err, results) {
         res.json(results);
     })
 });
@@ -24,18 +24,20 @@ router.post('/authenticate', authenticate);
 
 function authenticate(req, res, next) {
     toAuthenticate(req.body)
-        .then(user => user ? res.json(user) : res.status(400).json({ message: 'Username or password is incorrect' }))
+        .then(user => user ? res.json(user) : res.status(400).json({
+            message: 'Username or password is incorrect'
+        }))
         .catch(err => next(err));
 }
 
-router.post('/register', function(req, res, next) {    
+router.post('/register', function (req, res, next) {
     /*if (db.collection('users').findOne({ username: req.body.username })) {
         throw 'Username "' + req.body.username + '" is already taken';
     }*/
     let user = new Object();
-    if(req.body.isStudent){
+    if (req.body.isStudent) {
         user = new UserStudent(req.body);
-    }else{
+    } else {
         user = new UserCompany(req.body)
         company = new Company(req.body)
     }
@@ -45,41 +47,46 @@ router.post('/register', function(req, res, next) {
     }
     // save user
     //TODO: séparer les login de compagnie et les infos de l'entreprise dans 2 collections différentes.
-    if(!req.body.isStudent){
-        db.collection('companies').insertOne(company, function(err){
+    if (!req.body.isStudent) {
+        db.collection('companies').insertOne(company, function (err) {
             if (err) return;
             // Object inserted successfully.
-            user.idCompany = new ObjectId(company._id); 
+            user.idCompany = new ObjectId(company._id);
             db.collection('users').insertOne(user).then(() => res.json({}))
-            .catch(err => next(err));
+                .catch(err => next(err));
         })
         //.then(() => res.json({}))
         //.catch(err => next(err));
-        
-    }
-    else{
+
+    } else {
         db.collection('users').insertOne(user).then(() => res.json({}))
-        .catch(err => next(err));;
-    }    
+            .catch(err => next(err));;
+    }
 });
 
-router.get('/current', function(req, res, next) {
+router.get('/current', function (req, res, next) {
     db.collection('users').findById(req.user.sub)
         .then(user => user ? res.json(user) : res.sendStatus(404))
         .catch(err => next(err));
 });
 
-router.get('/:id', function(req, res, next) {
-    db.collection('users').findOne({_id: ObjectId(req.params.id)})
+router.get('/:id', function (req, res, next) {
+    db.collection('users').findOne({
+            _id: ObjectId(req.params.id)
+        })
         .then(user => user ? res.json(user) : res.sendStatus(404))
         .catch(err => next(err));
 });
 
-router.put('/:id', function(req, res, next) {
-    const user = db.collection('users').findOne({_id: ObjectId(req.params.id)});
+router.put('/:id', function (req, res, next) {
+    const user = db.collection('users').findOne({
+        _id: ObjectId(req.params.id)
+    });
     // validate
     if (!user) throw 'User not found';
-    if (user.username !== req.body.username && db.collection('users').findOne({ username: req.body.username })) {
+    if (user.username !== req.body.username && db.collection('users').findOne({
+            username: req.body.username
+        })) {
         throw 'Username "' + req.body.username + '" is already taken';
     }
     // hash password if it was entered
@@ -92,18 +99,35 @@ router.put('/:id', function(req, res, next) {
     user.save();
 });
 
-router.delete('/:id', function(req, res, next) {
+router.delete('/:id', function (req, res, next) {
     db.collection('users').deletefindByIdAndRemove(req.params.id)
         .then(() => res.json({}))
         .catch(err => next(err));
 });
 
-async function toAuthenticate({ username, password }) {
-    let user = await db.collection('users').findOne({ username });
-    if (!user.isStudent || user.isStudent === 'false') {  
+router.post('/addAlert', function (req, res, next) {
+    console.log("Request /users/addAlert")
+    db.collection('users').update({
+        _id: ObjectId(req.body["user"]["_id"])
+    }, {
+        $set: {
+            filterAlert: req.body["filter"],
+        }
+    })
+});
+
+async function toAuthenticate({
+    username,
+    password
+}) {
+    let user = await db.collection('users').findOne({
+        username
+    });
+    if (!user.isStudent) {
         const oid = new ObjectId(user.idCompany)
-        const company = await db.collection('companies').findOne({_id : oid});
-        console.log(company)
+        const company = await db.collection('companies').findOne({
+            _id: oid
+        });
         user.date_of_creation = company.date_of_creation;
         user.description = company.description;
         user.taille = company.taille;
@@ -113,8 +137,13 @@ async function toAuthenticate({ username, password }) {
         user.isPartner = company.isPartner;
     }
     if (user && bcrypt.compareSync(password, user.hash)) {
-        const { hash, ...userWithoutHash } = user;
-        const token = jwt.sign({ sub: user.id }, config.secret);
+        const {
+            hash,
+            ...userWithoutHash
+        } = user;
+        const token = jwt.sign({
+            sub: user.id
+        }, config.secret);
         return {
             ...userWithoutHash,
             token

@@ -5,7 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 
 import { Offer } from 'src/models/Offer';
 import { CompanyService } from '../../company.service';
-import { SafeStyle,DomSanitizer } from '@angular/platform-browser';
+import { SafeStyle, DomSanitizer } from '@angular/platform-browser';
 import { Company } from 'src/models/Company';
 
 @Component({
@@ -38,8 +38,9 @@ export class OfferDetailComponent implements OnInit {
   }
 
   ngOnInit() {
-    window.scroll(0,0);
-    const idOffer = this.route.snapshot.params['id'];
+    window.scroll(0, 0);
+    this.offerViewService.fillListOffers();
+    const idOffer = this.route.snapshot.params.id;
 
     this.offerSubscription = this.offerViewService.listOffersSubject.subscribe(
       (listOffers: Offer[]) => {
@@ -57,10 +58,10 @@ export class OfferDetailComponent implements OnInit {
 
     this.companyService.getById(this.offer.id_company).subscribe(
       value => {
-          this.company = value;
+        this.company = value;
       },
       error => {
-          console.log('Erreur ! : ' + error);
+        console.log('Erreur ! : ' + error);
       }
     );
 
@@ -75,15 +76,18 @@ export class OfferDetailComponent implements OnInit {
     const percentColors = [
       { pct: 0.0, color: { r: 0xff, g: 0x00, b: 0 } },
       { pct: 0.5, color: { r: 0xff, g: 0xff, b: 0 } },
-      { pct: 1.0, color: { r: 0x00, g: 0xff, b: 0 } } ];
+      { pct: 1.0, color: { r: 0x00, g: 0xff, b: 0 } }];
 
-    for (var i = 1; i < percentColors.length - 1; i++) {
-      if (percentage < percentColors[i].pct) {
-          break;
+    let termine = false;
+    let index = 1;
+    for (let i = 1; i < percentColors.length - 1; i++) {
+      if (percentage < percentColors[i].pct && !termine) {
+        termine = true;
+        index = i;
       }
     }
-    const lower = percentColors[i - 1];
-    const upper = percentColors[i];
+    const lower = percentColors[index - 1];
+    const upper = percentColors[index];
     const range = upper.pct - lower.pct;
     const rangePct = (+percentage - lower.pct) / range;
     const pctLower = 1 - rangePct;

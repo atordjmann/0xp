@@ -13,5 +13,5 @@ export class UserStudent {
     interestDomain: string;
     favoris: string;
     token: string;
-    isStudent: string;
+    isStudent: boolean;
 }

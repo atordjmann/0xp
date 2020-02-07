@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Offer } from '../../models/Offer';
 import { OfferViewService } from './offerView.service';
 import { Subscription } from 'rxjs';
+import { NotificationsService } from '../profile/notification/notifications.service';
 
 @Component({
   selector: 'app-offers',
@@ -10,22 +11,27 @@ import { Subscription } from 'rxjs';
 })
 export class OffersComponent implements OnInit {
 
-  listOffers: Offer[] = [];
-  listArticlesSubscription: Subscription;
+  filteredListOffers: Offer[] = [];
+  filteredListOffersSubscription: Subscription;
   isLoading: boolean;
   isLoadingSubscription: Subscription;
 
-  sortedBy:String;
-  isSortingPopupOpen:Boolean=false;
+  isStudent: boolean;
+  sortedBy: String;
+  isSortingPopupOpen: Boolean = false;
 
-  constructor(private offerViewService: OfferViewService) { }
+  isNotifAdded: Boolean;
+  isNotifAddedSubscription: Subscription;
+
+  constructor(private offerViewService: OfferViewService, private notificationsService: NotificationsService) { }
 
   ngOnInit() {
-    this.sortedBy="matchingScore";
+    this.isStudent = this.notificationsService.currentUser.isStudent;
+    this.sortedBy = 'matchingScore';
     this.offerViewService.fillListOffers();
-    this.listArticlesSubscription = this.offerViewService.listOffersSubject.subscribe(
+    this.filteredListOffersSubscription = this.offerViewService.filteredListOffersSubject.subscribe(
       (listOffers: any[]) => {
-        this.listOffers = listOffers.slice();
+        this.filteredListOffers = listOffers.slice();
       }
     );
     this.offerViewService.emitListOffersSubject();
@@ -34,18 +40,26 @@ export class OffersComponent implements OnInit {
         this.isLoading = isLoading;
       }
     );
+    this.isNotifAddedSubscription = this.notificationsService.isNotifAddedSubject.subscribe(
+      (isNotifAdded: Boolean) => {
+        this.isNotifAdded = isNotifAdded;
+      }
+    );
   }
 
-  openOrClosePopup(){
-    this.isSortingPopupOpen=!this.isSortingPopupOpen;
+  openOrClosePopup() {
+    this.isSortingPopupOpen = !this.isSortingPopupOpen;
   }
-  
-  changeSortBy(key:String){
-    if(key!=this.sortedBy){
-      this.offerViewService.sortArray(this.listOffers,key)
-      this.sortedBy=key;
-      this.isSortingPopupOpen=false;
+
+  changeSortBy(key: String) {
+    if (key != this.sortedBy) {
+      this.offerViewService.sortArray(this.filteredListOffers, key);
+      this.sortedBy = key;
+      this.isSortingPopupOpen = false;
     }
   }
-
+  addAlert() {
+    this.isNotifAdded = true;
+    this.notificationsService.switchIsNotifAdded(this.isNotifAdded);
+  }
 }

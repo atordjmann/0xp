@@ -14,16 +14,21 @@ export class OfferViewService {
     listOffers: Offer[] = [];
     listOffersSubject = new Subject<Offer[]>();
 
+    filteredListOffers: Offer[] = [];
+    filteredListOffersSubject = new Subject<Offer[]>();
+
     isLoading = false;
     isLoadingSubject = new Subject<boolean>();
 
-    customListOffers : Offer[] = [];
+    customListOffers: Offer[] = [];
     customListOffersSubject = new Subject<Offer[]>();
+
+    remunMax = 0
 
     constructor(private httpClient: HttpClient) { }
 
     fillListOffers() {
-        this.emitisLoadingSubject(true);
+        this.emitIsLoadingSubject(true);
         this.httpClient.get<any>(this.apiUrl + '/offres').subscribe(
             (response) => {
                 this.listOffers = [];
@@ -32,8 +37,11 @@ export class OfferViewService {
                     offer.fromHashMap(offerJson);
                     this.listOffers.push(offer);
                 });
+                console.log(this.listOffers)
+                this.filteredListOffers = this.listOffers;
                 this.emitListOffersSubject();
-                this.emitisLoadingSubject(false);
+                this.emitFilteredListOffersSubject();
+                this.emitIsLoadingSubject(false);
             },
             (error) => {
                 console.log('Erreur ! : ' + error);
@@ -42,23 +50,24 @@ export class OfferViewService {
     }
 
     filterListOffers(currentFilter: Filter) {
-        this.emitisLoadingSubject(true);
+        this.emitIsLoadingSubject(true);
         const query = currentFilter.toQuery();
         if (query === '') {
-            this.emitisLoadingSubject(false);
+            this.emitIsLoadingSubject(false);
             return;
         }
 
         this.httpClient.get<any>(this.apiUrl + '/offres/filtered?' + query).subscribe(
             (response) => {
-                this.listOffers = [];
+                this.filteredListOffers = [];
+                console.log('Found ' + response.length + ' offers matching the filter');
                 response.forEach((offerJson) => {
                     const offer = new Offer();
                     offer.fromHashMap(offerJson);
-                    this.listOffers.push(offer);
+                    this.filteredListOffers.push(offer);
                 });
-                this.emitListOffersSubject();
-                this.emitisLoadingSubject(false);
+                this.emitFilteredListOffersSubject();
+                this.emitIsLoadingSubject(false);
             },
             (error) => {
                 console.log('Erreur ! : ' + error);
@@ -68,15 +77,20 @@ export class OfferViewService {
 
     emitListOffersSubject() {
         this.sortArray(this.listOffers, 'matchingScore')
-        this.listOffersSubject.next(this.listOffers.length!==0 ? this.listOffers.slice() : []);
+        this.listOffersSubject.next(this.listOffers.length !== 0 ? this.listOffers.slice() : []);
     }
 
-    emitisLoadingSubject(isLoading: boolean) {
+    emitFilteredListOffersSubject() {
+        this.sortArray(this.filteredListOffers, 'matchingScore')
+        this.filteredListOffersSubject.next(this.filteredListOffers.length !== 0 ? this.filteredListOffers.slice() : []);
+    }
+
+    emitIsLoadingSubject(isLoading: boolean) {
         this.isLoadingSubject.next(isLoading);
     }
 
     emitCustomListOffersSubject() {
-        this.customListOffersSubject.next(this.customListOffers.length!==0 ? this.customListOffers.slice() : []);
+        this.customListOffersSubject.next(this.customListOffers.length !== 0 ? this.customListOffers.slice() : []);
     }
 
     filter(currentFilter: Filter) {
@@ -87,31 +101,23 @@ export class OfferViewService {
         }
     }
 
-    /*getOfferById(id: String) {
-        const offer : Offer = this.listOffers.find(
-            (s) => {
-                return s.id === id;
+    sortArray(array: Offer[], key: String) {
+        if (key == "matchingScore") {
+            array.sort(function (a: Offer, b: Offer) {
+                return +b.matchingScore - +a.matchingScore;
             });
-        return offer;
-    }*/
-
-    sortArray(array : Offer[], key:String){
-        if (key=="matchingScore"){
-            array.sort(function(a:Offer, b:Offer) {
-                return +b.matchingScore - +a.matchingScore; 
+        } else if (key == "remuneration") {
+            array.sort(function (a: Offer, b: Offer) {
+                return +b.remuneration - +a.remuneration;
             });
-        } else if (key=="remuneration"){
-            array.sort(function(a:Offer, b:Offer) {
-                return +b.remuneration - +a.remuneration; 
-            });
-        } else if (key=="created_date"){
-            array.sort(function(a:Offer, b:Offer) {
-                return +b.created_date - +a.created_date; 
+        } else if (key == "created_date") {
+            array.sort(function (a: Offer, b: Offer) {
+                return +b.created_date - +a.created_date;
             });
         }
     }
-    
-    getListOfferByCompanyId(){
+
+    getListOfferByCompanyId() {
         this.httpClient.get<any>(this.apiUrl + '/offres/byCompanyId').subscribe(
             (response) => {
                 this.customListOffers = [];
@@ -130,7 +136,7 @@ export class OfferViewService {
     }
 
     addOffer(offer: Offer) {
-        this.httpClient.post<Offer>(this.apiUrl + '/offres/post',offer).subscribe(
+        this.httpClient.post<Offer>(this.apiUrl + '/offres/post', offer).subscribe(
             (response) => {
                 console.log('offre ajoutée avec succès')
             },
@@ -143,7 +149,7 @@ export class OfferViewService {
 
 
     deleteOffer(id: String) {
-        this.httpClient.delete<String>(this.apiUrl + '/offres/deleteById/'+id).subscribe(
+        this.httpClient.delete<String>(this.apiUrl + '/offres/deleteById/' + id).subscribe(
             (response) => {
                 console.log('Offre ' + id + ' supprimée')
             },
@@ -154,7 +160,7 @@ export class OfferViewService {
 
     }
 
-    editOffer(offer : Offer){
+    editOffer(offer: Offer) {
         this.httpClient.post<Offer>(this.apiUrl + '/offres/update', offer).subscribe(
             (response) => {
                 console.log('Offre ' + offer.id + ' editée')
@@ -164,5 +170,4 @@ export class OfferViewService {
             }
         );
     }
-
 }
