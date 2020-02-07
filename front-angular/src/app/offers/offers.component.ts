@@ -16,16 +16,18 @@ export class OffersComponent implements OnInit {
   isLoading: boolean;
   isLoadingSubscription: Subscription;
 
-  sortedBy:String;
-  isSortingPopupOpen:Boolean=false;
+  isStudent: boolean;
+  sortedBy: String;
+  isSortingPopupOpen: Boolean = false;
 
   isNotifAdded: Boolean;
   isNotifAddedSubscription: Subscription;
 
-  constructor(private offerViewService: OfferViewService, private notificationsService : NotificationsService) { }
+  constructor(private offerViewService: OfferViewService, private notificationsService: NotificationsService) { }
 
   ngOnInit() {
-    this.sortedBy="matchingScore";
+    this.isStudent = this.notificationsService.currentUser.isStudent
+    this.sortedBy = 'matchingScore';
     this.offerViewService.fillListOffers();
     this.filteredListOffersSubscription = this.offerViewService.filteredListOffersSubject.subscribe(
       (listOffers: any[]) => {
@@ -45,19 +47,19 @@ export class OffersComponent implements OnInit {
     );
   }
 
-  openOrClosePopup(){
-    this.isSortingPopupOpen=!this.isSortingPopupOpen;
+  openOrClosePopup() {
+    this.isSortingPopupOpen = !this.isSortingPopupOpen;
   }
-  
-  changeSortBy(key:String){
-    if(key!=this.sortedBy){
-      this.offerViewService.sortArray(this.filteredListOffers,key)
-      this.sortedBy=key;
-      this.isSortingPopupOpen=false;
+
+  changeSortBy(key: String) {
+    if (key != this.sortedBy) {
+      this.offerViewService.sortArray(this.filteredListOffers, key);
+      this.sortedBy = key;
+      this.isSortingPopupOpen = false;
     }
   }
-  addAlert(){
-    this.isNotifAdded=true;
-    this.notificationsService.switchIsNotifAdded(this.isNotifAdded)
+  addAlert() {
+    this.isNotifAdded = true;
+    this.notificationsService.switchIsNotifAdded(this.isNotifAdded);
   }
 }

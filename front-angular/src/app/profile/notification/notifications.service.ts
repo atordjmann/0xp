@@ -9,15 +9,15 @@ import { environment } from 'src/environments/environment';
 @Injectable()
 export class NotificationsService {
   apiUrl = environment.apiUrl;
-  
-  currentUser : User;
 
-  isNotifAdded : Boolean = false;
+  currentUser: User;
+
+  isNotifAdded: Boolean = false;
   isNotifAddedSubject = new Subject<Boolean>();
 
-  currentFilterInOffer:Filter = new Filter();
+  currentFilterInOffer: Filter = new Filter();
 
-  constructor(private httpClient : HttpClient, private authenticationService : AuthenticationService) {
+  constructor(private httpClient: HttpClient, private authenticationService: AuthenticationService) {
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
   }
 
@@ -26,28 +26,25 @@ export class NotificationsService {
   }
 
 
-  switchIsNotifAdded(isNotifAdded : Boolean){
+  switchIsNotifAdded(isNotifAdded: Boolean) {
     this.isNotifAdded = isNotifAdded;
     this.emitIsNotifAddedSubject()
   }
 
-  majFilterForNotif(currentFilter :Filter){
-    this.currentFilterInOffer=currentFilter
+  majFilterForNotif(currentFilter: Filter) {
+    this.currentFilterInOffer = currentFilter
     this.addNotif();
   }
 
-  addNotif(){
-    console.log("ADDING NOTIF")
-    console.log(this.currentFilterInOffer)
-    console.log(this.currentUser)
+  addNotif() {
 
-    this.httpClient.post<Filter>(this.apiUrl + '/users/addAlert', {"filter":this.currentFilterInOffer, "user":this.currentUser}).subscribe(
-        (response) => {
-            console.log('Alerte ajoutée');
-        },
-        (error) => {
-            console.log('Erreur ! : ' + error);
-        }
+    this.httpClient.post<Filter>(this.apiUrl + '/users/addAlert', { "filter": this.currentFilterInOffer, "user": this.currentUser }).subscribe(
+      (response) => {
+        console.log('Alerte ajoutée');
+      },
+      (error) => {
+        console.log('Erreur ! : ' + error);
+      }
     );
   }
 }
