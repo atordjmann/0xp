@@ -47,7 +47,8 @@ import localeFr from '@angular/common/locales/fr';
 registerLocaleData(localeFr, 'fr');
 import { LOCALE_ID } from '@angular/core';
 import { EntreprisesComponent } from './entreprises/entreprises.component';
-import { DetailAvisComponent } from './entreprises/detail-avis/detail-avis.component';
+import { DetailCompanyComponent } from './entreprises/detail-company/detail-company.component';
+import { AvisCompanyComponent } from './entreprises/avis-company/avis-company.component';
 
 @NgModule({
   declarations: [
@@ -70,7 +71,8 @@ import { DetailAvisComponent } from './entreprises/detail-avis/detail-avis.compo
     FaqComponent,
     AddOfferComponent,
     EntreprisesComponent,
-    DetailAvisComponent,
+    DetailCompanyComponent,
+    AvisCompanyComponent,
   ],
   imports: [
     BrowserModule,

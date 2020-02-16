@@ -1,0 +1,31 @@
+.boxContainer {
+    height: max-content; //15vh;
+    padding: 1vh 3vw;
+    margin: auto;
+    box-shadow: #00000447 0px 2px 3px;
+    overflow: hidden;
+    border-radius: 10px;
+    align-items: center;
+    border: 0.5px #00000052 solid;
+    position: relative;
+    width: max-content;
+}
+
+.form-group{
+    padding:10px;
+}
+
+button {
+    border: none;
+    border-radius: 25px;
+    padding: 10px 20px;
+    background-color: var(--color-blue-medium);
+    color:white;
+    cursor:pointer;
+}
+
+textarea{
+    min-height: 20vh;
+    min-width: 30vw;
+    font-family: MadeRegular, Calibri;
+}

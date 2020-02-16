@@ -1,4 +1,4 @@
-import { DetailAvisComponent } from './entreprises/detail-avis/detail-avis.component';
+import { DetailCompanyComponent } from './entreprises/detail-company/detail-company.component';
 import { EntreprisesComponent } from './entreprises/entreprises.component';
 import { FaqComponent } from './faq/faq.component';
 import { RegisterFormComponent } from './logging/register-form/register-form.component';
@@ -22,7 +22,7 @@ const routes: Routes = [
   { path: 'faq', component: FaqComponent },
   { path: 'addOffer', component: AddOfferComponent },
   { path: 'companies', component: EntreprisesComponent},
-  { path: 'companies/:id', component: DetailAvisComponent},
+  { path: 'companies/:id', component: DetailCompanyComponent},
   { path: '**', redirectTo: 'home'}
 ];
 

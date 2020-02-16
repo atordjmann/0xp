@@ -4,11 +4,11 @@ import { ActivatedRoute } from '@angular/router';
 import { CompanyService } from 'src/app/company.service';
 
 @Component({
-  selector: 'app-detail-avis',
-  templateUrl: './detail-avis.component.html',
-  styleUrls: ['./detail-avis.component.scss']
+  selector: 'app-company',
+  templateUrl: './detail-company.component.html',
+  styleUrls: ['./detail-company.component.scss']
 })
-export class DetailAvisComponent implements OnInit {
+export class DetailCompanyComponent implements OnInit {
 
   companyId: string;
   company: Company;
