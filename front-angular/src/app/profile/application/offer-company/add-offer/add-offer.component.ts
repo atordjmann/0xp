@@ -80,6 +80,7 @@ export class AddOfferComponent implements OnInit {
     }
   ];
   domainsForm : FormGroup;
+  modalSave = false;
 
   constructor(private offerViewService : OfferViewService) { }
 
@@ -133,5 +134,9 @@ export class AddOfferComponent implements OnInit {
     } else {
       this.offerOnForm.domains = selected;
     }
+  }
+
+  openOrCloseModalSave() {
+    this.modalSave = !this.modalSave;
   }
 }
