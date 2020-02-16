@@ -46,6 +46,7 @@ import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
 registerLocaleData(localeFr, 'fr');
 import { LOCALE_ID } from '@angular/core';
+import { FaqQuestionComponent } from './faq/faq-question/faq-question.component';
 
 @NgModule({
   declarations: [
@@ -67,6 +68,7 @@ import { LOCALE_ID } from '@angular/core';
     AlertComponent,
     FaqComponent,
     AddOfferComponent,
+    FaqQuestionComponent,
   ],
   imports: [
     BrowserModule,
