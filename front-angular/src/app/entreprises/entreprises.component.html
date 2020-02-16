@@ -9,8 +9,10 @@
     </div>
     <div class="list-companies">
         <div *ngFor="let company of companiesList" class="company-box">
-            <p class="company-name">{{company.name}}</p>
-            <img class="img-company" src="{{company.srcImage}}">
+            <div routerLink="/companies/{{company._id}}">
+                <p class="company-name">{{company.name}}</p>
+                <img class="img-company" src="{{company.srcImage}}">
+            </div>
         </div>
     </div>
 
