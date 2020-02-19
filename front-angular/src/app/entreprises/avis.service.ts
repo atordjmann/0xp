@@ -13,10 +13,11 @@ export class AvisService {
         return this.http.get<Avis[]>(this.apiUrl + '/avis');
     }
 
-    add(description: string, idCompany: string) {
+    add(description: string, note: string, idCompany: string) {
         let avis = new Avis();
         avis.description = description;
         avis.idCompany = idCompany;
+        avis.note = note
         return this.http.post(this.apiUrl + '/avis', avis);
     }
 
@@ -25,6 +26,6 @@ export class AvisService {
     }
 
     getAllByCompanyId(id: any) {
-        return this.http.get<Avis>(this.apiUrl + '/avis/company' + id);
+        return this.http.get<Avis[]>(this.apiUrl + '/avis/company/' + id);
     }
 }

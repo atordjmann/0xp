@@ -1,7 +1,16 @@
-<div class="avis-preview"></div>
+<div class="avis-preview">
+  <div *ngFor="let avis of avisList" class="avis-box boxContainer">
+    <p class="avis-description">Note :{{avis.note}}</p>
+    <p class="avis-description">{{avis.description}}</p>
+  </div>
+</div>
 
 <div class="form-avis boxContainer" >
     <form [formGroup]="avisForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="note">Note sur 5</label>
+          <input type="number" formControlName="note" min="0" max="5" [ngClass]="{'is-invalid': submitted && f.note.errors}"/>
+        </div>
         <div class="form-group">
           <textarea type="text" formControlName="avis" [ngClass]="{'is-invalid': submitted && f.avis.errors}">
           </textarea>

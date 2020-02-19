@@ -25,10 +25,9 @@ router.get('/:id', function(req, res, next) {
 });
 
 router.get('/company/:id', function(req, res, next) {
-    const oid = new ObjectId(req.params.id)
-    db.collection('avis').findOne({_id : oid})
-        .then(company => company ? res.json(company) : res.sendStatus(404))
-        .catch(err => next(err));
+    db.collection('avis').find({idCompany : req.params.id}).toArray(function(err, results){
+        res.json(results)
+    })
 });
 
 router.post('/', function(req, res, next) {    

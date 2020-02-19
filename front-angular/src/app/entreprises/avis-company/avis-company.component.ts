@@ -4,6 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { AlertService } from 'src/app/logging/services';
 import { AvisService } from '../avis.service';
 import { first } from 'rxjs/operators';
+import { Avis } from 'src/models';
 
 @Component({
   selector: 'app-avis-company',
@@ -18,6 +19,7 @@ export class AvisCompanyComponent implements OnInit {
   loading = false;
   submitted = false;
   returnUrl: string;
+  avisList: Avis[];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -26,12 +28,22 @@ export class AvisCompanyComponent implements OnInit {
     private alertService: AlertService,
     private avisService: AvisService
   ) {}
-
+//TODO : étoiles au lieu de l'imput, ou au moins un select plus propre.
   ngOnInit() {
       this.avisForm = this.formBuilder.group({
-          avis: ['', Validators.required]
+          avis: ['', Validators.required],
+          note: ['', Validators.required]
       });
-      this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+      this.returnUrl = this.router.url;
+
+      this.avisService.getAllByCompanyId(this.idCompany).subscribe(
+        value => {
+          this.avisList = value;
+        },
+        error => {
+            console.log('Erreur ! : ' + error);
+        }
+      );
   }
 
   get f() { return this.avisForm.controls; }
@@ -43,11 +55,13 @@ export class AvisCompanyComponent implements OnInit {
           return;
       }
 
-      this.avisService.add(this.f.avis.value, this.idCompany)
+      this.avisService.add(this.f.avis.value, this.f.note.value, this.idCompany)
           .pipe(first())
           .subscribe(
               data => {
-                  this.router.navigate([this.returnUrl]);
+                  //this.router.navigate([this.returnUrl]);
+                  // TODO rafraichir juste le composant
+                  window.location.reload();
               },
               error => {
                   this.alertService.error(error);

@@ -29,6 +29,7 @@ function authenticate(req, res, next) {
 }
 
 router.post('/register', function(req, res, next) {    
+    // TODO verification
     /*if (db.collection('users').findOne({ username: req.body.username })) {
         throw 'Username "' + req.body.username + '" is already taken';
     }*/
@@ -44,7 +45,6 @@ router.post('/register', function(req, res, next) {
         user.hash = bcrypt.hashSync(req.body.password, 10);
     }
     // save user
-    //TODO: séparer les login de compagnie et les infos de l'entreprise dans 2 collections différentes.
     if(!req.body.isStudent){
         db.collection('companies').insertOne(company, function(err){
             if (err) return;
