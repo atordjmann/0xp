@@ -1,12 +1,13 @@
 import { CompanyService } from './../company.service';
 import { Component, OnInit } from '@angular/core';
-import { Company } from 'src/models';
+import {Company} from '../../models';
 
 @Component({
   selector: 'app-entreprises',
   templateUrl: './entreprises.component.html',
   styleUrls: ['./entreprises.component.scss']
 })
+
 export class EntreprisesComponent implements OnInit {
 
   companiesList: Company[];
