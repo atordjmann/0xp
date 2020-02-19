@@ -11,6 +11,7 @@ img{
     padding: 1vh 2vw 1vh 5vw;
     border-radius:50px;
     box-shadow: #00000447 0px 0px 4px;
+    position: relative;
     
     input{
         height: 6vh;
@@ -141,3 +142,8 @@ img{
     padding: 0.5em;
 }
 
+.notifOnFilter{
+    position: absolute;
+    right: -5vw;
+    width:2vw;
+}
