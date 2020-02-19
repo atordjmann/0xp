@@ -14,6 +14,5 @@ export class AppComponent implements OnInit {
   constructor(private offerViewService : OfferViewService) {}
 
   ngOnInit() {
-    this.offerViewService.fillListOffers();
   }
 }
