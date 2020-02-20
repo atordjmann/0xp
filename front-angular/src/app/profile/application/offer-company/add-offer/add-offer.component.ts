@@ -11,6 +11,8 @@ import * as _moment from 'moment';
 // tslint:disable-next-line:no-duplicate-imports
 import {default as _rollupMoment, Moment} from 'moment';
 import { MatDatepicker } from '@angular/material';
+import { AuthenticationService } from 'src/app/logging/services';
+import { User } from 'src/models/user';
 const moment = _rollupMoment || _moment;
 
 export const MY_FORMATS = {
@@ -81,10 +83,13 @@ export class AddOfferComponent implements OnInit {
   ];
   domainsForm : FormGroup;
   modalSave = false;
+ 
+  currentUser: any;
+  constructor(private offerViewService : OfferViewService, private authenticationService: AuthenticationService) { 
+    this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
+  }
 
-  constructor(private offerViewService : OfferViewService) { }
-
-  ngOnInit() {
+  ngOnInit() { 
     if(this.offreEdited){
       this.offerOnForm=this.offreEdited
       this.isEdition=true;
@@ -100,6 +105,12 @@ export class AddOfferComponent implements OnInit {
   }
 
   addOrEditOffer() {
+    this.offerOnForm.company = this.currentUser.name;
+    this.offerOnForm.id_company = this.currentUser.idCompany;
+    //this.offerOnForm.srcImgCompany = ??
+    console.log(this.currentUser)
+
+
     if(!this.isEdition){
       this.offerOnForm.start_date = ""+this.dateFromDate.getTime()
       this.offerOnForm.created_date=""+(new Date()).getTime() //TODO : Changer les types pour que rien soit cassé même si ça fonctionne

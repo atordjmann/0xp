@@ -1,7 +1,7 @@
 <div *ngIf="!isEdition"><img class="bg" src="../../../../../assets/images/background-test.jpg"/></div>
 
 <div class="offer-sheet">
-    <img class="button closeLogo" (click)="openOrCloseModalSave()" src="../../../../assets/images/cross-light.svg">
+    <img class="button closeLogo" *ngIf="!isEdition" (click)="openOrCloseModalSave()" src="../../../../assets/images/cross-light.svg">
 
     <div class="modalSave" *ngIf="modalSave">
         <h3>Voulez-vous vraiment abandonner l'édition de l'offre ?</h3>
@@ -127,8 +127,8 @@
     </div>
     <br/>
 
-    <h3 class="button btn-success" *ngIf="!isEdition" (click)="addOrEditOffer()">Ajouter</h3>
-    <h3 class="button btn-success" *ngIf="isEdition" (click)="addOrEditOffer()">Modifier</h3>
+    <h3 class="button btn-success" *ngIf="!isEdition" (click)="addOrEditOffer()" routerLink="/profile">Ajouter</h3>
+    <h3 class="button btn-success" *ngIf="isEdition" (click)="addOrEditOffer()" routerLink="/profile">Modifier</h3>
 </div>
 
 
