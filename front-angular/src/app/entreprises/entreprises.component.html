@@ -5,7 +5,7 @@
 
 
     <div class="filterText"> 
-        <input class="search-company" placeholder="Rechercher une compagnie">
+        <input class="search-company" placeholder="Rechercher une compagnie" (keyup)="filter($event)">
     </div>
     <div class="list-companies">
         <div *ngFor="let company of companiesList" class="company-box">

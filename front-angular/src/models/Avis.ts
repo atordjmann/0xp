@@ -2,5 +2,9 @@ export class Avis {
     id: string;
     idCompany: string;
     description: string;
-    note: string;
+    noteGenerale: string;
+    noteInteret: string;
+    noteAmbiance: string;
+    noteEncadrt: string;
+
 }

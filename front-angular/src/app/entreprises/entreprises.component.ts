@@ -11,6 +11,7 @@ import {Company} from '../../models';
 export class EntreprisesComponent implements OnInit {
 
   companiesList: Company[];
+  unfilteredCompaniesList: Company[];
   constructor(public companyService: CompanyService) { }
 
   ngOnInit() {
@@ -19,11 +20,21 @@ export class EntreprisesComponent implements OnInit {
     this.companyService.getAll().subscribe(
       value => {
           this.companiesList = value;
+          this.unfilteredCompaniesList = value;
       },
       error => {
           console.log('Erreur ! : ' + error);
       }
     );
+  }
+
+  filter(input){
+    this.companiesList = this.unfilteredCompaniesList;
+    const requete = input.target.value;
+    let list = this.unfilteredCompaniesList.filter((el) => {
+      return el.name.toLowerCase().indexOf(requete.toLowerCase()) !== -1;
+    });
+    this.companiesList = list;
   }
 
 

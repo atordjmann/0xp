@@ -1,3 +1,4 @@
+import { FormGroup } from '@angular/forms';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
@@ -13,11 +14,14 @@ export class AvisService {
         return this.http.get<Avis[]>(this.apiUrl + '/avis');
     }
 
-    add(description: string, note: string, idCompany: string) {
+    add(form: any, idCompany: string) {
         let avis = new Avis();
-        avis.description = description;
+        avis.description = form.avis.value;
         avis.idCompany = idCompany;
-        avis.note = note
+        avis.noteGenerale = form.noteGenerale.value;
+        avis.noteInteret = form.noteInteret.value;
+        avis.noteAmbiance = form.noteAmbiance.value;
+        avis.noteEncadrt = form.noteEncadrt.value;
         return this.http.post(this.apiUrl + '/avis', avis);
     }
 

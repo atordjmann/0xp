@@ -4,7 +4,7 @@ var app = express();
 var router = express.Router();
 var bodyParser = require('body-parser');
 router.use(bodyParser.json());
-const Company = require("./company.model");
+const Avis = require("./avis.model");
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 var ObjectId = require('mongodb').ObjectId

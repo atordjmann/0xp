@@ -1,3 +1,5 @@
+import { User } from './../../../models/user';
+import { AuthenticationService } from './../../logging/services/authentication.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -20,19 +22,26 @@ export class AvisCompanyComponent implements OnInit {
   submitted = false;
   returnUrl: string;
   avisList: Avis[];
+  currentUser: User;
 
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
     private alertService: AlertService,
-    private avisService: AvisService
-  ) {}
+    private avisService: AvisService,
+    private authenticationService: AuthenticationService
+  ) {
+    this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
+  }
 //TODO : étoiles au lieu de l'imput, ou au moins un select plus propre.
   ngOnInit() {
       this.avisForm = this.formBuilder.group({
           avis: ['', Validators.required],
-          note: ['', Validators.required]
+          noteGenerale: ['', Validators.required],
+          noteInteret: ['', Validators.required],
+          noteAmbiance: ['', Validators.required],
+          noteEncadrt: ['', Validators.required]
       });
       this.returnUrl = this.router.url;
 
@@ -55,7 +64,7 @@ export class AvisCompanyComponent implements OnInit {
           return;
       }
 
-      this.avisService.add(this.f.avis.value, this.f.note.value, this.idCompany)
+      this.avisService.add(this.f, this.idCompany)
           .pipe(first())
           .subscribe(
               data => {
