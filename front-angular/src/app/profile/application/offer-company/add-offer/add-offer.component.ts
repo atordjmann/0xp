@@ -12,6 +12,8 @@ import * as _moment from 'moment';
 import { default as _rollupMoment, Moment } from 'moment';
 import { MatDatepicker } from '@angular/material';
 import { SelectOption } from 'src/models/SelectOption';
+import { AuthenticationService } from 'src/app/logging/services';
+import { User } from 'src/models/user';
 const moment = _rollupMoment || _moment;
 
 export const MY_FORMATS = {
@@ -62,16 +64,20 @@ export class AddOfferComponent implements OnInit {
   softSkillForm: FormGroup;
 
   listDomains: SelectOption[];
-  domainsForm: FormGroup;
+  domainsForm : FormGroup;
+  modalSave = false;
+ 
+  currentUser: any;
+  constructor(private offerViewService : OfferViewService, private authenticationService: AuthenticationService) { 
+    this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
+  }
 
-  constructor(private offerViewService: OfferViewService) { }
-
-  ngOnInit() {
-    if (this.offreEdited) {
-      this.offerOnForm = this.offreEdited;
-      this.isEdition = true;
-      this.locationCity = this.offerOnForm.location.split(',')[0];
-      this.locationCountry = this.offerOnForm.location.split(',')[1].trim();
+  ngOnInit() { 
+    if(this.offreEdited){
+      this.offerOnForm=this.offreEdited
+      this.isEdition=true;
+      this.locationCity = this.offerOnForm.location.split(",")[0]
+      this.locationCountry = this.offerOnForm.location.split(",")[1].trim()
     }
     fetch(this.offerViewService.apiUrl + '/select/sectors')
       .then(response => {
@@ -103,10 +109,16 @@ export class AddOfferComponent implements OnInit {
   }
 
   addOrEditOffer() {
-    if (!this.isEdition) {
-      this.offerOnForm.start_date = '' + this.dateFromDate.getTime();
-      this.offerOnForm.created_date = '' + (new Date()).getTime(); // TODO : Changer les types pour que rien soit cassé même si ça fonctionne
-      this.offerOnForm.location = this.locationCity + ', ' + this.locationCountry;
+    this.offerOnForm.company = this.currentUser.name;
+    this.offerOnForm.id_company = this.currentUser.idCompany;
+    //this.offerOnForm.srcImgCompany = ??
+    console.log(this.currentUser)
+
+
+    if(!this.isEdition){
+      this.offerOnForm.start_date = ""+this.dateFromDate.getTime()
+      this.offerOnForm.created_date=""+(new Date()).getTime() //TODO : Changer les types pour que rien soit cassé même si ça fonctionne
+      this.offerOnForm.location=this.locationCity+", "+this.locationCountry
       this.offerViewService.addOffer(this.offerOnForm);
     } else {
       this.offerOnForm.start_date = '' + this.dateFromDate.getTime();
@@ -137,5 +149,9 @@ export class AddOfferComponent implements OnInit {
     } else {
       this.offerOnForm.domains = selected;
     }
+  }
+
+  openOrCloseModalSave() {
+    this.modalSave = !this.modalSave;
   }
 }

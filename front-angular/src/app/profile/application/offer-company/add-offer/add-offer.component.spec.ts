@@ -23,3 +23,4 @@ describe('AddOfferComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+

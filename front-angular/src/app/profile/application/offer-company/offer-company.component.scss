@@ -14,6 +14,9 @@
     margin: auto;
     margin-top: -10vh; 
     padding:2%;
+    position:sticky;
+    top:20vh;
+    left:35vw;
 }
 
 .btn
@@ -99,14 +102,14 @@ h2,h3, h4, p {padding:0;margin:0;}
 }
 
 .modaleEdition{
-    position: absolute;
-    left: 15vw;
+    position: fixed;
+    left: 10%;
     top: 12vh;
     height: 80vh;
     overflow-y: scroll;
-    width: 70vw;
-    background-color: white;
+    width: 80%;
     box-shadow: var(--shadow-light);
+    background-color: #F5F5F5;
 
     .closeLogo{
         width: 1vw;
