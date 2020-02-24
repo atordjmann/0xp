@@ -44,6 +44,12 @@
     display: flex;
     justify-content: space-between;
     z-index: 1;
+    margin-bottom: 1vh;
+
+    &:hover {
+        transform: scale(1.005);
+        background-color: white;
+    }
 }
 
 .infos
@@ -57,6 +63,16 @@
 }
 
 h2,h3, h4, p {padding:0;margin:0;}
+
+.flex
+{
+    display: flex;
+
+    .item
+    {
+        width:10vw;
+    }
+}
 
 .modify
 {
@@ -93,9 +109,9 @@ h2,h3, h4, p {padding:0;margin:0;}
 
 .addOffer
 {
-    width:20%;
+    width:15%;
     align-items: center;
-    margin-right: 0;
+    margin-right: 2vw;
     margin-left: auto;
     justify-content: space-between;
     margin-bottom: 2vh;
