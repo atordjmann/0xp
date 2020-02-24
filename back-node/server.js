@@ -29,12 +29,14 @@ var OffreController = require('./controllers/OffreController');
 var UserController = require('./controllers/UserController');
 var CompanyController = require('./controllers/CompanyController');
 var SelectController = require('./controllers/SelectController');
+var AvisController = require('./controllers/AvisController')
 
 // Set our routes
 app.use('/offres', OffreController);
 app.use('/users', UserController);
 app.use('/companies', CompanyController);
 app.use('/select', SelectController);
+app.use('/avis', AvisController);
 
 // Handle 404
 app.use(function (req, res) {
