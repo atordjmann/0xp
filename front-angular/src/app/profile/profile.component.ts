@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class ProfileComponent implements OnInit {
 
-  currentUser: User;
+  currentUser: any;
   isStudent: boolean;
   showProfile: boolean;
   showCandidatures: boolean;
@@ -54,9 +54,10 @@ export class ProfileComponent implements OnInit {
       const date = new Date(this.profile.date_of_creation);
       this.profile.date_of_creation = date.toLocaleDateString();
     }
+    console.log(this.currentUser);
     this.profile.photo = this.isStudent ?
       'https://i.pinimg.com/originals/aa/5a/27/aa5a270fc268cb82c66ef12e6def5a09.jpg' :
-      'https://www.solutions-numeriques.com/wp-content/uploads/2016/10/sopra-steria1.png';
+      this.currentUser.srcImage;
   }
 
   logout() {
