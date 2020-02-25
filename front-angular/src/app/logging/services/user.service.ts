@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 
-import { UserStudent } from '../../../models';
+import { UserCompany, UserStudent } from '../../../models';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
@@ -20,5 +20,10 @@ export class UserService {
 
     delete(id: string) {
         return this.http.delete(this.apiUrl + '/users/' + id);
+    }
+
+    update(user: any){
+        console.log(user);
+        return this.http.post(this.apiUrl + '/users/update/' + user.id, user);
     }
 }

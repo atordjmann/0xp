@@ -1,18 +1,68 @@
-<div *ngIf="type">
-    <p><span class="label">Nom : </span>{{details.name}}</p>
-    <p><span class="label">Prénom : </span>{{details.firstName}}</p>
-    <p><span class="label">Date de naissance : </span>{{details.dateBirth}}</p>
-    <p><span class="label">Email : </span>{{details.contactMail}}</p>
-    <p><span class="label">Numéro de téléphone : </span>{{details.contactTel}}</p>
-    <p><span class="label">location : </span>{{details.location}}</p>
+<div *ngIf="!isEdition" class="button flexRow editProfile" (click)="editionOnOff()">
+    <p>Editer le profil</p>
+    <img class="modify" src="../../../assets/images/edit.svg">
 </div>
+
+<!--Eleve-->
+<div *ngIf="type">
+    <div *ngIf="!isEdition">
+        <p><span class="label">Nom : </span>{{details.name}}</p>
+        <p><span class="label">Prénom : </span>{{details.firstName}}</p>
+        <p><span class="label">Date de naissance : </span>{{details.dateBirth}}</p>
+        <p><span class="label">Email : </span>{{details.contactMail}}</p>
+        <p><span class="label">Numéro de téléphone : </span>{{details.contactTel}}</p>
+        <p><span class="label">Localisation : </span>{{details.location}}</p>
+    </div>
+    <div *ngIf="isEdition">
+        <img class="button closeLogo" (click)="editionOnOff()" src="../../../assets/images/cross-light.svg">
+        <div class="center">
+            <mat-form-field class="center title">
+                <input matInput placeholder="Nom" [(ngModel)]="details.name">
+                <input matInput placeholder="Nom" [(ngModel)]="details.firstName">
+            </mat-form-field>
+        </div>
+    </div>
+</div>
+
+<!--Entreprise-->
 <div *ngIf="!type">
-    <p><span class="label">Nom de l'entreprise : </span>{{details.name}}</p>
-    <p><span class="label">Date de création : </span>{{details.date_of_creation}}</p>
-    <p><span class="label">Description : </span>{{details.description}}</p>
-    <p><span class="label">Taille : </span>{{details.taille}}</p>
-    <p><span class="label">Contact : </span>{{details.contact}}</p>
-    <p><span class="label">location : </span>{{details.location}}</p>
+    <div *ngIf="!isEdition">
+        <p><span class="label">Nom de l'entreprise : </span>{{details.name}}</p>
+        <p><span class="label">Date de création : </span>{{details.date_of_creation}}</p>
+        <p><span class="label">Description : </span>{{details.description}}</p>
+        <p><span class="label">Taille : </span>{{details.taille}}</p>
+        <p><span class="label">Contact : </span>{{details.contact}}</p>
+        <p><span class="label">Localisation : </span>{{details.location}}</p>
+    </div>
+    <div *ngIf="isEdition">
+        <img class="button closeLogo" (click)="editionOnOff()" src="../../../assets/images/cross-light.svg">
+        <h1 class="center">Edition du Profil</h1>
+        <br/>
+        <div class="center">
+            <mat-form-field class="center title">
+                <input matInput placeholder="Nom de l'Entreprise" [(ngModel)]="details.name">
+            </mat-form-field>
+        </div>
+        <div class="center">
+            <mat-form-field class="center">
+                <input matInput placeholder="Date de création" [(ngModel)]="details.date_of_creation">    
+            </mat-form-field>
+            <mat-form-field class="center">
+                <input matInput placeholder="Taille" [(ngModel)]="details.taille">    
+            </mat-form-field>
+            <mat-form-field class="center">
+                <input matInput placeholder="Localisation" [(ngModel)]="details.location">    
+            </mat-form-field>
+        </div>
+        <ckeditor [editor]="editor" [(ngModel)]="details.description"></ckeditor>
+        <div class="center">
+            <mat-form-field class="center title">
+                <input matInput placeholder="Contact" [(ngModel)]="details.contact">
+            </mat-form-field>
+        </div>
+
+        <h3 class="button btn-success" (click)="updateProfile()" routerLink="/profile">Modifier</h3>
+    </div>
 </div>
 
 
