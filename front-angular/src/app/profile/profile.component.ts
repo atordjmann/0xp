@@ -19,7 +19,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   profile: any;
 
   constructor(private authenticationService: AuthenticationService, private globalService: GlobalService,
-              private router: Router) {
+    private router: Router) {
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
   }
 
@@ -56,9 +56,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
       this.profile.date_of_creation = date.toLocaleDateString();
     }
     console.log(this.currentUser);
-    this.profile.photo = this.isStudent ?
-      'https://i.pinimg.com/originals/aa/5a/27/aa5a270fc268cb82c66ef12e6def5a09.jpg' :
-      this.currentUser.srcImage;
+    this.profile.photo = this.currentUser.srcImage;
     this.globalService.switchIsProfilOpen(true);
   }
 
