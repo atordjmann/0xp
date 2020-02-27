@@ -139,7 +139,6 @@ router.post('/post', function (req, res) {
     console.log('post')
     //console.log(req.body);
     req.body.id_company = mongoose.Types.ObjectId(req.body.id_company);
-    console.log(req.body)
     db.collection('offers').insertOne(req.body);
     //On check si quelqu'un attendait une offre de ce type
     notificationModule.checkNotifForAllUsers(req.body)
