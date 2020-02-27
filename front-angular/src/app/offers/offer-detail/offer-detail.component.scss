@@ -54,12 +54,14 @@
     margin: 25px;  
 }
 
-button{
-    color: white;
-    border: none;
-    border-radius: 20px;
-    background-color: var(--color-blue-medium);
+.button{
     padding: 10px 20px;
+    width: fit-content;
+    margin: auto;
+}
+
+.button:hover {
+    text-decoration: underline;
 }
 
 .banner h2, h4
