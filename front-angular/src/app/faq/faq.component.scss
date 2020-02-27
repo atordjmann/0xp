@@ -3,6 +3,15 @@
     margin: auto;
 }
 
+h1 {
+    margin: 20vh auto 10vh auto;
+}
+
+h2 {
+    width: 80vw;
+    margin: 5vh auto;
+}
+
 table {
     border-collapse: collapse;
 }
@@ -10,4 +19,8 @@ table {
 td {
     border: 0.5px #00000052 solid;
     padding: 10px;
+}
+
+.questions {
+    margin-bottom: 15vh;
 }

@@ -33,51 +33,22 @@
     </ul>
 </div>
 
-<app-faq-question [question]="questions[0]" [answer]="answers[0]"></app-faq-question>
-<app-faq-question [question]="questions[1]" [answer]="answers[1]"></app-faq-question>
-<app-faq-question [question]="questions[2]" [answer]="answers[2]"></app-faq-question>
-<app-faq-question [question]="questions[3]" [answer]="answers[3]"></app-faq-question>
-<app-faq-question [question]="questions[4]" [answer]="answers[4]"></app-faq-question>
-<app-faq-question [question]="questions[5]" [answer]="answers[5]"></app-faq-question>
-<app-faq-question [question]="questions[6]" [answer]="answers[6]"></app-faq-question>
-<app-faq-question [question]="questions[7]" [answer]="answers[7]"></app-faq-question>
+<div class="questions">
+    <h2>Général</h2>
+    <app-faq-question *ngFor="let el of general" [question]="el.quest" [answer]="el.answ"></app-faq-question>
 
-<h2 class="texte">Questions - Réponses Stages 1A</h2>
+    <h2>Stages 1A</h2>
+    <app-faq-question *ngFor="let el of stages1a" [question]="el.quest" [answer]="el.answ"></app-faq-question>
 
-<app-faq-question [question]="questions[8]" [answer]="answers[8]"></app-faq-question>
-<app-faq-question [question]="questions[9]" [answer]="answers[9]"></app-faq-question>
-<app-faq-question [question]="questions[10]" [answer]="answers[10]"></app-faq-question>
+    <h2>Stages 2A</h2>
+    <app-faq-question *ngFor="let el of stages2a" [question]="el.quest" [answer]="el.answ"></app-faq-question>
 
-<h2 class="texte">Questions - Réponses Stages 2A</h2>
+    <h2>Stages TFE</h2>
+    <app-faq-question *ngFor="let el of stagestfe" [question]="el.quest" [answer]="el.answ"></app-faq-question>
 
-<app-faq-question [question]="questions[11]" [answer]="answers[11]"></app-faq-question>
-<app-faq-question [question]="questions[12]" [answer]="answers[12]"></app-faq-question>
-<app-faq-question [question]="questions[13]" [answer]="answers[13]"></app-faq-question>
-<app-faq-question [question]="questions[14]" [answer]="answers[14]"></app-faq-question>
-<app-faq-question [question]="questions[15]" [answer]="answers[15]"></app-faq-question>
-<app-faq-question [question]="questions[16]" [answer]="answers[16]"></app-faq-question>
-<app-faq-question [question]="questions[17]" [answer]="answers[17]"></app-faq-question>
+    <h2>Double Diplôme sortant</h2>
+    <app-faq-question *ngFor="let el of ddsortants" [question]="el.quest" [answer]="el.answ"></app-faq-question>
 
-<h2 class="texte">Questions - Réponses Stages TFE</h2>
-
-<app-faq-question [question]="questions[18]" [answer]="answers[18]"></app-faq-question>
-<app-faq-question [question]="questions[19]" [answer]="answers[19]"></app-faq-question>
-<app-faq-question [question]="questions[20]" [answer]="answers[20]"></app-faq-question>
-<app-faq-question [question]="questions[21]" [answer]="answers[21]"></app-faq-question>
-<app-faq-question [question]="questions[22]" [answer]="answers[22]"></app-faq-question>
-<app-faq-question [question]="questions[23]" [answer]="answers[23]"></app-faq-question>
-<app-faq-question [question]="questions[24]" [answer]="answers[24]"></app-faq-question>
-
-<h2 class="texte">Questions - Réponses Double Diplôme sortant</h2>
-
-<app-faq-question [question]="questions[25]" [answer]="answers[25]"></app-faq-question>
-<app-faq-question [question]="questions[26]" [answer]="answers[26]"></app-faq-question>
-
-<h2 class="texte">Questions - Réponses Stages en Césure</h2>
-
-<app-faq-question [question]="questions[27]" [answer]="answers[27]"></app-faq-question>
-<app-faq-question [question]="questions[28]" [answer]="answers[28]"></app-faq-question>
-<app-faq-question [question]="questions[29]" [answer]="answers[29]"></app-faq-question>
-<app-faq-question [question]="questions[30]" [answer]="answers[30]"></app-faq-question>
-<app-faq-question [question]="questions[31]" [answer]="answers[31]"></app-faq-question>
-<app-faq-question [question]="questions[32]" [answer]="answers[32]"></app-faq-question>
+    <h2>Stages en Césure</h2>
+    <app-faq-question *ngFor="let el of cesures" [question]="el.quest" [answer]="el.answ"></app-faq-question>
+</div>
