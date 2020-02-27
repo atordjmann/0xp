@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AddOfferComponent } from './add-offer.component';
+import { DetailCompanyComponent } from './detail-company.component';
 
-describe('AddOfferComponent', () => {
-  let component: AddOfferComponent;
-  let fixture: ComponentFixture<AddOfferComponent>;
+describe('DetailCompanyComponent', () => {
+  let component: DetailCompanyComponent;
+  let fixture: ComponentFixture<DetailCompanyComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AddOfferComponent ]
+      declarations: [ DetailCompanyComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AddOfferComponent);
+    fixture = TestBed.createComponent(DetailCompanyComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -23,4 +23,3 @@ describe('AddOfferComponent', () => {
     expect(component).toBeTruthy();
   });
 });
-

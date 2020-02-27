@@ -20,12 +20,10 @@ export class AuthenticationService {
     constructor(private http: HttpClient,
                 private router: Router,
                 private companyService: CompanyService) {
-        //TODO : any à la place de user ? Ou classe user générique avec user entre student et compagnie
         this.currentUserSubject = new BehaviorSubject<any>(JSON.parse(localStorage.getItem('currentUser')));
         this.currentUser = this.currentUserSubject.asObservable();
     }
 
-    //TODO : pareil
     public get currentUserValue(): any {
         return this.currentUserSubject.value;
     }

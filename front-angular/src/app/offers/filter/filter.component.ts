@@ -15,6 +15,7 @@ import * as _moment from 'moment';
 // tslint:disable-next-line:no-duplicate-imports
 import { default as _rollupMoment, Moment } from 'moment';
 import { MatDatepicker } from '@angular/material';
+import { SelectOption } from 'src/models/SelectOption';
 const moment = _rollupMoment || _moment;
 
 export const MY_FORMATS = {
@@ -51,7 +52,7 @@ export class FilterComponent implements OnInit {
 
   typeList: string[] = ['Stage', 'Alternance', 'Premier emploi'];
   timeList: string[] = ['1-2 mois', '6 mois', '2 ans'];
-  sectorList: string[] = ['Audit / Conseil', 'Informatique', 'Mécanique'];
+  sectorList: SelectOption[];
 
   // Pour le filtre avancé
   salaireMax: Number;
@@ -100,6 +101,14 @@ export class FilterComponent implements OnInit {
         }
       }
     );
+
+    fetch(this.offerViewService.apiUrl + '/select/sectors')
+      .then(response => {
+        response.json()
+          .then(data => {
+            this.sectorList = data.slice();
+          });
+      });
   }
 
   filter() {
@@ -112,6 +121,7 @@ export class FilterComponent implements OnInit {
     this.isNotifAdded = false;
     this.notificationsService.switchIsNotifAdded(this.isNotifAdded);
   }
+
   manageMoreFilter() {
     this.isMoreFilterOpen = !this.isMoreFilterOpen;
     const setVille = new Set([]);
@@ -162,7 +172,9 @@ export class FilterComponent implements OnInit {
         (listOffers: Offer[]) => {
           this.salaireMax = listOffers[0].remuneration;
           listOffers.forEach((offer) => {
-            this.salaireMax = Math.max(+this.salaireMax, +offer.remuneration);
+            if (offer.remuneration) {
+              this.salaireMax = Math.max(+this.salaireMax, +offer.remuneration);
+            }
           });
         }
       );
