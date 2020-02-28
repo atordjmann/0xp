@@ -64,20 +64,20 @@ export class AddOfferComponent implements OnInit {
   softSkillForm: FormGroup;
 
   listDomains: SelectOption[];
-  domainsForm : FormGroup;
+  domainsForm: FormGroup;
   modalSave = false;
- 
+
   currentUser: any;
-  constructor(private offerViewService : OfferViewService, private authenticationService: AuthenticationService) { 
+  constructor(private offerViewService: OfferViewService, private authenticationService: AuthenticationService) {
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
   }
 
-  ngOnInit() { 
-    if(this.offreEdited){
-      this.offerOnForm=this.offreEdited
-      this.isEdition=true;
-      this.locationCity = this.offerOnForm.location.split(",")[0]
-      this.locationCountry = this.offerOnForm.location.split(",")[1].trim()
+  ngOnInit() {
+    if (this.offreEdited) {
+      this.offerOnForm = this.offreEdited
+      this.isEdition = true;
+      this.locationCity = this.offerOnForm.location.split(',')[0]
+      this.locationCountry = this.offerOnForm.location.split(',')[1].trim()
     }
     fetch(this.offerViewService.apiUrl + '/select/sectors')
       .then(response => {
@@ -111,14 +111,14 @@ export class AddOfferComponent implements OnInit {
   addOrEditOffer() {
     this.offerOnForm.company = this.currentUser.name;
     this.offerOnForm.id_company = this.currentUser.idCompany;
-    //this.offerOnForm.srcImgCompany = ??
+    this.offerOnForm.srcImgCompany = this.currentUser.photo;
     console.log(this.currentUser)
 
 
-    if(!this.isEdition){
-      this.offerOnForm.start_date = ""+this.dateFromDate.getTime()
-      this.offerOnForm.created_date=""+(new Date()).getTime() //TODO : Changer les types pour que rien soit cassé même si ça fonctionne
-      this.offerOnForm.location=this.locationCity+", "+this.locationCountry
+    if (!this.isEdition) {
+      this.offerOnForm.start_date = '' + this.dateFromDate.getTime()
+      this.offerOnForm.created_date = '' + (new Date()).getTime(); // TODO : Changer les types pour que rien soit cassé même si ça fonctionne
+      this.offerOnForm.location = this.locationCity + ', ' + this.locationCountry;
       this.offerViewService.addOffer(this.offerOnForm);
     } else {
       this.offerOnForm.start_date = '' + this.dateFromDate.getTime();
