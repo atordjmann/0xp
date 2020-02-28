@@ -12,7 +12,7 @@ export class NotificationComponent implements OnInit {
 
   listNotif: any[] = [];
 
-  constructor(private authenticationService: AuthenticationService) {
+  constructor(private authenticationService: AuthenticationService, private notificationService: NotificationsService) {
     this.authenticationService.currentUser.subscribe(x => this.computeNotif(x.notifications));
   }
 
@@ -20,11 +20,16 @@ export class NotificationComponent implements OnInit {
   }
 
   computeNotif(notifications) {
+    console.log('hello');
+    console.log(notifications);
     this.listNotif = [];
     notifications.sort((notifA: NotificationObj, notifB: NotificationObj) => +notifB.ts - +notifA.ts);
     notifications.forEach((notif: NotificationObj) => {
-      this.listNotif.push({ type: notif.type, tsStr: this.tsToDateCustom(notif.ts) });
+      this.listNotif.push({ type: notif.type, tsStr: this.tsToDateCustom(notif.ts), isRead: notif.isRead });
     });
+    console.log(this.listNotif);
+    // On emet la lecture des notifications pour l'user
+    // this.notificationService.clearNotifications();
   }
 
   tsToDateCustom(ts) {

@@ -30,7 +30,7 @@ function authenticate(req, res, next) {
         .catch(err => next(err));
 }
 
-router.post('/register', function(req, res, next) {    
+router.post('/register', function (req, res, next) {
     // TODO verification
     /*if (db.collection('users').findOne({ username: req.body.username })) {
         throw 'Username "' + req.body.username + '" is already taken';
@@ -47,8 +47,8 @@ router.post('/register', function(req, res, next) {
         user.hash = bcrypt.hashSync(req.body.password, 10);
     }
     // save user
-    if(!req.body.isStudent){
-        db.collection('companies').insertOne(company, function(err){
+    if (!req.body.isStudent) {
+        db.collection('companies').insertOne(company, function (err) {
             if (err) return;
             // Object inserted successfully.
             user.idCompany = new ObjectId(company._id);
@@ -112,6 +112,17 @@ router.post('/addAlert', function (req, res, next) {
     }, {
         $set: {
             filterAlert: req.body["filter"],
+        }
+    })
+});
+
+router.post('/clearNotifications', function (req, res, next) {
+    console.log("Request /users/clearNotifications")
+    db.collection('users').update({
+        _id: ObjectId(req.body["user"]["_id"])
+    }, {
+        $set: {
+            notifications: req.body["user"]["notifications"],
         }
     })
 });

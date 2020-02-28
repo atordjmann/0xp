@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { Filter } from 'src/models/Filter';
 import { User } from 'src/models';
@@ -10,7 +10,7 @@ import { environment } from 'src/environments/environment';
 export class NotificationsService {
   apiUrl = environment.apiUrl;
 
-  currentUser: User;
+  currentUser: any;
 
   isNotifAdded: Boolean = false;
   isNotifAddedSubject = new Subject<Boolean>();
@@ -28,19 +28,34 @@ export class NotificationsService {
 
   switchIsNotifAdded(isNotifAdded: Boolean) {
     this.isNotifAdded = isNotifAdded;
-    this.emitIsNotifAddedSubject()
+    this.emitIsNotifAddedSubject();
   }
 
   majFilterForNotif(currentFilter: Filter) {
-    this.currentFilterInOffer = currentFilter
+    this.currentFilterInOffer = currentFilter;
     this.addNotif();
   }
 
   addNotif() {
 
-    this.httpClient.post<Filter>(this.apiUrl + '/users/addAlert', { "filter": this.currentFilterInOffer, "user": this.currentUser }).subscribe(
+    this.httpClient.post<Filter>(this.apiUrl + '/users/addAlert', { filter: this.currentFilterInOffer, user: this.currentUser }).subscribe(
       (response) => {
         console.log('Alerte ajoutée');
+      },
+      (error) => {
+        console.log('Erreur ! : ' + error);
+      }
+    );
+  }
+
+  clearNotifications() {
+    // On met toutes les notifications en lues
+    this.currentUser.notifications.forEach((notif) => {
+      notif.isRead = true;
+    });
+    this.httpClient.post<Filter>(this.apiUrl + '/users/clearNotifications', { user: this.currentUser }).subscribe(
+      (response) => {
+        console.log('Notifications marquées comme lues');
       },
       (error) => {
         console.log('Erreur ! : ' + error);
