@@ -1,4 +1,6 @@
-<img class="img-center" src="../../assets/images/0xpuser.png">
+<img *ngIf="!profile.photo" class="img-center" src="../../assets/images/0xpuser.png" />
+<img *ngIf="profile.photo" class="img-center" [src]="profile.photo" />
+
 <div class="logout">
   <a (click)="logout()">Deconnexion</a>
 </div>

@@ -1,5 +1,5 @@
 module.exports = {
-    matchingWithUser : function(offer){
-        return Math.floor(Math.random()*100);
+    matchingWithUser: function (offer) {
+        return Math.floor(Math.random() * 100);
     }
 }
