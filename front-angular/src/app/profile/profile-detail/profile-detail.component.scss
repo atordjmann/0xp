@@ -2,6 +2,30 @@
     font-family:MadeBold;
 }
 
+.fiche
+{
+    padding-left:4vw;
+}
+
+
+.messageProfil {
+
+    width: 25vw;
+    align-items: center;
+    justify-content: space-evenly;
+
+    img {
+        width: 30px;
+        height: 30px;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    .information {
+        color: #ffc355;
+        text-align: center;
+    }
+}
 
 // Edition du profil
 .editProfile

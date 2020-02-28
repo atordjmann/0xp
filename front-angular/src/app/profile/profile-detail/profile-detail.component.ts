@@ -11,6 +11,8 @@ export class ProfileDetailComponent implements OnInit {
 
   @Input() details: any;
   @Input() type: boolean;
+
+  profileEdit: any;
   isStudent: boolean;
   isEdition: boolean;
   editor = ClassicEditor;
@@ -22,13 +24,19 @@ export class ProfileDetailComponent implements OnInit {
     this.isStudent = this.details.isStudent;
   }
 
-  editionOnOff(){
-    this.isEdition = !this.isEdition
+  editionOn(){
+    this.isEdition = true;
+    this.profileEdit = Object.assign({}, this.details);
+  }
+
+  editionOff(){
+    this.isEdition = false;
   }
 
   updateProfile(){
+    this.details = Object.assign({}, this.profileEdit);
     this.userService.update(this.details);
-    this.editionOnOff();
+    this.editionOff();
   }
 
 }
