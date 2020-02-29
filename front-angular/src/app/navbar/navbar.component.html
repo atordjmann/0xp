@@ -28,8 +28,8 @@
             <div class="notifInfo">
               <p>!</p>
             </div>
-            <div class="notifAlert">
-              <p>2</p>
+            <div *ngIf="nbrNotif>0" class="notifAlert">
+              <p>{{nbrNotif}}</p>
             </div>
           </div>
         </div>

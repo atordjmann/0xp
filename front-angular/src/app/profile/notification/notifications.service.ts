@@ -12,13 +12,33 @@ export class NotificationsService {
 
   currentUser: any;
 
+  nbrNotif:number;
+  nbrNotifSubject = new Subject<number>();
+
   isNotifAdded: Boolean = false;
   isNotifAddedSubject = new Subject<Boolean>();
 
   currentFilterInOffer: Filter = new Filter();
 
   constructor(private httpClient: HttpClient, private authenticationService: AuthenticationService) {
-    this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
+    this.authenticationService.currentUser.subscribe(x => {
+      this.currentUser = x;
+      this.searchForNotifications();
+    });
+  }
+
+  searchForNotifications(){
+    this.nbrNotif=0
+    this.currentUser.notifications.forEach((notif)=>{
+      if (!notif.isRead){
+        this.nbrNotif+=1
+      }
+    })
+    this.emitNbrNotifSubject();
+  }
+
+  emitNbrNotifSubject() {
+    this.nbrNotifSubject.next(this.nbrNotif);
   }
 
   emitIsNotifAddedSubject() {
@@ -48,14 +68,17 @@ export class NotificationsService {
     );
   }
 
-  clearNotifications() {
+  clearNotifications(user) {
+    this.nbrNotif=0
+    this.emitNbrNotifSubject()
     // On met toutes les notifications en lues
-    this.currentUser.notifications.forEach((notif) => {
+    user.notifications.forEach((notif) => {
       notif.isRead = true;
     });
-    this.httpClient.post<Filter>(this.apiUrl + '/users/clearNotifications', { user: this.currentUser }).subscribe(
+    this.httpClient.post<Filter>(this.apiUrl + '/users/clearNotifications', { user: user }).subscribe(
       (response) => {
         console.log('Notifications marquées comme lues');
+        this.authenticationService.saveUser(user);
       },
       (error) => {
         console.log('Erreur ! : ' + error);

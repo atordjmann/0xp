@@ -1,5 +1,5 @@
 import { NotificationsService } from './notifications.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AuthenticationService } from 'src/app/logging/services';
 import { NotificationObj } from 'src/models/Notification';
 
@@ -8,28 +8,31 @@ import { NotificationObj } from 'src/models/Notification';
   templateUrl: './notification.component.html',
   styleUrls: ['./notification.component.scss']
 })
-export class NotificationComponent implements OnInit {
+export class NotificationComponent implements OnInit, OnDestroy {
 
   listNotif: any[] = [];
-
+  currentUser:any;
+  currentUserCopy:any; //Backup for logout
   constructor(private authenticationService: AuthenticationService, private notificationService: NotificationsService) {
-    this.authenticationService.currentUser.subscribe(x => this.computeNotif(x.notifications));
+    this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
   }
 
   ngOnInit() {
+    this.currentUserCopy=this.currentUser
+    this.computeNotif(this.currentUser.notifications)
+  }
+
+  ngOnDestroy(){
+    // On emet la lecture des notifications pour l'user
+    this.notificationService.clearNotifications(this.currentUserCopy);
   }
 
   computeNotif(notifications) {
-    console.log('hello');
-    console.log(notifications);
     this.listNotif = [];
     notifications.sort((notifA: NotificationObj, notifB: NotificationObj) => +notifB.ts - +notifA.ts);
     notifications.forEach((notif: NotificationObj) => {
       this.listNotif.push({ type: notif.type, tsStr: this.tsToDateCustom(notif.ts), isRead: notif.isRead });
     });
-    console.log(this.listNotif);
-    // On emet la lecture des notifications pour l'user
-    // this.notificationService.clearNotifications();
   }
 
   tsToDateCustom(ts) {

@@ -118,6 +118,7 @@ router.post('/addAlert', function (req, res, next) {
 
 router.post('/clearNotifications', function (req, res, next) {
     console.log("Request /users/clearNotifications")
+    console.log(req.body["user"]["notifications"])
     db.collection('users').update({
         _id: ObjectId(req.body["user"]["_id"])
     }, {
@@ -125,6 +126,7 @@ router.post('/clearNotifications', function (req, res, next) {
             notifications: req.body["user"]["notifications"],
         }
     })
+    res.send(req.body);
 });
 
 async function toAuthenticate({
