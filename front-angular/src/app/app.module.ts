@@ -49,6 +49,7 @@ import { LOCALE_ID } from '@angular/core';
 import { EntreprisesComponent } from './entreprises/entreprises.component';
 import { DetailCompanyComponent } from './entreprises/detail-company/detail-company.component';
 import { AvisCompanyComponent } from './entreprises/avis-company/avis-company.component';
+import { AdminComponent } from './profile/admin/admin.component';
 
 @NgModule({
   declarations: [
@@ -73,6 +74,7 @@ import { AvisCompanyComponent } from './entreprises/avis-company/avis-company.co
     EntreprisesComponent,
     DetailCompanyComponent,
     AvisCompanyComponent,
+    AdminComponent,
   ],
   imports: [
     BrowserModule,

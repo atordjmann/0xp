@@ -8,7 +8,7 @@
   <p class="information">Des informations manquent à votre profil</p>
 </div>
 
-<div class="profile-box" *ngIf="isStudent">
+<div class="profile-box" *ngIf="isStudent && profile.username !== 'admin'">
   <div class="bar-details">
     <a class="bar-button current" (click)="clicSection($event,'profil')">Mon Profil</a>
     <a class="bar-button" (click)="clicSection($event,'candidatures')">Mes favoris</a>
@@ -21,7 +21,7 @@
   </div>
 </div>
 
-<div class="profile-box" *ngIf="!isStudent">
+<div class="profile-box" *ngIf="!isStudent && profile.username !== 'admin'">
   <div class="bar-details">
     <a class="bar-button current" (click)="clicSection($event,'profil')">Mon Profil</a>
     <a class="bar-button" (click)="clicSection($event,'candidatures')">Mes offres</a>
@@ -32,4 +32,8 @@
     <app-offer-company *ngIf="showCandidatures"></app-offer-company>
     <app-notification *ngIf="showNotifs"></app-notification>
   </div>
+</div>
+
+<div class="profile-box" *ngIf="profile.name !== 'admin'">
+  <app-admin></app-admin>
 </div>
