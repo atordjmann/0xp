@@ -10,31 +10,31 @@ import { NotificationObj } from 'src/models/Notification';
 })
 export class NotificationComponent implements OnInit {
 
-  listNotif : any[] = [];
+  listNotif: any[] = [];
 
   constructor(private authenticationService: AuthenticationService) {
     this.authenticationService.currentUser.subscribe(x => this.computeNotif(x.notifications));
-   }
+  }
 
   ngOnInit() {
   }
 
-  computeNotif(notifications){
+  computeNotif(notifications) {
     this.listNotif = [];
-    notifications.forEach((notif : NotificationObj)=>{
-      console.log(notif)
-      this.listNotif.push({"type":notif.type, "tsStr":this.tsToDateCustom(notif.ts)})
-    })
+    notifications.sort((notifA: NotificationObj, notifB: NotificationObj) => +notifB.ts - +notifA.ts);
+    notifications.forEach((notif: NotificationObj) => {
+      this.listNotif.push({ type: notif.type, tsStr: this.tsToDateCustom(notif.ts) });
+    });
   }
 
-  tsToDateCustom(ts){
-    const listMois=["Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août","Septembre","Octobre","Novembre","Décembre"]
-    if (new Date().getTime() - ts < 1000*60*60*24){
-      return new Date(ts).getUTCHours()+" : "+new Date(ts).getUTCMinutes();
-    } else if (new Date().getTime() - ts < 1000*60*60*24*30){
-      return new Date(ts).getUTCDate()+" "+listMois[new Date(ts).getUTCMonth()];
-    } else{
-      return "Il y a "+Math.floor((new Date().getTime() - ts) / 1000*60*60*24*30)+" mois";
+  tsToDateCustom(ts) {
+    const listMois = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
+    if (new Date().getTime() - ts < 1000 * 60 * 60 * 24) {
+      return new Date(ts).getUTCHours() + ' : ' + new Date(ts).getUTCMinutes();
+    } else if (new Date().getTime() - ts < 1000 * 60 * 60 * 24 * 30) {
+      return new Date(ts).getUTCDate() + ' ' + listMois[new Date(ts).getUTCMonth()];
+    } else {
+      return 'Il y a ' + Math.floor((new Date().getTime() - ts) / 1000 * 60 * 60 * 24 * 30) + ' mois';
     }
   }
 

@@ -4,6 +4,7 @@ import { Subject } from 'rxjs/Subject';
 import { Filter } from 'src/models/Filter';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
+import { AuthenticationService } from '../logging/services';
 
 @Injectable()
 export class OfferViewService {
@@ -24,8 +25,10 @@ export class OfferViewService {
     customListOffersSubject = new Subject<Offer[]>();
 
     remunMax = 0
-
-    constructor(private httpClient: HttpClient) { }
+    currentUser : any;
+    constructor(private httpClient: HttpClient,private authenticationService: AuthenticationService) {
+        this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
+     }
 
     fillListOffers() {
         this.emitIsLoadingSubject(true);
@@ -118,9 +121,11 @@ export class OfferViewService {
     }
 
     getListOfferByCompanyId() {
-        this.httpClient.get<any>(this.apiUrl + '/offres/byCompanyId').subscribe(
+        //console.log(this.currentUser.idCompany)
+        this.httpClient.get<any>(this.apiUrl + '/offres/byCompanyId?id='+ this.currentUser.idCompany).subscribe(
             (response) => {
                 this.customListOffers = [];
+                console.log(this.currentUser.idCompany)
                 console.log('Found ' + response.length + ' offers matching the company');
                 response.forEach((offerJson) => {
                     const offer = new Offer();

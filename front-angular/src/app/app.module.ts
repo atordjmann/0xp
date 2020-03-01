@@ -46,6 +46,7 @@ import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
 registerLocaleData(localeFr, 'fr');
 import { LOCALE_ID } from '@angular/core';
+import { FaqQuestionComponent } from './faq/faq-question/faq-question.component';
 import { EntreprisesComponent } from './entreprises/entreprises.component';
 import { DetailCompanyComponent } from './entreprises/detail-company/detail-company.component';
 import { AvisCompanyComponent } from './entreprises/avis-company/avis-company.component';
@@ -71,6 +72,7 @@ import { AdminComponent } from './profile/admin/admin.component';
     AlertComponent,
     FaqComponent,
     AddOfferComponent,
+    FaqQuestionComponent,
     EntreprisesComponent,
     DetailCompanyComponent,
     AvisCompanyComponent,

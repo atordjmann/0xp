@@ -1,49 +1,56 @@
 const ObjectId = require('mongodb').ObjectId;
 
 module.exports = {
-    checkNotifForAllUsers : function(bodyOffer){
+    checkNotifForAllUsers: function (bodyOffer) {
         //Pour chaque user on va chercher son filtrage
-        db.collection('users').find().toArray(function(err, results) {
-            results.forEach((user)=>{
+        db.collection('users').find().toArray(function (err, results) {
+            results.forEach((user) => {
                 //Si pas de filtrage on passe sinon on regarde si l'offre est dans le filtrage
-                if(user["filterAlert"]){
-                    if (checkIfOfferInFilter(user["filterAlert"], bodyOffer)){
+                if (user["filterAlert"]) {
+                    if (checkIfOfferInFilter(user["filterAlert"], bodyOffer)) {
                         console.log("IN")
                         console.log(user)
                         //Si elle l'est on ajoute la notif à l'user
                         notificationsList = user["notifications"] ? user["notifications"] : [];
-                        notificationsList.push({"type":"filterNotif", "ts":new Date().getTime()})
-                        db.collection('users').update(
-                            { _id: ObjectId(user["_id"]) },
-                            { $set:
-                               {
+                        notificationsList.push({
+                            "type": "filterNotif",
+                            "ts": new Date().getTime()
+                        })
+                        db.collection('users').update({
+                            _id: ObjectId(user["_id"])
+                        }, {
+                            $set: {
                                 notifications: notificationsList,
-                               }
                             }
-                        )
+                        })
                     }
                 }
             })
-        })           
+        })
     }
 }
 
-function checkIfOfferInFilter(filterJson, offer){
-    isOfferInFilter=true;
+function checkIfOfferInFilter(filterJson, offer) {
+    isOfferInFilter = true;
     console.log(filterJson)
-    console.log(offer)
-    if(Object.keys(filterJson).indexOf("type")>-1 && offer["type"]!=filterJson["type"]){
-        isOfferInFilter=false;
-    } else if(Object.keys(filterJson).indexOf("duration")>-1 && offer["duration"]!=filterJson["duration"]){
-        isOfferInFilter=false;
-    } else if(Object.keys(filterJson).indexOf("sector")>-1 && offer["sector"]!=filterJson["sector"]){
-        isOfferInFilter=false;
-    } else if(Object.keys(filterJson).indexOf("start_date")>-1 && offer["start_date"]<=filterJson["start_date"]){
-        isOfferInFilter=false;
-    } else if(Object.keys(filterJson).indexOf("remunMini")>-1 && offer["remuneration"]<=filterJson["remunMini"]){
-        isOfferInFilter=false;
-    } else if(Object.keys(filterJson).indexOf("location")>-1 && filterJson["location"].indexOf(offer["location"])==-1){
-        isOfferInFilter=false;
+    if (Object.keys(filterJson).indexOf("type") > -1 && offer["type"] != filterJson["type"]) {
+        isOfferInFilter = false;
+        console.log("Type is wrong")
+    } else if (Object.keys(filterJson).indexOf("duration") > -1 && offer["duration"] != filterJson["duration"]) {
+        isOfferInFilter = false;
+        console.log("duration is wrong")
+    } else if (Object.keys(filterJson).indexOf("sector") > -1 && offer["sector"] != filterJson["sector"]) {
+        isOfferInFilter = false;
+        console.log("sector is wrong")
+    } else if (Object.keys(filterJson).indexOf("start_date") > -1 && offer["start_date"] <= filterJson["start_date"]) {
+        isOfferInFilter = false;
+        console.log("start_date is wrong")
+    } else if (Object.keys(filterJson).indexOf("remunMini") > -1 && offer["remuneration"] <= filterJson["remunMini"]) {
+        isOfferInFilter = false;
+        console.log("remuneration is wrong")
+    } else if (Object.keys(filterJson).indexOf("location") > -1 && filterJson["location"].length != 0 && filterJson["location"].indexOf(offer["location"]) == -1) {
+        console.log("location is wrong")
+        isOfferInFilter = false;
     }
     return isOfferInFilter;
     /*

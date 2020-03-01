@@ -1,0 +1,7 @@
+<div class="boxContainer question button" (click) = "openOrClose()">
+    <p> {{ question }} </p>
+</div>
+
+<div *ngIf="isAnswerOpen" class="boxContainer">
+    <p> {{ answer }} </p>
+</div>
