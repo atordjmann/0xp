@@ -25,4 +25,14 @@ router.get('/:id', function(req, res, next) {
         .catch(err => next(err));
 });
 
+router.post('/addAdmin', function(req, res, next) {    
+    // TODO verification que l'entreprise n'existe pas déjà
+    
+    let company = new Company(req.body);
+    console.log(company);
+    db.collection('companies').insertOne(company)
+    .then(company => company ? res.json(company) : res.sendStatus(404))
+    .catch(err => next(err));
+});
+
 module.exports = router;

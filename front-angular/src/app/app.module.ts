@@ -51,6 +51,9 @@ import { EntreprisesComponent } from './entreprises/entreprises.component';
 import { DetailCompanyComponent } from './entreprises/detail-company/detail-company.component';
 import { AvisCompanyComponent } from './entreprises/avis-company/avis-company.component';
 import { AdminComponent } from './profile/admin/admin.component';
+import { AddCompanyComponent } from './entreprises/add-company/add-company.component';
+import { OfferAdminComponent } from './offers/offer-admin/offer-admin.component';
+import { ListCompanyComponent } from './entreprises/list-company/list-company.component';
 
 @NgModule({
   declarations: [
@@ -77,6 +80,9 @@ import { AdminComponent } from './profile/admin/admin.component';
     DetailCompanyComponent,
     AvisCompanyComponent,
     AdminComponent,
+    AddCompanyComponent,
+    OfferAdminComponent,
+    ListCompanyComponent,
   ],
   imports: [
     BrowserModule,
