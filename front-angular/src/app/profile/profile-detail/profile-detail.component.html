@@ -1,4 +1,4 @@
-<div *ngIf="!isEdition" class="button flexRow editProfile" (click)="editionOn()">
+<div *ngIf="!isEdition" class="button btn flexRow editProfile" (click)="editionOn()">
     <p>Editer le profil</p>
     <img class="modify" src="../../../assets/images/edit.svg">
 </div>
@@ -66,7 +66,7 @@
 
 <!--Entreprise-->
 <div *ngIf="!type">
-    <div *ngIf="!isEdition">
+    <div class="fiche" *ngIf="!isEdition">
         <p><span class="label">Nom de l'entreprise : </span>{{details.name}}</p>
         <p><span class="label">Date de création : </span>{{details.date_of_creation}}</p>
         <p><span class="label">Description : </span>{{details.description}}</p>
