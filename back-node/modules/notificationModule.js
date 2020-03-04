@@ -1,4 +1,5 @@
 const ObjectId = require('mongodb').ObjectId;
+var matchingModule = require('../modules/matchingModule.js')
 
 module.exports = {
     checkNotifForAllUsers: function (bodyOffer) {
@@ -7,23 +8,25 @@ module.exports = {
             results.forEach((user) => {
                 //Si pas de filtrage on passe sinon on regarde si l'offre est dans le filtrage
                 if (user["filterAlert"]) {
-                    if (checkIfOfferInFilter(user["filterAlert"], bodyOffer)) {
-                        console.log("IN")
-                        console.log(user)
-                        //Si elle l'est on ajoute la notif à l'user
-                        notificationsList = user["notifications"] ? user["notifications"] : [];
-                        notificationsList.push({
-                            "type": "filterNotif",
-                            "ts": new Date().getTime()
-                        })
-                        db.collection('users').update({
-                            _id: ObjectId(user["_id"])
-                        }, {
-                            $set: {
-                                notifications: notificationsList,
-                            }
-                        })
-                    }
+                    checkIfOfferInFilter(user["filterAlert"], bodyOffer).then(function (isInFilter) {
+                        console.log(isInFilter)
+                        if (isInFilter) {
+                            console.log("IN")
+                            //Si elle l'est on ajoute la notif à l'user
+                            notificationsList = user["notifications"] ? user["notifications"] : [];
+                            notificationsList.push({
+                                "type": "filterNotif",
+                                "ts": new Date().getTime()
+                            })
+                            db.collection('users').update({
+                                _id: ObjectId(user["_id"])
+                            }, {
+                                $set: {
+                                    notifications: notificationsList,
+                                }
+                            })
+                        }
+                    });
                 }
             })
         })
@@ -31,28 +34,50 @@ module.exports = {
 }
 
 function checkIfOfferInFilter(filterJson, offer) {
-    isOfferInFilter = true;
-    console.log(filterJson)
-    if (Object.keys(filterJson).indexOf("type") > -1 && offer["type"] != filterJson["type"]) {
-        isOfferInFilter = false;
-        console.log("Type is wrong")
-    } else if (Object.keys(filterJson).indexOf("duration") > -1 && offer["duration"] != filterJson["duration"]) {
-        isOfferInFilter = false;
-        console.log("duration is wrong")
-    } else if (Object.keys(filterJson).indexOf("sector") > -1 && offer["sector"] != filterJson["sector"]) {
-        isOfferInFilter = false;
-        console.log("sector is wrong")
-    } else if (Object.keys(filterJson).indexOf("start_date") > -1 && offer["start_date"] <= filterJson["start_date"]) {
-        isOfferInFilter = false;
-        console.log("start_date is wrong")
-    } else if (Object.keys(filterJson).indexOf("remunMini") > -1 && offer["remuneration"] <= filterJson["remunMini"]) {
-        isOfferInFilter = false;
-        console.log("remuneration is wrong")
-    } else if (Object.keys(filterJson).indexOf("location") > -1 && filterJson["location"].length != 0 && filterJson["location"].indexOf(offer["location"]) == -1) {
-        console.log("location is wrong")
-        isOfferInFilter = false;
-    }
-    return isOfferInFilter;
+
+    //On va chercher le détail de l'entreprise
+    let companyDetail;
+    const idCompany = new ObjectId(offer["id_company"])
+    db.collection('companies').findOne({
+        _id: idCompany
+    }).then(company => {
+        companyDetail = company
+        isOfferInFilter = true;
+        if (Object.keys(filterJson).indexOf("type") > -1 && offer["type"] != filterJson["type"]) {
+            isOfferInFilter = false;
+            console.log("Type is wrong")
+        } else if (Object.keys(filterJson).indexOf("duration") > -1 && offer["duration"] != filterJson["duration"]) {
+            isOfferInFilter = false;
+            console.log("duration is wrong")
+        } else if (Object.keys(filterJson).indexOf("sector") > -1 && offer["sector"] != filterJson["sector"]) {
+            isOfferInFilter = false;
+            console.log("sector is wrong")
+        } else if (Object.keys(filterJson).indexOf("start_date") > -1 && offer["start_date"] < filterJson["start_date"]) {
+            isOfferInFilter = false;
+            console.log("start_date is wrong")
+        } else if (Object.keys(filterJson).indexOf("remunMini") > -1 && offer["remuneration"] < filterJson["remunMini"]) {
+            isOfferInFilter = false;
+            console.log("remuneration is wrong")
+        } else if (Object.keys(filterJson).indexOf("location") > -1 && filterJson["location"].length != 0 && filterJson["location"].indexOf(offer["location"]) == -1) {
+            console.log("location is wrong")
+            isOfferInFilter = false;
+        } else if (Object.keys(filterJson).indexOf("company") > -1 && filterJson["company"].length != 0 && filterJson["company"].indexOf(offer["company"]) == -1) {
+            console.log("company is wrong")
+            isOfferInFilter = false;
+        } else if (Object.keys(filterJson).indexOf("matchingMini") > -1 && matchingModule.matchingWithUser(offer) < filterJson["matchingMini"]) {
+            console.log("matchingMini is wrong")
+            isOfferInFilter = false;
+        } else if (Object.keys(filterJson).indexOf("companySize") > -1 && filterJson["companySize"] && (companyDetail["taille"] != filterJson["companySize"])) {
+            console.log("companySize is wrong")
+            console.log(companyDetail["taille"])
+            console.log(filterJson["companySize"])
+            isOfferInFilter = false;
+        } else if (Object.keys(filterJson).indexOf("isPartner") > -1 && filterJson["isPartner"] && !companyDetail["isPartner"]) {
+            console.log("isPartner is wrong")
+            isOfferInFilter = false;
+        }
+        return isOfferInFilter;
+    });
     /*
     if(Object.keys(req.query).indexOf("company")>-1){
         companies=req.query["company"].split(";")
