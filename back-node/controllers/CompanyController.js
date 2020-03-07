@@ -25,4 +25,11 @@ router.get('/:id', function(req, res, next) {
         .catch(err => next(err));
 });
 
+router.post('/', function(req, res, next) {    
+    // TODO verification que l'entreprise n'existe pas déjà
+    let company = new Company(req.body);
+    db.collection('companies').insertOne(company).then(() => res.json({}))
+    .catch(err => next(err));;
+});
+
 module.exports = router;

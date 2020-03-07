@@ -14,6 +14,8 @@ import { MatDatepicker } from '@angular/material';
 import { SelectOption } from 'src/models/SelectOption';
 import { AuthenticationService } from 'src/app/logging/services';
 import { User } from 'src/models/user';
+import { CompanyService } from 'src/app/company.service';
+import { Company } from 'src/models';
 const moment = _rollupMoment || _moment;
 
 export const MY_FORMATS = {
@@ -49,6 +51,8 @@ export class AddOfferComponent implements OnInit {
 
   editor = ClassicEditor;
 
+  companiesList: Company[];
+
   typeList: string[] = ['Stage', 'Alternance', 'Premier emploi'];
   timeList: string[] = ['1-2 mois', '6 mois', '2 ans'];
   sectorList: SelectOption[];
@@ -68,16 +72,18 @@ export class AddOfferComponent implements OnInit {
   modalSave = false;
 
   currentUser: any;
-  constructor(private offerViewService: OfferViewService, private authenticationService: AuthenticationService) {
+  constructor(private offerViewService: OfferViewService,
+              private authenticationService: AuthenticationService,
+              private companyService: CompanyService) {
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
   }
 
   ngOnInit() {
     if (this.offreEdited) {
-      this.offerOnForm = this.offreEdited
+      this.offerOnForm = this.offreEdited;
       this.isEdition = true;
-      this.locationCity = this.offerOnForm.location.split(',')[0]
-      this.locationCountry = this.offerOnForm.location.split(',')[1].trim()
+      this.locationCity = this.offerOnForm.location.split(',')[0];
+      this.locationCountry = this.offerOnForm.location.split(',')[1].trim();
     }
     fetch(this.offerViewService.apiUrl + '/select/sectors')
       .then(response => {
@@ -106,6 +112,14 @@ export class AddOfferComponent implements OnInit {
     this.domainsForm = new FormGroup({
       selected: new FormControl(this.listSoftSkills)
     });
+    this.companyService.getAll().subscribe(
+      value => {
+          this.companiesList = value;
+      },
+      error => {
+          console.log('Erreur ! : ' + error);
+      }
+    );
   }
 
   addOrEditOffer() {
@@ -114,10 +128,18 @@ export class AddOfferComponent implements OnInit {
     this.offerOnForm.srcImgCompany = this.currentUser.photo;
     console.log(this.currentUser)
 
+    if (this.currentUser.username !== 'admin') {
+      this.offerOnForm.company = this.currentUser.name;
+      this.offerOnForm.id_company = this.currentUser.idCompany;
+    } else {
+      const company = this.companiesList.find(x => x._id === this.offerOnForm.id_company);
+      this.offerOnForm.company = company.name;
+      this.offerOnForm.srcImgCompany = company.srcImage;
+    }
 
     if (!this.isEdition) {
-      this.offerOnForm.start_date = '' + this.dateFromDate.getTime()
-      this.offerOnForm.created_date = '' + (new Date()).getTime(); // TODO : Changer les types pour que rien soit cassé même si ça fonctionne
+      this.offerOnForm.start_date = '' + this.dateFromDate.getTime();
+      this.offerOnForm.created_date = '' + (new Date()).getTime(); //TODO : Changer les types pour que rien soit cassé même si ça fonctionne
       this.offerOnForm.location = this.locationCity + ', ' + this.locationCountry;
       this.offerViewService.addOffer(this.offerOnForm);
     } else {

@@ -50,6 +50,11 @@ import { FaqQuestionComponent } from './faq/faq-question/faq-question.component'
 import { EntreprisesComponent } from './entreprises/entreprises.component';
 import { DetailCompanyComponent } from './entreprises/detail-company/detail-company.component';
 import { AvisCompanyComponent } from './entreprises/avis-company/avis-company.component';
+import { ProfileAdminComponent } from './admin/profile-admin/profile-admin.component';
+import { AddCompanyComponent } from './entreprises/add-company/add-company.component';
+import { ListCompanyComponent } from './entreprises/list-company/list-company.component';
+import {MatTabsModule} from '@angular/material';
+
 
 @NgModule({
   declarations: [
@@ -75,6 +80,9 @@ import { AvisCompanyComponent } from './entreprises/avis-company/avis-company.co
     EntreprisesComponent,
     DetailCompanyComponent,
     AvisCompanyComponent,
+    ProfileAdminComponent,
+    AddCompanyComponent,
+    ListCompanyComponent,
   ],
   imports: [
     BrowserModule,
@@ -91,7 +99,8 @@ import { AvisCompanyComponent } from './entreprises/avis-company/avis-company.co
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    CKEditorModule
+    CKEditorModule,
+    MatTabsModule
   ],
   exports: [OfferDetailComponent],
   providers: [GlobalService, OfferViewService, CompanyService, UserService, NotificationsService,

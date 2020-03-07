@@ -1,0 +1,155 @@
+.add-company{
+    background-color: var(--color-blue-medium);
+    color: white;
+    padding: 8px;
+    border-radius: 10px;
+    text-align: center;
+    border:none;
+}
+
+.add-company:hover, button:hover{
+    cursor: pointer;
+}
+
+.modal {
+    position: absolute;
+    width:76%;
+    margin: auto 12%;
+    height: auto;
+    background-color:white;
+    z-index:3;
+    border-radius: 10px;
+    box-shadow: #0000047a 0px 0px 10px;
+}
+
+.cancel {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 22px;
+    width: 22px;
+    margin: 10px;
+}
+
+.modal-header-content {
+    text-align: center;
+}
+
+.modal-header-content h1 {
+    font-size: 28px;
+    margin: 0;
+}
+
+.modal-body {
+    width: 90%;
+    margin: auto;
+    text-align: justify;
+}
+
+.modal-footer {
+    text-align: center;  
+    margin: 25px;  
+}
+
+h2{
+    text-align:center;
+    margin-top:100px;
+    margin-bottom:30px;
+}
+
+form{
+    margin-left:35%;        //TODO: modifier
+    width:max-content;
+}
+
+.form-group{
+    margin:20px;
+}
+
+label{
+    padding:5px;
+    margin-right:10px;
+}
+
+input{
+    border-bottom:grey 1px solid;
+    padding:5px;
+}
+
+textarea{
+    padding: 5px;
+    border: none;
+    border-bottom: grey 1px solid;
+}
+
+.form-buttons{
+    display:flex;
+    justify-content: space-evenly;
+}
+
+button{
+    color: white;
+    border: none;
+    border-radius: 20px;
+    background-color: var(--color-orange);
+    padding: 10px 20px;
+}
+
+a{
+    padding: 10px;
+    text-decoration: none;
+    color: inherit;
+    cursor:pointer;
+}
+
+.bar-details{
+    text-align:center;
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.bar-details>span{
+    padding: 5px 10px 5px 10px;
+}
+
+.bar-button{
+    padding: 7px 12px 7px 12px;
+    border-radius: 30px;
+    color:#707070;
+    font-family: EvSansBold, Calibri;
+}
+
+.bar-button:hover{
+    cursor: pointer;
+}
+
+.current{
+    background-color: var(--color-orange);
+    color: #ffffff;
+}
+
+select{
+    width:30vh;
+}
+
+form{
+    margin-bottom:7vh;
+}
+
+.addOffer
+{
+    width:20%;
+    align-items: center;
+    margin-right: 2vw;
+    margin-left: auto;
+    justify-content: space-between;
+    margin-bottom: 2vh;
+}
+
+.modify
+{
+    height:5vh;
+    width:5vh;
+    justify-items: center;
+}

@@ -122,7 +122,6 @@ router.get('/filtered', function (req, res) {
 router.get('/byCompanyId', function (req, res) {
     //var id = mongoose.Types.ObjectId("5e2700cf1c9d44000011f2ba");
     var id = mongoose.Types.ObjectId(req.query["id"]);
-    console.log(id);
     //query={}
     //query["id_company"] = new RegExp('^' + escapeStringRegexp(id) + '$', 'i');
 
@@ -130,13 +129,11 @@ router.get('/byCompanyId', function (req, res) {
         "id_company": id
     }).toArray(function (err, results) {
         res.json(results);
-        console.log(results.length)
     })
 });
 
 
 router.post('/post', function (req, res) {
-    console.log('post')
     //console.log(req.body);
     req.body.id_company = mongoose.Types.ObjectId(req.body.id_company);
     db.collection('offers').insertOne(req.body);
