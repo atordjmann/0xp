@@ -26,7 +26,9 @@ export class AddCompanyComponent implements OnInit {
       date_of_creation: ['', Validators.required],
       description: ['', Validators.required],
       taille: ['', Validators.required],
-      location: ['', Validators.required]
+      location: ['', Validators.required],
+      srcImage: [''],
+      isPartner:[]
     });
   }
 
@@ -38,7 +40,7 @@ export class AddCompanyComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-
+    console.log(this.registerForm.value)
     // reset alerts on submit
     this.alertService.clear();
 
@@ -52,6 +54,9 @@ export class AddCompanyComponent implements OnInit {
         .subscribe(
             data => {
                 this.alertService.success('Registration successful', true);
+                this.openOrClose();
+                // TODO rafraichir juste le composant
+                window.location.reload();
             },
             error => {
                 this.alertService.error(error);

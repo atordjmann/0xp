@@ -19,7 +19,7 @@ export class UserCompanyService {
     }
 
     registerByAdmin(company: Company){
-        return this.http.post(this.apiUrl + '/company/addAdmin', company);
+        return this.http.post<Company>(this.apiUrl + '/companies', company);
     }
 
     delete(id: string) {

@@ -42,7 +42,7 @@
                 <div *ngIf="submitted && f.description.errors">
                     <div *ngIf="f.description.errors.required">La description est obligatoire</div>
                 </div>
-            </div>
+            </div>                     
             <div class="form-group">
                 <label for="taille">Taille</label>
                 <select type="text" formControlName="taille" [ngClass]="{ 'is-invalid': submitted && f.taille.errors }">
@@ -56,6 +56,15 @@
                     <div *ngIf="f.taille.errors.required">La taille est obligatoire</div>
                 </div>
             </div>
+            <div class="form-group">
+                <label for="srcImage">Url Image logo</label>
+                <textarea type="text" formControlName="srcImage" [ngClass]="{ 'is-invalid': submitted && f.srcImage.errors }" ></textarea>
+            </div>   
+            <div class="form-group">
+                <label for="isPartner">Entreprise partenaire</label>
+                <input type="checkbox" formControlName="isPartner" [ngClass]="{ 'is-invalid': submitted && f.isPartner.errors }" />
+            </div>
+
             <div class="form-buttons">
             <button [disabled]="loading">
                 <span *ngIf="loading"></span>
