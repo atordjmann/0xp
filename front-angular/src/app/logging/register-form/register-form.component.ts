@@ -79,7 +79,8 @@ export class RegisterFormComponent implements OnInit {
       date_of_creation: ['', Validators.required],
       description: ['', Validators.required],
       taille: ['', Validators.required],
-      location: ['', Validators.required]
+      location: ['', Validators.required],
+      srcImage:['']
     });
   }
 

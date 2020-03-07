@@ -20,6 +20,7 @@
     z-index:3;
     border-radius: 10px;
     box-shadow: #0000047a 0px 0px 10px;
+    padding-top:20px;
 }
 
 .cancel {
@@ -58,7 +59,6 @@ h2{
 }
 
 form{
-    margin-left:35%;        //TODO: modifier
     width:max-content;
 }
 
@@ -152,4 +152,9 @@ form{
     height:5vh;
     width:5vh;
     justify-items: center;
+}
+
+#formComp{
+    margin:auto;
+    padding:20px;
 }

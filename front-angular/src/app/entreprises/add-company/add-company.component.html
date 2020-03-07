@@ -7,18 +7,20 @@
     <div *ngIf="isModalopen" class="modal">
 
         <div class="modal-header">
-            <div class="cancel button" (click)="openOrClose()"><img src="https://image.flaticon.com/icons/svg/22/22108.svg">
+            <div class="cancel button" (click)="openOrClose()"><img
+                    src="https://image.flaticon.com/icons/svg/22/22108.svg">
             </div>
             <div class="modal-header-content">
                 <h1>Ajouter une entreprise</h1>
             </div>
         </div>
-    
+
         <div class="modal-body">
-            <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+            <form id="formComp" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
                 <div class="form-group">
                     <label for="name">Nom de l'entreprise</label>
-                    <input type="text" formControlName="name" [ngClass]="{ 'is-invalid': submitted && f.name.errors }" />
+                    <input type="text" formControlName="name"
+                        [ngClass]="{ 'is-invalid': submitted && f.name.errors }" />
                     <div *ngIf="submitted && f.name.errors">
                         <div *ngIf="f.name.errors.required">Le nom est obligatoire</div>
                     </div>
@@ -32,16 +34,11 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="location">location</label>
-                    <select type="text" formControlName="location"
+                    <label for="location">Localisation</label>
+                    <input type="text" formControlName="location"
                         [ngClass]="{ 'is-invalid': submitted && f.location.errors }">
-                        <option value="Marseille">Marseille</option>
-                        <option value="Paris">Paris</option>
-                        <option value="Lyon">Lyon</option>
-                        <option value="Bordeaux">Bordeaux</option>
-                    </select>
                     <div *ngIf="submitted && f.location.errors">
-                        <div *ngIf="f.location.errors.required">La location est obligatoire</div>
+                        <div *ngIf="f.location.errors.required">La localisation est obligatoire</div>
                     </div>
                 </div>
                 <div class="form-group">
@@ -54,7 +51,8 @@
                 </div>
                 <div class="form-group">
                     <label for="taille">Taille</label>
-                    <select type="text" formControlName="taille" [ngClass]="{ 'is-invalid': submitted && f.taille.errors }">
+                    <select type="text" formControlName="taille"
+                        [ngClass]="{ 'is-invalid': submitted && f.taille.errors }">
                         <option value="1-10">1-100</option>
                         <option value="11-100">11-100</option>
                         <option value="101-1 000">101-1000</option>
@@ -75,7 +73,7 @@
                     <input type="checkbox" formControlName="isPartner"
                         [ngClass]="{ 'is-invalid': submitted && f.isPartner.errors }" />
                 </div>
-    
+
                 <div class="form-buttons">
                     <button [disabled]="loading">
                         <span *ngIf="loading"></span>
@@ -84,6 +82,7 @@
                     <button class="button btn-close" (click)="openOrClose()">Annuler</button>
                 </div>
             </form>
+            <app-alert></app-alert>
         </div>
     </div>
 
