@@ -140,8 +140,14 @@ router.post('/post', function (req, res) {
     //console.log(req.body);
     req.body.id_company = mongoose.Types.ObjectId(req.body.id_company);
     db.collection('offers').insertOne(req.body);
-    //On check si quelqu'un attendait une offre de ce type
-    notificationModule.checkNotifForAllUsers(req.body)
+    db.collection('companies').findOne({
+        _id: req.body.id_company
+    }, function (findErr, company) {
+        //On check si quelqu'un attendait une offre de ce type
+        notificationModule.checkNotifForAllUsers(req.body,company)
+    });
+    
+    
     res.send(req.body);
 });
 
