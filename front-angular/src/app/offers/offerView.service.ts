@@ -121,6 +121,25 @@ export class OfferViewService {
 
     getListOfferByCompanyId() {
         //console.log(this.currentUser.idCompany)
+        if(this.currentUser.username == 'admin'){
+            this.httpClient.get<any>(this.apiUrl + '/offres').subscribe(
+                (response) => {
+                    this.customListOffers = [];
+                    response.forEach((offerJson) => {
+                        const offer = new Offer();
+                        offer.fromHashMap(offerJson);
+                        this.customListOffers.push(offer);
+                    });
+                    this.emitCustomListOffersSubject()
+                },
+                (error) => {
+                    console.log('Erreur ! : ' + error);
+                }
+            );   
+        }
+        else{
+
+        
         this.httpClient.get<any>(this.apiUrl + '/offres/byCompanyId?id='+ this.currentUser.idCompany).subscribe(
             (response) => {
                 this.customListOffers = [];
@@ -137,6 +156,7 @@ export class OfferViewService {
                 console.log('Erreur ! : ' + error);
             }
         );
+        }
     }
 
     addOffer(offer: Offer) {
