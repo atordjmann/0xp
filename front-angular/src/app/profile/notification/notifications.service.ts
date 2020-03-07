@@ -75,14 +75,15 @@ export class NotificationsService {
     this.nbrNotif = 0;
     this.emitNbrNotifSubject();
     // On met toutes les notifications en lues
-    if (user.notifinotifications){
+    console.log(user)
+    if (user.notifications){
       user.notifications.forEach((notif) => {
         notif.isRead = true;
       });
       this.httpClient.post<any>(this.apiUrl + '/users/clearNotifications', { user }).subscribe(
         (response) => {
           console.log('Notifications marquées comme lues');
-          //this.authenticationService.saveUser(user);
+          this.authenticationService.saveUser(user);
         },
         (error) => {
           console.log('Erreur ! : ' + error);
