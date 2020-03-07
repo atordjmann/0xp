@@ -23,7 +23,7 @@ export class OffersComponent implements OnInit {
   isNotifAdded: Boolean;
   isNotifAddedSubscription: Subscription;
 
-  constructor(private offerViewService: OfferViewService, private notificationsService: NotificationsService) { }
+  constructor(private offerViewService: OfferViewService,private notificationsService: NotificationsService) { }
 
   ngOnInit() {
     this.isStudent = this.notificationsService.currentUser.isStudent;

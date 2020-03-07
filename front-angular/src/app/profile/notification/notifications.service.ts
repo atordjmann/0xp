@@ -28,13 +28,16 @@ export class NotificationsService {
   }
 
   searchForNotifications() {
+    console.log("%c Searching for notification","color:orange")
     this.nbrNotif = 0;
-    this.currentUser.notifications.forEach((notif) => {
-      if (!notif.isRead) {
-        this.nbrNotif += 1;
-      }
-    });
-    this.emitNbrNotifSubject();
+    if (this.currentUser && this.currentUser.notifications){
+      this.currentUser.notifications.forEach((notif) => {
+        if (!notif.isRead) {
+          this.nbrNotif += 1;
+        }
+      });
+      this.emitNbrNotifSubject();
+    }
   }
 
   emitNbrNotifSubject() {
@@ -72,17 +75,19 @@ export class NotificationsService {
     this.nbrNotif = 0;
     this.emitNbrNotifSubject();
     // On met toutes les notifications en lues
-    user.notifications.forEach((notif) => {
-      notif.isRead = true;
-    });
-    this.httpClient.post<Filter>(this.apiUrl + '/users/clearNotifications', { user }).subscribe(
-      (response) => {
-        console.log('Notifications marquées comme lues');
-        this.authenticationService.saveUser(user);
-      },
-      (error) => {
-        console.log('Erreur ! : ' + error);
-      }
-    );
+    if (user.notifinotifications){
+      user.notifications.forEach((notif) => {
+        notif.isRead = true;
+      });
+      this.httpClient.post<any>(this.apiUrl + '/users/clearNotifications', { user }).subscribe(
+        (response) => {
+          console.log('Notifications marquées comme lues');
+          //this.authenticationService.saveUser(user);
+        },
+        (error) => {
+          console.log('Erreur ! : ' + error);
+        }
+      );
+    }
   }
 }

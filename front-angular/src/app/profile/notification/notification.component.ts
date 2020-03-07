@@ -19,7 +19,9 @@ export class NotificationComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.currentUserCopy=this.currentUser
-    this.computeNotif(this.currentUser.notifications)
+    if(this.currentUser.notifications){
+      this.computeNotif(this.currentUser.notifications)
+    }
   }
 
   ngOnDestroy(){
@@ -38,7 +40,7 @@ export class NotificationComponent implements OnInit, OnDestroy {
   tsToDateCustom(ts) {
     const listMois = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
     if (new Date().getTime() - ts < 1000 * 60 * 60 * 24) {
-      return new Date(ts).getUTCHours()+1 + ' : ' + new Date(ts).getUTCMinutes();
+      return new Date(ts).getUTCHours()+1 + ' : ' + (new Date(ts).getUTCMinutes()<10? "0"+new Date(ts).getUTCMinutes():new Date(ts).getUTCMinutes());
     } else if (new Date().getTime() - ts < 1000 * 60 * 60 * 24 * 30) {
       return new Date(ts).getUTCDate() + ' ' + listMois[new Date(ts).getUTCMonth()];
     } else {
