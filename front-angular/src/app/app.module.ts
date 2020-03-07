@@ -54,6 +54,8 @@ import { ProfileAdminComponent } from './admin/profile-admin/profile-admin.compo
 import { AddCompanyComponent } from './entreprises/add-company/add-company.component';
 import { OfferAdminComponent } from './admin/offer-admin/offer-admin.component';
 import { ListCompanyComponent } from './entreprises/list-company/list-company.component';
+import {MatTabsModule} from '@angular/material';
+import { OfferAdminPreviewComponent } from './admin/offer-admin-preview/offer-admin-preview.component';
 
 @NgModule({
   declarations: [
@@ -83,6 +85,7 @@ import { ListCompanyComponent } from './entreprises/list-company/list-company.co
     AddCompanyComponent,
     OfferAdminComponent,
     ListCompanyComponent,
+    OfferAdminPreviewComponent,
   ],
   imports: [
     BrowserModule,
@@ -99,7 +102,8 @@ import { ListCompanyComponent } from './entreprises/list-company/list-company.co
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    CKEditorModule
+    CKEditorModule,
+    MatTabsModule
   ],
   exports: [OfferDetailComponent],
   providers: [GlobalService, OfferViewService, CompanyService, UserService, NotificationsService,

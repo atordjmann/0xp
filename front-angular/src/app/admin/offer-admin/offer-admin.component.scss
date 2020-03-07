@@ -1,0 +1,37 @@
+.add-offer{
+    background-color: var(--color-blue-medium);
+    color: white;
+    padding: 8px;
+    border-radius: 10px;
+    text-align: center;
+    border:none;
+}
+
+.listOffers{
+    display:flex;
+    flex-wrap: wrap;
+    margin: auto;
+    position: relative;
+    justify-content: space-evenly;
+    margin: 20px;
+}
+
+app-offer-admin-preview{
+    margin:auto;
+}
+
+.filterText{
+    width: 54vw;
+    margin: auto;
+    margin-top: 8vh;
+    padding: 1vh 2vw 1vh 5vw;
+    border-radius:50px;
+    box-shadow: #00000447 0px 0px 4px;
+}
+
+input{
+    height: 6vh;
+    width: 54vw;
+    font-family: MadeMedium;
+    font-size: medium;
+}

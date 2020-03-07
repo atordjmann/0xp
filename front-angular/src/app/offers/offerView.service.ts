@@ -40,7 +40,6 @@ export class OfferViewService {
                     offer.fromHashMap(offerJson);
                     this.listOffers.push(offer);
                 });
-                console.log(this.listOffers)
                 this.filteredListOffers = this.listOffers;
                 this.emitListOffersSubject();
                 this.emitFilteredListOffersSubject();

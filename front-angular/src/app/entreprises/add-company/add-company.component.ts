@@ -40,7 +40,6 @@ export class AddCompanyComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-    console.log(this.registerForm.value)
     // reset alerts on submit
     this.alertService.clear();
 

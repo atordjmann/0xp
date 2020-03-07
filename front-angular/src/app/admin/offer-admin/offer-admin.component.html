@@ -1,6 +1,19 @@
-<div>
-    <button class="add-offer">+ Ajouter une offre</button>
-</div>
+<div style="margin:4vh">
 
-<app-offer-preview class="oneOffer button" *ngFor="let offer of listOffers" [offer]="offer">
-</app-offer-preview>
+
+    <div>
+        <button class="add-offer">+ Ajouter une offre</button>
+    </div>
+
+    <div class="filterText"> 
+        <input class="search-company" placeholder="Rechercher une offre par son entreprise" (keyup)="filter($event)">
+    </div>
+
+    <div class="listOffers">
+        <app-offer-admin-preview class="oneOffer button" *ngFor="let offer of listOffers" [offer]="offer">
+        </app-offer-admin-preview>
+    </div>
+
+   
+
+</div>

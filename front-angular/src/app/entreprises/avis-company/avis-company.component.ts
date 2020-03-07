@@ -34,7 +34,7 @@ export class AvisCompanyComponent implements OnInit {
   ) {
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
   }
-//TODO : étoiles au lieu de l'imput, ou au moins un select plus propre.
+//TODO : étoiles au lieu de l'input, ou au moins un select plus propre.
   ngOnInit() {
       this.avisForm = this.formBuilder.group({
           avis: ['', Validators.required],

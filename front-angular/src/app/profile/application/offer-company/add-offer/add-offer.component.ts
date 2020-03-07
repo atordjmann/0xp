@@ -112,8 +112,6 @@ export class AddOfferComponent implements OnInit {
     this.offerOnForm.company = this.currentUser.name;
     this.offerOnForm.id_company = this.currentUser.idCompany;
     //this.offerOnForm.srcImgCompany = ??
-    console.log(this.currentUser)
-
 
     if(!this.isEdition){
       this.offerOnForm.start_date = ""+this.dateFromDate.getTime()

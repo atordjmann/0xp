@@ -55,7 +55,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
       const date = new Date(this.profile.date_of_creation);
       this.profile.date_of_creation = date.toLocaleDateString();
     }
-    console.log(this.currentUser);
     this.profile.photo = this.currentUser.srcImage;
     this.globalService.switchIsProfilOpen(true);
   }
