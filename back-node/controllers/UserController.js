@@ -30,38 +30,44 @@ function authenticate(req, res, next) {
         .catch(err => next(err));
 }
 
-router.post('/register', function(req, res, next) {    
-    // TODO verification
-    /*if (db.collection('users').findOne({ username: req.body.username })) {
-        throw 'Username "' + req.body.username + '" is already taken';
-    }*/
-    let user = new Object();
-    if (req.body.isStudent) {
-        user = new UserStudent(req.body);
-    } else {
-        user = new UserCompany(req.body)
-        company = new Company(req.body)
-    }
-    // hash password
-    if (req.body.password) {
-        user.hash = bcrypt.hashSync(req.body.password, 10);
-    }
-    // save user
-    if(!req.body.isStudent){
-        db.collection('companies').insertOne(company, function(err){
-            if (err) return;
-            // Object inserted successfully.
-            user.idCompany = new ObjectId(company._id);
-            db.collection('users').insertOne(user).then(() => res.json({}))
-                .catch(err => next(err));
-        })
-        //.then(() => res.json({}))
-        //.catch(err => next(err));
+router.post('/register', function (req, res, next) {
+    db.collection('users').countDocuments({
+        username: req.body.username
+    }, function (error, countDocuments) {
+        if (countDocuments == 0) {
+            let user = new Object();
+            if (req.body.isStudent) {
+                user = new UserStudent(req.body);
+            } else {
+                user = new UserCompany(req.body)
+                company = new Company(req.body)
+            }
+            // hash password
+            if (req.body.password) {
+                user.hash = bcrypt.hashSync(req.body.password, 10);
+            }
+            // save user
+            if (!req.body.isStudent) {
+                db.collection('companies').insertOne(company, function (err) {
+                    if (err) return;
+                    // Object inserted successfully.
+                    user.idCompany = new ObjectId(company._id);
+                    db.collection('users').insertOne(user).then(() => res.json({}))
+                        .catch(err => next(err));
+                })
+                //.then(() => res.json({}))
+                //.catch(err => next(err));
 
-    } else {
-        db.collection('users').insertOne(user).then(() => res.json({}))
-            .catch(err => next(err));;
-    }
+            } else {
+                db.collection('users').insertOne(user).then(() => res.json({}))
+                    .catch(err => next(err));;
+            }
+        } else {
+            res.status(400).json({
+                message: 'Le nom d\'utilisateur existe déjà'
+            })
+        }
+    })
 });
 
 router.get('/current', function (req, res, next) {
@@ -106,7 +112,6 @@ router.delete('/:id', function (req, res, next) {
 });
 
 router.post('/addAlert', function (req, res, next) {
-    console.log("Request /users/addAlert")
     db.collection('users').update({
         _id: ObjectId(req.body["user"]["_id"])
     }, {

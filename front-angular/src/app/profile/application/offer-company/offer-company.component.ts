@@ -19,6 +19,7 @@ export class OfferCompanyComponent implements OnInit {
   offreToBeEdited: Offer;
 
   ngOnInit() {
+
     this.offerViewService.getListOfferByCompanyId()
 
     this.listOffersSubscription = this.offerViewService.customListOffersSubject.subscribe(

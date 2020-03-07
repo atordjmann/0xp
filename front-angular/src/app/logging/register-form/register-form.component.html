@@ -65,15 +65,10 @@
         <input type="tel" formControlName="contactTel" />
     </div>
     <div class="form-group">
-        <label for="location">location</label>
-        <select type="text" formControlName="location" [ngClass]="{ 'is-invalid': submitted && f.location.errors }" >
-            <option value="Marseille">Marseille</option>
-            <option value="Paris">Paris</option>
-            <option value="Lyon">Lyon</option>
-            <option value="Bordeaux">Bordeaux</option>
-        </select>
+        <label for="location">Localisation</label>
+        <input type="text" formControlName="location" [ngClass]="{ 'is-invalid': submitted && f.location.errors }" />
         <div *ngIf="submitted && f.location.errors">
-            <div *ngIf="f.location.errors.required">La location est obligatoire</div>
+            <div *ngIf="f.location.errors.required">La localisation est obligatoire</div>
         </div>
     </div>
     <div *ngIf="!isStudent" class="form-group">
@@ -95,6 +90,10 @@
         <div *ngIf="submitted && f.taille.errors">
             <div *ngIf="f.taille.errors.required">La taille est obligatoire</div>
         </div>
+    </div>
+    <div *ngIf="!isStudent" class="form-group">
+        <label for="srcImage">Url Image logo</label>
+        <input type="text" formControlName="srcImage" [ngClass]="{ 'is-invalid': submitted && f.srcImage.errors }" />
     </div>
     
     <div class="form-buttons">

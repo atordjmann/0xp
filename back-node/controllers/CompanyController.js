@@ -25,4 +25,28 @@ router.get('/:id', function(req, res, next) {
         .catch(err => next(err));
 });
 
+router.post('/', function(req, res, next) {   
+    db.collection('companies').countDocuments({name: req.body.name}, function(error, countDocuments){
+        if(countDocuments == 0){
+            let company = new Company(req.body);
+            db.collection('companies').insertOne(company).then(() => res.json({}))
+            .catch(err => next(err));;
+        }
+        else{
+            res.status(400).json({
+                message: 'Le nom de l\'entreprise est déjà utilisé'
+            })
+        }
+
+    });
+   
+});
+
+var companyExists = function(name){
+    var exist;
+    
+    console.log(exist)
+    console.log(list)
+}
+
 module.exports = router;

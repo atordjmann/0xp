@@ -17,6 +17,17 @@
 
     <h2>Informations générales</h2>
 
+    <div *ngIf="currentUser.username == 'admin'" class="center">
+        <mat-form-field class="center">
+            <mat-label>Entreprise</mat-label>
+            <mat-select [(value)]="offerOnForm.id_company">
+                <mat-option value="">--</mat-option>
+                <mat-option *ngFor="let company of companiesList" [value]="company._id">{{company.name}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+
+
     <div class="center">
         <mat-form-field class="center title">
             <input matInput placeholder="Titre de l'offre" [(ngModel)]="offerOnForm.title">
