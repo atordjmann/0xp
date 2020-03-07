@@ -24,6 +24,13 @@ export class UserService {
 
     update(user: any){
         console.log(user);
-        return this.http.post(this.apiUrl + '/users/update/' + user.id, user);
+        this.http.post<any>(this.apiUrl + '/users/update', {"user": user}).subscribe(
+            (response) => {
+              console.log('Profil modifié');
+            },
+            (error) => {
+              console.log('Erreur ! : ' + error);
+            }
+          );;
     }
 }

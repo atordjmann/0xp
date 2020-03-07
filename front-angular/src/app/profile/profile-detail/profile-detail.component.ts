@@ -22,6 +22,7 @@ export class ProfileDetailComponent implements OnInit {
   ngOnInit() {
     this.isEdition = false;
     this.isStudent = this.details.isStudent;
+    console.log(this.details);
   }
 
   editionOn(){

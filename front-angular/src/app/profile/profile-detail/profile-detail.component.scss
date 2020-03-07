@@ -5,6 +5,8 @@
 .fiche
 {
     padding-left:4vw;
+
+    
 }
 
 
@@ -48,6 +50,17 @@
     }
 }
 
+.bloc
+    {
+        background-color: white;
+        padding:2vh 2vw;
+        box-shadow: #00000448 0px 0px 4px;
+        border-radius: 1vw;
+        width:80%;
+        margin:auto;
+        margin-bottom: 2vh;
+    }
+
 .center
 {
     text-align: center;
@@ -58,6 +71,11 @@
     .title
     {
         width:40%
+    }
+
+    .desc
+    {
+        width:80%
     }
 }
 
