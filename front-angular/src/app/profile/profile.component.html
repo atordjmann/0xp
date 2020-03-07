@@ -36,6 +36,6 @@
   </div>
 </div>
 
-<div class="profile-box" *ngIf="profile.name !== 'admin'">
-  <app-admin></app-admin>
+<div class="profile-box" *ngIf="profile.username == 'admin'">
+  <app-profile-admin></app-profile-admin>
 </div>

@@ -27,12 +27,11 @@ router.get('/:id', function(req, res, next) {
 
 router.post('/addAdmin', function(req, res, next) {    
     // TODO verification que l'entreprise n'existe pas déjà
-    
+    console.log(req.body)
     let company = new Company(req.body);
     console.log(company);
-    db.collection('companies').insertOne(company)
-    .then(company => company ? res.json(company) : res.sendStatus(404))
-    .catch(err => next(err));
+    db.collection('companies').insertOne(company).then(() => res.json({}))
+    .catch(err => next(err));;
 });
 
 module.exports = router;

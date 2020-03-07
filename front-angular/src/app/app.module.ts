@@ -50,9 +50,9 @@ import { FaqQuestionComponent } from './faq/faq-question/faq-question.component'
 import { EntreprisesComponent } from './entreprises/entreprises.component';
 import { DetailCompanyComponent } from './entreprises/detail-company/detail-company.component';
 import { AvisCompanyComponent } from './entreprises/avis-company/avis-company.component';
-import { AdminComponent } from './profile/admin/admin.component';
+import { ProfileAdminComponent } from './admin/profile-admin/profile-admin.component';
 import { AddCompanyComponent } from './entreprises/add-company/add-company.component';
-import { OfferAdminComponent } from './offers/offer-admin/offer-admin.component';
+import { OfferAdminComponent } from './admin/offer-admin/offer-admin.component';
 import { ListCompanyComponent } from './entreprises/list-company/list-company.component';
 
 @NgModule({
@@ -79,7 +79,7 @@ import { ListCompanyComponent } from './entreprises/list-company/list-company.co
     EntreprisesComponent,
     DetailCompanyComponent,
     AvisCompanyComponent,
-    AdminComponent,
+    ProfileAdminComponent,
     AddCompanyComponent,
     OfferAdminComponent,
     ListCompanyComponent,
