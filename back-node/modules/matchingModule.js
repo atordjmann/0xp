@@ -78,11 +78,20 @@ module.exports = {
 
         // Date de publication -- 5%
         var match_publi = 0;
+        if(filters.created_date !== null){
+            if(offer.created_date >= filters.created_date){
+                match_publi = 5;
+            }
+        }
 
 
         // Début souhaité -- 10%
         var match_debut = 0;
-
+        if(filters.created_date !== null){
+            if(offer.start_date <= filters.start_date){
+                match_publi = 10;
+            }
+        }
 
         // Total
         matching = match_softs + match_type + match_duree + match_secteur + match_ent + match_lieu + match_part + match_taille + match_publi + match_debut;

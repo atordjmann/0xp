@@ -82,7 +82,7 @@ router.post('/filtered', function (req, res) {
         query["created_date"] = {
             $gte: '' + correspondance[req.query["publicationDate"]]
         }
-        filter_match.created_date = req.query["publicationDate"];
+        filter_match.created_date = correspondance[req.query["publicationDate"]];
     }
 
     const promise = new Promise(function (resolve, reject) {
