@@ -28,7 +28,6 @@ import { OfferPreviewComponent } from './offers/offer-preview/offer-preview.comp
 import { OfferDetailComponent } from './offers/offer-detail/offer-detail.component';
 import { RegisterFormComponent } from './logging/register-form/register-form.component';
 import { ProfileDetailComponent } from './profile/profile-detail/profile-detail.component';
-import { ApplicationComponent } from './profile/application/application.component';
 import { NotificationComponent } from './profile/notification/notification.component';
 import { OfferSquareComponent } from './profile/application/offer-square/offer-square.component';
 import { OfferCompanyComponent } from './profile/application/offer-company/offer-company.component';
@@ -69,7 +68,6 @@ import {MatTabsModule} from '@angular/material';
     OfferDetailComponent,
     RegisterFormComponent,
     ProfileDetailComponent,
-    ApplicationComponent,
     NotificationComponent,
     OfferSquareComponent,
     OfferCompanyComponent,
