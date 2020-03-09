@@ -32,7 +32,7 @@ export class OfferViewService {
 
     fillListOffers() {
         this.emitIsLoadingSubject(true);
-        this.httpClient.get<any>(this.apiUrl + '/offres').subscribe(
+        this.httpClient.post<any>(this.apiUrl + '/offres',this.currentUser).subscribe(
             (response) => {
                 this.listOffers = [];
                 response.forEach((offerJson) => {
@@ -60,7 +60,7 @@ export class OfferViewService {
             return;
         }
 
-        this.httpClient.get<any>(this.apiUrl + '/offres/filtered?' + query).subscribe(
+        this.httpClient.post<any>(this.apiUrl + '/offres/filtered?' + query,this.currentUser).subscribe(
             (response) => {
                 this.filteredListOffers = [];
                 console.log('Found ' + response.length + ' offers matching the filter');

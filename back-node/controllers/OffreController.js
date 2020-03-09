@@ -11,30 +11,45 @@ var matchingModule = require('../modules/matchingModule.js')
 
 const escapeStringRegexp = require('escape-string-regexp')
 
-router.get('/', function (req, res) {
+var filter_match = {
+    type: null,
+    duration: null,
+    sector: null,
+    company: null,
+    location: null,
+    taille: null,
+    created_date: null,
+    start_date: null
+}
+
+router.post('/', function (req, res) {
     db.collection('offers').find().toArray(function (err, results) {
         results.forEach((offer) => {
-            offer.matchingScore = matchingModule.matchingWithUser(offer);
+            offer.matchingScore = matchingModule.matchingWithUser(offer,req.body,filter_match);
         })
         res.json(results);
     })
 });
 
-router.get('/filtered', function (req, res) {
+router.post('/filtered', function (req, res) {
     query = {}
     if (Object.keys(req.query).indexOf("type") > -1) {
         query["type"] = new RegExp('^' + escapeStringRegexp(req.query["type"]) + '$', 'i');
+        filter_match.type = req.query["type"];
     }
     if (Object.keys(req.query).indexOf("duration") > -1) {
         query["duration"] = new RegExp('^' + escapeStringRegexp(req.query["duration"]) + '$', 'i');
+        filter_match.duration = req.query["duration"];
     }
     if (Object.keys(req.query).indexOf("sector") > -1) {
         query["sector"] = new RegExp('^' + escapeStringRegexp(req.query["sector"]) + '$', 'i');
+        filter_match.sector = req.query["sector"];
     }
     if (Object.keys(req.query).indexOf("start_date") > -1) {
         query["start_date"] = {
             $gte: req.query["start_date"]
         }
+        filter_match.start_date = req.query["start_date"];
     }
     if (Object.keys(req.query).indexOf("remunMini") > -1) {
         query["remuneration"] = {
@@ -47,6 +62,7 @@ router.get('/filtered', function (req, res) {
         query["location"] = {
             $in: locations
         }
+        filter_match.location = req.query["location"];
     }
     if (Object.keys(req.query).indexOf("company") > -1) {
         companies = req.query["company"].split(";")
@@ -54,6 +70,7 @@ router.get('/filtered', function (req, res) {
         query["company"] = {
             $in: companies
         }
+        filter_match.company = req.query["company"];
     }
     if (Object.keys(req.query).indexOf("publicationDate") > -1) {
         correspondance = {
@@ -65,6 +82,7 @@ router.get('/filtered', function (req, res) {
         query["created_date"] = {
             $gte: '' + correspondance[req.query["publicationDate"]]
         }
+        filter_match.created_date = req.query["publicationDate"];
     }
 
     const promise = new Promise(function (resolve, reject) {
@@ -84,9 +102,6 @@ router.get('/filtered', function (req, res) {
         })
 
         db.collection('offers').find(query).toArray(function (err, results) {
-            results.forEach((offer) => {
-                offer.matchingScore = matchingModule.matchingWithUser(offer);
-            })
             resultsFiltered = []
             results.forEach((offre) => {
                 isInFilter = true;
@@ -109,6 +124,8 @@ router.get('/filtered', function (req, res) {
                         }
                     }
                 }
+                
+                offre.matchingScore = matchingModule.matchingWithUser(offre,req.body,filter_match);
 
                 if (isInFilter) {
                     resultsFiltered.push(offre)

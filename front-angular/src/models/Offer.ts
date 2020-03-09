@@ -14,7 +14,7 @@ interface OfferData {
     duration: String
     softSkills: String[]
     domains: String[]
-    matchingScore: Number
+    matchingScore: any
 }
 
 export class Offer {
@@ -33,7 +33,7 @@ export class Offer {
     duration: String = new String();
     softSkills: String[];
     domains: String[];
-    matchingScore: number;
+    matchingScore: any;
 
     fromHashMap(data: OfferData) {
         this.id = String(data._id);
@@ -51,6 +51,6 @@ export class Offer {
         this.duration = String(data.duration);
         this.softSkills = data.softSkills
         this.domains = data.domains
-        this.matchingScore = Number(data.matchingScore);
+        this.matchingScore = data.matchingScore;
     }
 }
