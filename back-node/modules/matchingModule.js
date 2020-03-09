@@ -1,10 +1,10 @@
 module.exports = {
-    matchingWithUser: function (offer,user,filters) {
+    matchingWithUser: function (offer,user,company,filters) {
         console.log("Matching with User :");
-        console.log(filters)
+        //console.log(company)
 
         if(!user.isStudent){
-            return '--'
+            return 0;
         }
 
         var matching = 0;
@@ -45,7 +45,7 @@ module.exports = {
         // Secteur -- 10%
         var match_secteur = 0;
         if(filters.sector !== null){
-            if(offer.type === filters.type){
+            if(offer.sector === filters.sector){
                 match_secteur = 15;
             }
         }
@@ -69,7 +69,11 @@ module.exports = {
 
         // Partenaire -- 5%
         var match_part = 0;
-            // A FAIRE : Link offer et company
+        if(company.isPartner){
+            match_part = 5;
+        }
+        
+
 
 
         // Taille entreprise -- 5%

@@ -25,10 +25,18 @@ var filter_match = {
 router.post('/', function (req, res) {
     db.collection('offers').find().toArray(function (err, results) {
         results.forEach((offer) => {
-            offer.matchingScore = matchingModule.matchingWithUser(offer,req.body,filter_match);
-        })
+
+            // Company associated to the offer
+            db.collection('companies').findOne({
+                "_id": offer.id_company
+            }, function(err,company) {
+                //Matching
+                offer.matchingScore = matchingModule.matchingWithUser(offer,req.body,company,filter_match); 
+                console.log(offer.matchingScore); 
+            })
+        });
         res.json(results);
-    })
+    });
 });
 
 router.post('/filtered', function (req, res) {
@@ -124,10 +132,16 @@ router.post('/filtered', function (req, res) {
                         }
                     }
                 }
-                
-                offre.matchingScore = matchingModule.matchingWithUser(offre,req.body,filter_match);
 
                 if (isInFilter) {
+                    // Company associated to the offer
+                    db.collection('companies').findOne({
+                        "_id": offre.id_company
+                    }, function(err,company) {
+                        offre.matchingScore = matchingModule.matchingWithUser(offre,req.body,company,filter_match);  
+                    })
+                    console.log('=====OFFRE=====')
+                    console.log(offre);
                     resultsFiltered.push(offre)
                 }
             });
