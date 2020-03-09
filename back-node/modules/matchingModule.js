@@ -1,8 +1,5 @@
 module.exports = {
     matchingWithUser: function (offer,user,company,filters) {
-        console.log("Matching with User :");
-        //console.log(company)
-
         if(!user.isStudent){
             return 0;
         }
@@ -100,7 +97,6 @@ module.exports = {
         // Total
         matching = match_softs + match_type + match_duree + match_secteur + match_ent + match_lieu + match_part + match_taille + match_publi + match_debut;
 
-        console.log(matching);
         return matching;
     }
 }

@@ -23,20 +23,29 @@ var filter_match = {
 }
 
 router.post('/', function (req, res) {
-    db.collection('offers').find().toArray(function (err, results) {
-        results.forEach((offer) => {
-
-            // Company associated to the offer
-            db.collection('companies').findOne({
-                "_id": offer.id_company
-            }, function(err,company) {
-                //Matching
-                offer.matchingScore = matchingModule.matchingWithUser(offer,req.body,company,filter_match); 
-                console.log(offer.matchingScore); 
-            })
+    const promiseGet = new Promise(function(resolve, reject) {
+        db.collection('offers').find().toArray(function (err, results) {
+            cpt=0
+            results.forEach((offer) => {
+                // Company associated to the offer
+                db.collection('companies').findOne({
+                    "_id": offer.id_company
+                }, function(err,company) {
+                    //Matching
+                    offer.matchingScore = matchingModule.matchingWithUser(offer,req.body,company,filter_match); 
+                    cpt++
+                    if (cpt==results.length){
+                        resolve(results);
+                    }
+                })
+            });
         });
+    });
+
+    promiseGet.then(function(results) {
         res.json(results);
     });
+    
 });
 
 router.post('/filtered', function (req, res) {
@@ -92,18 +101,8 @@ router.post('/filtered', function (req, res) {
         }
         filter_match.created_date = correspondance[req.query["publicationDate"]];
     }
-
-    const promise = new Promise(function (resolve, reject) {
-        if (Object.keys(req.query).indexOf("companySize") > -1 || Object.keys(req.query).indexOf("isPartner") > -1) {
-            db.collection('companies').find().toArray(function (err, resultsComp) {
-                resolve(resultsComp);
-            })
-        } else {
-            resolve([])
-        }
-    });
-
-    promise.then(function (resultsComp) {
+        
+    db.collection('companies').find().toArray(function (err, resultsComp) {
         companyDico = {}
         resultsComp.forEach((company) => {
             companyDico[company["_id"]] = company
@@ -112,6 +111,9 @@ router.post('/filtered', function (req, res) {
         db.collection('offers').find(query).toArray(function (err, results) {
             resultsFiltered = []
             results.forEach((offre) => {
+                let company = companyDico[offre["id_company"]]
+                console.log(company)
+                offre.matchingScore = matchingModule.matchingWithUser(offre,req.body,company,filter_match);
                 isInFilter = true;
                 if (Object.keys(req.query).indexOf("matchingMini") > -1) {
                     if (offre.matchingScore < req.query["matchingMini"]) {
@@ -134,14 +136,6 @@ router.post('/filtered', function (req, res) {
                 }
 
                 if (isInFilter) {
-                    // Company associated to the offer
-                    db.collection('companies').findOne({
-                        "_id": offre.id_company
-                    }, function(err,company) {
-                        offre.matchingScore = matchingModule.matchingWithUser(offre,req.body,company,filter_match);  
-                    })
-                    console.log('=====OFFRE=====')
-                    console.log(offre);
                     resultsFiltered.push(offre)
                 }
             });
@@ -151,10 +145,7 @@ router.post('/filtered', function (req, res) {
 });
 
 router.get('/byCompanyId', function (req, res) {
-    //var id = mongoose.Types.ObjectId("5e2700cf1c9d44000011f2ba");
     var id = mongoose.Types.ObjectId(req.query["id"]);
-    //query={}
-    //query["id_company"] = new RegExp('^' + escapeStringRegexp(id) + '$', 'i');
 
     db.collection('offers').find({
         "id_company": id
@@ -165,7 +156,6 @@ router.get('/byCompanyId', function (req, res) {
 
 
 router.post('/post', function (req, res) {
-    //console.log(req.body);
     req.body.id_company = mongoose.Types.ObjectId(req.body.id_company);
     db.collection('offers').insertOne(req.body);
     db.collection('companies').findOne({
