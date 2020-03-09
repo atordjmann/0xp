@@ -71,28 +71,25 @@ export class OfferDetailComponent implements OnInit {
     this.isModalopen = !this.isModalopen;
   }
 
-  defineColor(percentage: number) {
+  defineColor(percentage: Number) {
     percentage = +percentage / 100;
     const percentColors = [
       { pct: 0.0, color: { r: 0xff, g: 0x00, b: 0 } },
       { pct: 0.5, color: { r: 0xff, g: 0xff, b: 0 } },
       { pct: 1.0, color: { r: 0x00, g: 0xff, b: 0 } }];
 
-    let termine = false;
-    let index = 1;
-    for (let i = 1; i < percentColors.length - 1; i++) {
-      if (percentage < percentColors[i].pct && !termine) {
-        termine = true;
-        index = i;
+    for (var i = 1; i < percentColors.length - 1; i++) {
+      if (percentage < percentColors[i].pct) {
+        break;
       }
     }
-    const lower = percentColors[index - 1];
-    const upper = percentColors[index];
-    const range = upper.pct - lower.pct;
-    const rangePct = (+percentage - lower.pct) / range;
-    const pctLower = 1 - rangePct;
-    const pctUpper = rangePct;
-    const color = {
+    var lower = percentColors[i - 1];
+    var upper = percentColors[i];
+    var range = upper.pct - lower.pct;
+    var rangePct = (+percentage - lower.pct) / range;
+    var pctLower = 1 - rangePct;
+    var pctUpper = rangePct;
+    var color = {
       r: Math.floor(lower.color.r * pctLower + upper.color.r * pctUpper),
       g: Math.floor(lower.color.g * pctLower + upper.color.g * pctUpper),
       b: Math.floor(lower.color.b * pctLower + upper.color.b * pctUpper)
