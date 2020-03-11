@@ -16,12 +16,14 @@
     height: 22px;
     width: 22px;
     margin: 10px;
+    z-index: 5;
 }
 
 .logo-company {
     filter: drop-shadow(#0000047a 0px 0px 4px);
     margin-top: 40px;
     margin-bottom: 40px;
+    max-width: 20vw;
 }
 
 .modal-header-content {
