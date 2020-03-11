@@ -1,10 +1,11 @@
 <div *ngIf="isModalopen" class="modal">
 
   <div class="modal-header">
-    <div class="cancel button" (click) = "openOrClose()"><img src="https://image.flaticon.com/icons/svg/22/22108.svg"></div>
+    <div class="cancel button" (click)="openOrClose()"><img src="https://image.flaticon.com/icons/svg/22/22108.svg">
+    </div>
     <div class="modal-header-content">
-      <img src="{{ company.srcImage }}" alt="logo company" class="logo-company"/>
-    <h1>{{company.name}}</h1>
+      <img src="{{ company.srcImage }}" alt="logo company" class="logo-company" />
+      <h1>{{company.name}}</h1>
       <h3 *ngIf=company.isPartner>Entreprise partenaire</h3>
     </div>
   </div>
@@ -13,54 +14,65 @@
     <p id="location">{{ company.location }}</p>
     <h2>Description :</h2>
     <p>{{ company.description }}</p>
-   <p><strong>Contact :</strong> {{ company.contact }}</p>
+    <p><strong>Contact :</strong> {{ company.contact }}</p>
   </div>
 
   <div class="modal-footer">
-    <button class="button" (click) = "openOrClose()">Fermer</button>
+    <button class="button" (click)="openOrClose()">Fermer</button>
   </div>
 </div>
-    
+
 <div class="banner">
-  <img style="max-width:15vw; max-height: 15vw;" src="{{ offer.srcImgCompany }}" alt="logo company"/>
+  <img style="width:10vw;" src="{{ offer.srcImgCompany }}" alt="logo company" />
   <h2>{{ offer.title }}</h2>
-  <h4 *ngIf="!isModalopen" class="button" (click) = "openOrClose()">{{ offer.company }}</h4>
-</div> 
+  <h4 *ngIf="!isModalopen" class="button" (click)="openOrClose()">{{ offer.company }}</h4>
+</div>
 <div class="bg">
-  <img *ngIf="offer.sector=='informatique'" style="width:100%; height:100%;"src="https://ktechgmbh.com/wp-content/uploads/2019/05/code_banner.jpg" alt="banner"/>
-  <img *ngIf="offer.sector=='chimie'" style="width:100%; height:100%;"src="https://www.vo.eu/fr/wp-content/uploads/sites/3/2018/06/Chemie-banner.jpg" alt="banner"/>
+  <img *ngIf="offer.sector=='informatique'" style="width:100%; height:100%;"
+    src="https://ktechgmbh.com/wp-content/uploads/2019/05/code_banner.jpg" alt="banner" />
+
+  <img *ngIf="offer.sector=='chimie'" style="width:100%; height:100%;"
+    src="https://www.vo.eu/fr/wp-content/uploads/sites/3/2018/06/Chemie-banner.jpg" alt="banner" />
+
+  <img *ngIf="offer.sector=='tic'" style="width:100%; height:100%;"
+    src="https://lh3.googleusercontent.com/proxy/h8bbmC6L7_1rwpyt39nIIC6kY7g7ESf55tQQZUtofVs96SHOeiDSY69IYO9xH98QNK7fe4oVh4qP9OReydVR21F4dTTyMfdOqLcKMGbbjsCW1cjGIq-_he5_ydeZGlE"
+    alt="banner" />
+
+  <img *ngIf="offer.sector=='commerce'" style="width:100%; height:100%;"
+    src="https://www.maherrichardson.ie/wp-content/uploads/2017/05/Commercial_insurance_Dublin-banner.jpg"
+    alt="banner" />
+
 </div>
 
 
 <div class="offer-sheet">
 
-    <div class="matching">
-        <h1 [style]="colorScore">{{ offer.matchingScore }}</h1>
-        <h4 [style]="colorScore">%</h4>
-      </div>
-      <br/>
+  <div class="matching">
+    <h1 [style]="colorScore">{{ offer.matchingScore }}</h1>
+    <h4 [style]="colorScore">%</h4>
+  </div>
+  <br />
 
-    <ul class="main_infos">
-      <li>{{ offer.location }}</li>
-      <li>{{ offer.type }} - {{ offer.duration }}</li>
-      <li>{{ offer.sector }}</li>
-      <li *ngIf="notNull(offer.remuneration)">{{ offer.remuneration }} €</li>
+  <ul class="main_infos">
+    <li>{{ offer.location }}</li>
+    <li>{{ offer.type }} - {{ offer.duration }}</li>
+    <li>{{ offer.sector }}</li>
+    <li *ngIf="notNull(offer.remuneration)">{{ offer.remuneration }} €</li>
+  </ul>
+
+  <br />
+
+  <div *ngIf="notNull(offer.domains)">
+    <h1>Mots clés</h1>
+    <ul>
+      <li *ngFor="let domain of offer.domains">{{ domain }}</li>
     </ul>
-    
-    <br/>
+    <br />
+  </div>
 
-    <div *ngIf="notNull(offer.domains)">
-      <h1>Mots clés</h1>
-      <ul>
-        <li *ngFor="let domain of offer.domains">{{ domain }}</li>
-      </ul>
-      <br/>
-    </div>
+  <h1>Description du poste</h1>
+  <p [innerHTML]="offer.description"></p>
+  <br />
 
-    <h1>Description du poste</h1>
-    <p [innerHTML]="offer.description"></p>
-    <br/>
-
-    <h2 class="btn-success">Postuler</h2>
+  <h2 class="btn-success">Postuler</h2>
 </div>
-
