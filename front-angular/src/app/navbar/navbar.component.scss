@@ -9,7 +9,6 @@
     margin: 0;
     padding: 0;
     background-color: #3e4259;
-    //box-shadow: #000004 0px 0px 10px;
     z-index: 1001;
 }
 
@@ -55,13 +54,14 @@ a {
 a:hover {
     color: #FBFEF9;
     text-decoration: underline;
-    text-decoration-color: var(--color-orange);
+    text-decoration-color: var(--color-blue-medium);
     cursor: pointer;
 }
 
 .profilBox {
     position: relative;
 
+    filter: drop-shadow(0 0 2px #3e4259);
     &:focus {
         outline: none;
     }

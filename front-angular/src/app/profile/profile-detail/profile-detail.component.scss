@@ -2,14 +2,6 @@
     font-family:MadeBold;
 }
 
-.fiche
-{
-    padding-left:4vw;
-
-    
-}
-
-
 .messageProfil {
 
     width: 25vw;
@@ -32,15 +24,13 @@
 // Edition du profil
 .editProfile
 {
-    width:15%;
+    width:10vw;
     align-items: center;
-    margin-right: 2vw;
+    margin-right: 5vw;
     margin-left: auto;
     justify-content: space-between;
     padding-left: 2vw;
     padding-right: 2vw;
-    box-shadow: #00000448 0px 0px 4px;
-    border-radius: 1vw;
 
     .modify
     {
