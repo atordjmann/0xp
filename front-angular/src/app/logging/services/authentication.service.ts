@@ -9,6 +9,7 @@ import { map } from 'rxjs/operators';
 
 import { User } from '../../../models/user';
 import { Router } from '@angular/router';
+import { NotificationsService } from 'src/app/profile/notification/notifications.service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
@@ -35,9 +36,15 @@ export class AuthenticationService {
                 localStorage.setItem('currentUser', JSON.stringify(user));
                 this.currentUserSubject.next(user);
                 this.router.navigate(['/profile']);
-
                 return user;
             }));
+    }
+
+    saveUser(user){
+        if (this.currentUser){
+            localStorage.setItem('currentUser', JSON.stringify(user));
+            this.currentUserSubject.next(user);
+        }
     }
 
     logout() {

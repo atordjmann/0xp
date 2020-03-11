@@ -1,15 +1,16 @@
 const ObjectId = require('mongodb').ObjectId;
+var matchingModule = require('../modules/matchingModule.js')
 
 module.exports = {
-    checkNotifForAllUsers: function (bodyOffer) {
+    checkNotifForAllUsers: function (bodyOffer, company) {
         //Pour chaque user on va chercher son filtrage
         db.collection('users').find().toArray(function (err, results) {
             results.forEach((user) => {
                 //Si pas de filtrage on passe sinon on regarde si l'offre est dans le filtrage
                 if (user["filterAlert"]) {
-                    if (checkIfOfferInFilter(user["filterAlert"], bodyOffer)) {
-                        console.log("IN")
-                        console.log(user)
+                    isInFilter = checkIfOfferInFilter(user["filterAlert"], bodyOffer, company);
+                    if (isInFilter) {
+                        console.log("ADD Notification for user named "+user["username"])
                         //Si elle l'est on ajoute la notif à l'user
                         notificationsList = user["notifications"] ? user["notifications"] : [];
                         notificationsList.push({
@@ -30,9 +31,8 @@ module.exports = {
     }
 }
 
-function checkIfOfferInFilter(filterJson, offer) {
+function checkIfOfferInFilter(filterJson, offer, company) {
     isOfferInFilter = true;
-    console.log(filterJson)
     if (Object.keys(filterJson).indexOf("type") > -1 && offer["type"] != filterJson["type"]) {
         isOfferInFilter = false;
         console.log("Type is wrong")
@@ -42,17 +42,30 @@ function checkIfOfferInFilter(filterJson, offer) {
     } else if (Object.keys(filterJson).indexOf("sector") > -1 && offer["sector"] != filterJson["sector"]) {
         isOfferInFilter = false;
         console.log("sector is wrong")
-    } else if (Object.keys(filterJson).indexOf("start_date") > -1 && offer["start_date"] <= filterJson["start_date"]) {
+    } else if (Object.keys(filterJson).indexOf("start_date") > -1 && offer["start_date"] < filterJson["start_date"]) {
         isOfferInFilter = false;
         console.log("start_date is wrong")
-    } else if (Object.keys(filterJson).indexOf("remunMini") > -1 && offer["remuneration"] <= filterJson["remunMini"]) {
+    } else if (Object.keys(filterJson).indexOf("remunMini") > -1 && offer["remuneration"] < filterJson["remunMini"]) {
         isOfferInFilter = false;
         console.log("remuneration is wrong")
     } else if (Object.keys(filterJson).indexOf("location") > -1 && filterJson["location"].length != 0 && filterJson["location"].indexOf(offer["location"]) == -1) {
         console.log("location is wrong")
         isOfferInFilter = false;
+    } else if (Object.keys(filterJson).indexOf("company") > -1 && filterJson["company"].length != 0 && filterJson["company"].indexOf(offer["company"]) == -1) {
+        console.log("company is wrong")
+        isOfferInFilter = false;
+    } else if (Object.keys(filterJson).indexOf("matchingMini") > -1 && matchingModule.matchingWithUser(offer) < filterJson["matchingMini"]) {
+        console.log("matchingMini is wrong")
+        isOfferInFilter = false;
+    } else if (Object.keys(filterJson).indexOf("companySize") > -1 && filterJson["companySize"] && (company["taille"] != filterJson["companySize"])) {
+        console.log("companySize is wrong")
+        isOfferInFilter = false;
+    } else if (Object.keys(filterJson).indexOf("isPartner") > -1 && filterJson["isPartner"] && !company["isPartner"]) {
+        console.log("isPartner is wrong")
+        isOfferInFilter = false;
     }
     return isOfferInFilter;
+}
     /*
     if(Object.keys(req.query).indexOf("company")>-1){
         companies=req.query["company"].split(";")
@@ -108,4 +121,3 @@ function checkIfOfferInFilter(filterJson, offer) {
             res.json(resultsFiltered);
         })
     });*/
-}

@@ -208,6 +208,7 @@ export class FilterComponent implements OnInit {
   }
 
   addNotif() {
+    this.currentFilter.start_date = this.dateFromDate.getTime();
     this.isNotifAdded = true;
     this.notificationsService.switchIsNotifAdded(this.isNotifAdded);
     this.notificationsService.majFilterForNotif(this.currentFilter);

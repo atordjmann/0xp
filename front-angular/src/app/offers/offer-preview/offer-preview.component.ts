@@ -17,6 +17,7 @@ export class OfferPreviewComponent implements OnInit {
 
   ngOnInit() {
     this.defineStrDateCreated();
+    this.offer.matchingScore=Math.floor(this.offer.matchingScore)
     this.colorScore = this.sanitizer.bypassSecurityTrustStyle('color:' + this.defineColor(this.offer.matchingScore));
   }
 

@@ -1,5 +1,5 @@
 import { NotificationsService } from './notifications.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AuthenticationService } from 'src/app/logging/services';
 import { NotificationObj } from 'src/models/Notification';
 
@@ -8,29 +8,39 @@ import { NotificationObj } from 'src/models/Notification';
   templateUrl: './notification.component.html',
   styleUrls: ['./notification.component.scss']
 })
-export class NotificationComponent implements OnInit {
+export class NotificationComponent implements OnInit, OnDestroy {
 
   listNotif: any[] = [];
-
-  constructor(private authenticationService: AuthenticationService) {
-    this.authenticationService.currentUser.subscribe(x => this.computeNotif(x.notifications));
+  currentUser:any;
+  currentUserCopy:any; //Backup for logout
+  constructor(private authenticationService: AuthenticationService, private notificationService: NotificationsService) {
+    this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
   }
 
   ngOnInit() {
+    this.currentUserCopy=this.currentUser
+    if(this.currentUser.notifications){
+      this.computeNotif(this.currentUser.notifications)
+    }
+  }
+
+  ngOnDestroy(){
+    // On emet la lecture des notifications pour l'user
+    this.notificationService.clearNotifications(this.currentUserCopy);
   }
 
   computeNotif(notifications) {
     this.listNotif = [];
     notifications.sort((notifA: NotificationObj, notifB: NotificationObj) => +notifB.ts - +notifA.ts);
     notifications.forEach((notif: NotificationObj) => {
-      this.listNotif.push({ type: notif.type, tsStr: this.tsToDateCustom(notif.ts) });
+      this.listNotif.push({ type: notif.type, tsStr: this.tsToDateCustom(notif.ts), isRead: notif.isRead });
     });
   }
 
   tsToDateCustom(ts) {
     const listMois = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
     if (new Date().getTime() - ts < 1000 * 60 * 60 * 24) {
-      return new Date(ts).getUTCHours() + ' : ' + new Date(ts).getUTCMinutes();
+      return new Date(ts).getUTCHours()+1 + ' : ' + (new Date(ts).getUTCMinutes()<10? "0"+new Date(ts).getUTCMinutes():new Date(ts).getUTCMinutes());
     } else if (new Date().getTime() - ts < 1000 * 60 * 60 * 24 * 30) {
       return new Date(ts).getUTCDate() + ' ' + listMois[new Date(ts).getUTCMonth()];
     } else {

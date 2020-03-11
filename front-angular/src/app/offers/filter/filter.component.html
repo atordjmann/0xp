@@ -1,4 +1,4 @@
-<div *ngIf="isStudent" class="mainFilterText flexRow-spaceBet">
+<div class="mainFilterText flexRow-spaceBet">
   <input type="text" placeholder="Rechercher" (keyup.enter)="filter()" [(ngModel)]="currentFilter.textInput" />
   <img class="button" src="https://image.flaticon.com/icons/svg/149/149309.svg" (click)="filter()" />
   <img class="button notifOnFilter" *ngIf="!isNotifAdded && isStudent" (click)="addNotif()"

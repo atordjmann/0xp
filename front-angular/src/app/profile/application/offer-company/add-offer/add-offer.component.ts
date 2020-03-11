@@ -68,7 +68,7 @@ export class AddOfferComponent implements OnInit {
   softSkillForm: FormGroup;
 
   listDomains: SelectOption[];
-  domainsForm : FormGroup;
+  domainsForm: FormGroup;
   modalSave = false;
 
   currentUser: any;
@@ -123,6 +123,10 @@ export class AddOfferComponent implements OnInit {
   }
 
   addOrEditOffer() {
+    this.offerOnForm.company = this.currentUser.name;
+    this.offerOnForm.id_company = this.currentUser.idCompany;
+    this.offerOnForm.srcImgCompany = this.currentUser.photo;
+    console.log(this.currentUser)
 
     if (this.currentUser.username !== 'admin') {
       this.offerOnForm.company = this.currentUser.name;

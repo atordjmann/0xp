@@ -1,4 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { UserService } from 'src/app/logging/services';
 
 @Component({
   selector: 'app-profile-detail',
@@ -9,11 +11,33 @@ export class ProfileDetailComponent implements OnInit {
 
   @Input() details: any;
   @Input() type: boolean;
+
+  profileEdit: any;
   isStudent: boolean;
-  constructor() { }
+  isEdition: boolean;
+  editor = ClassicEditor;
+
+  constructor(private userService: UserService) { }
 
   ngOnInit() {
+    this.isEdition = false;
     this.isStudent = this.details.isStudent;
+    console.log(this.details);
+  }
+
+  editionOn(){
+    this.isEdition = true;
+    this.profileEdit = Object.assign({}, this.details);
+  }
+
+  editionOff(){
+    this.isEdition = false;
+  }
+
+  updateProfile(){
+    this.details = Object.assign({}, this.profileEdit);
+    this.userService.update(this.details);
+    this.editionOff();
   }
 
 }

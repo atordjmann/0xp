@@ -121,6 +121,60 @@ router.post('/addAlert', function (req, res, next) {
     })
 });
 
+router.post('/clearNotifications', function (req, res, next) {
+    console.log("Request /users/clearNotifications")
+    console.log(req.body["user"]["notifications"])
+    db.collection('users').update({
+        _id: ObjectId(req.body["user"]["_id"])
+    }, {
+        $set: {
+            notifications: req.body["user"]["notifications"],
+        }
+    })
+    res.send(req.body);
+});
+
+router.post('/update', function (req, res, next) {
+    console.log("Request /users/update");
+    let user = new Object();
+    user = req.body["user"];
+    if(user["isStudent"]){
+        db.collection('users').updateOne({
+            _id: ObjectId(user["_id"])
+        }, {
+            $set: {
+                "firstName": user["firstName"],
+                "name": user["name"],
+                "dateBirth": user["dateBirth"],
+                "location": user["location"],
+                "contactMail": user["contactMail"],
+                "contactTel": user["contactTel"],
+            }
+        })
+    } else {
+        console.log(user);
+        db.collection('users').updateOne({
+            _id: ObjectId(user["_id"])
+        }, {
+            $set: {
+                "name": user["name"],
+            }
+        })
+        db.collection('companies').updateOne({
+            _id: ObjectId(user["idCompany"])
+        }, {
+            $set: {
+                "name": user["name"],
+                "date_of_creation": user["date_of_creation"],
+                "description": user["description"],
+                "taille": user["taille"],
+                "location": user["location"],
+                "contact": user["contact"],
+            }
+        })
+    }
+});
+
 async function toAuthenticate({
     username,
     password

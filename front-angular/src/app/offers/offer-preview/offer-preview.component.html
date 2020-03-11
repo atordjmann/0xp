@@ -15,5 +15,6 @@
 
   <p class="createdString">{{strDateCreated}}</p>
 
-  <h1 class="percentageMatching" [style]="colorScore">{{offer.matchingScore}}%</h1>
+  <h1 *ngIf="offer.matchingScore>=0" class="percentageMatching" [style]="colorScore">{{offer.matchingScore}}%</h1>
+  <h1 *ngIf="!(offer.matchingScore>=0)" class="percentageMatching">--%</h1>
 </div>
