@@ -11,6 +11,13 @@ var matchingModule = require('../modules/matchingModule.js')
 
 const escapeStringRegexp = require('escape-string-regexp')
 
+router.get('/', function (req, res) {
+    db.collection('offers').find().toArray(function (err, results) {
+        res.json(results);
+    })
+});
+
+
 router.post('/', function (req, res) {
     const promiseGet = new Promise(function(resolve, reject) {
         db.collection('offers').find().toArray(function (err, results) {
