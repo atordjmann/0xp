@@ -48,8 +48,10 @@
 <div class="offer-sheet">
 
   <div class="matching">
-    <h1 [style]="colorScore">{{ offer.matchingScore }}</h1>
-    <h4 [style]="colorScore">%</h4>
+    <h1 *ngIf="offer.matchingScore>=0" [style]="colorScore">{{ offer.matchingScore }}</h1>
+    <h4 *ngIf="offer.matchingScore>=0" [style]="colorScore">%</h4>
+    <h1 *ngIf="offer.matchingScore<0">--</h1>
+    <h4 *ngIf="offer.matchingScore<0">%</h4>
   </div>
   <br />
 
