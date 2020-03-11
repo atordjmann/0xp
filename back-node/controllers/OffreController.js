@@ -11,19 +11,28 @@ var matchingModule = require('../modules/matchingModule.js')
 
 const escapeStringRegexp = require('escape-string-regexp')
 
+router.get('/', function (req, res) {
+    db.collection('offers').find().toArray(function (err, results) {
+        res.json(results);
+    })
+});
+
+
 router.post('/', function (req, res) {
-    const promiseGet = new Promise(function(resolve, reject) {
+    const promiseGet = new Promise(function (resolve, reject) {
         db.collection('offers').find().toArray(function (err, results) {
-            cpt=0
+            cpt = 0
             results.forEach((offer) => {
                 // Company associated to the offer
                 db.collection('companies').findOne({
                     "_id": offer.id_company
-                }, function(err,company) {
+                }, function (err, company) {
                     //Matching
-                    offer.matchingScore = matchingModule.matchingWithUser(offer,req.body,company,{}); 
+                    offer.company = company.name
+                    offer.srcImgCompany = company.srcImage
+                    offer.matchingScore = matchingModule.matchingWithUser(offer, req.body, company, {});
                     cpt++
-                    if (cpt==results.length){
+                    if (cpt == results.length) {
                         resolve(results);
                     }
                 })
@@ -31,15 +40,15 @@ router.post('/', function (req, res) {
         });
     });
 
-    promiseGet.then(function(results) {
+    promiseGet.then(function (results) {
         res.json(results);
     });
-    
+
 });
 
 router.post('/filtered', function (req, res) {
     query = {}
-    filter=req.query
+    filter = req.query
     if (Object.keys(req.query).indexOf("type") > -1) {
         query["type"] = new RegExp('^' + escapeStringRegexp(req.query["type"]) + '$', 'i');
     }
@@ -87,7 +96,7 @@ router.post('/filtered', function (req, res) {
             $gte: '' + correspondance[req.query["publicationDate"]]
         }
     }*/
-        
+
     db.collection('companies').find().toArray(function (err, resultsComp) {
         companyDico = {}
         resultsComp.forEach((company) => {
@@ -98,7 +107,9 @@ router.post('/filtered', function (req, res) {
             resultsFiltered = []
             results.forEach((offre) => {
                 let company = companyDico[offre["id_company"]]
-                offre.matchingScore = matchingModule.matchingWithUser(offre,req.body,company,filter);
+                offer.company = company.name
+                offer.srcImgCompany = company.srcImage
+                offre.matchingScore = matchingModule.matchingWithUser(offre, req.body, company, filter);
 
                 /* FILTRE AVANCE EST UN FILTRE ACTIF */
 
@@ -148,10 +159,10 @@ router.post('/post', function (req, res) {
         _id: req.body.id_company
     }, function (findErr, company) {
         //On check si quelqu'un attendait une offre de ce type
-        notificationModule.checkNotifForAllUsers(req.body,company)
+        notificationModule.checkNotifForAllUsers(req.body, company)
     });
-    
-    
+
+
     res.send(req.body);
 });
 
