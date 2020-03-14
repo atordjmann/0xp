@@ -2,7 +2,7 @@
     <input class="search-company" placeholder="Rechercher une entreprise" (keyup)="filter($event)">
 </div>
 <div class="list-companies">
-    <div *ngFor="let company of companiesList" class="company-box">
+    <div *ngFor="let company of companiesList" class="company-box button">
         <div routerLink="/companies/{{company._id}}">
             <p class="company-name">{{company.name}}</p>
             <img class="img-company" src="{{company.srcImage}}">
