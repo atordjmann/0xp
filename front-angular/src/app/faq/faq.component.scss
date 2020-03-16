@@ -4,17 +4,19 @@
 }
 
 h1 {
-    margin: 20vh auto 10vh auto;
+    margin: 20vh auto 5vh auto;
     color: var(--color-blue-medium);
 }
 
-h2 {
-    width: 80vw;
-    margin: 5vh auto;
-}
+h2 {margin-top: 4vw;}
 
-table {
+ul li {font-family: MadeRegular, Calibri;}
+
+table 
+{
     border-collapse: collapse;
+    margin:auto;
+    margin-bottom: 5vh;
 }
 
 td {
@@ -22,6 +24,23 @@ td {
     padding: 10px;
 }
 
+.btn
+{
+    display:block;
+    border-radius: 25px;
+    width:20vw;
+    text-align: center;
+    padding: 2vh 1vw 2vh 1vw;
+    margin:auto;
+    margin-top: 5vh;
+    background-color: var(--color-blue-medium);
+    box-shadow: #00000447 0px 2px 3px;
+    color:white;
+    text-decoration: none;
+}
+
 .questions {
+    margin:auto;
     margin-bottom: 15vh;
+    width: 80vw;
 }
