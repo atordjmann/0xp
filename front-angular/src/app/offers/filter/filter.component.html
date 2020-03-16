@@ -1,6 +1,6 @@
 <div class="mainFilterText flexRow-spaceBet">
   <input type="text" placeholder="Rechercher" (keyup.enter)="filter()" [(ngModel)]="currentFilter.textInput" />
-  <img class="button" src="https://image.flaticon.com/icons/svg/149/149309.svg" (click)="filter()" />
+  <img class="button" src="https://image.flaticon.com/icons/svg/149/149309.svg"  (click)="filter()"/>
   <img class="button notifOnFilter" *ngIf="!isNotifAdded && isStudent" (click)="addNotif()"
     src="https://image.flaticon.com/icons/svg/2489/2489081.svg" />
   <img class="button notifOnFilter" *ngIf="isNotifAdded && isStudent"
@@ -8,7 +8,7 @@
 </div>
 
 <div class="boxMandatory">
-  <h3 class="color-blue-medium noSpace">Critères principaux</h3>
+  <h3 class="color-blue-medium">Critères principaux</h3>
   <div class="flexRow-spaceBet listSelect">
     <div>
       <mat-form-field>
@@ -38,95 +38,105 @@
       </mat-form-field>
     </div>
   </div>
-  <p class="noSpace textOpenMoreCriteria">Plus de critères</p>
+
+  <!--Critères supplémentaires-->
+
+  <div *ngIf="isMoreFilterOpen" class="moreFilterDiv">
+    <h3 class="color-blue-medium">Critères supplémentaires</h3>
+    <div class="flexRow formLine line1">
+      <div>
+        <p>Lieu</p>
+        <form [formGroup]="locationForm">
+          <mat-select-autocomplete [placeholder]="'--'" [selectPlaceholder]="'Rechercher'" [options]="listOfferLocation"
+            [display]="'display'" [value]="'value'" [multiple]='true' name="optionsSelector" ngDefaultControl
+            [formControl]="locationForm.controls['selected']" (selectionChange)="getSelectedOptions('location', $event)">
+          </mat-select-autocomplete>
+        </form>
+      </div>
+  
+      <div>
+        <p>Entreprise</p>
+        <form [formGroup]="companyForm">
+          <mat-select-autocomplete [placeholder]="'--'" [selectPlaceholder]="'Rechercher'" [options]="listOfferCompany"
+            [display]="'display'" [value]="'value'" [multiple]='true' name="optionsSelector" ngDefaultControl
+            [formControl]="companyForm.controls['selected']" (selectionChange)="getSelectedOptions('company', $event)">
+          </mat-select-autocomplete>
+        </form>
+      </div>
+      <div>
+        <p style="text-align: center;">Partenaire seulement</p>
+        <mat-slide-toggle [(ngModel)]="currentFilter.isPartner"></mat-slide-toggle>
+      </div>
+    </div>
+  
+    <div class="flexRow formLine line2">
+      <div>
+        <mat-form-field>
+          <mat-label>Date de publication</mat-label>
+          <mat-select [(value)]="currentFilter.publicationDate">
+            <mat-option value="">--</mat-option>
+            <mat-option value="today">Aujourd'hui</mat-option>
+            <mat-option value="week">Cette semaine</mat-option>
+            <mat-option value="month">Ce mois</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+  
+      <div>
+        <mat-form-field>
+          <mat-label>Taille de l'entreprise</mat-label>
+          <mat-select [(value)]="currentFilter.companySize">
+            <mat-option value="">--</mat-option>
+            <mat-option value="small">- 20 employés</mat-option>
+            <mat-option value="medium">- 200 employés</mat-option>
+            <mat-option value="large">+ 200 employés</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+  
+      <div>
+        <mat-form-field>
+          <input matInput [matDatepicker]="dp" placeholder="Date de début souhaitée" [formControl]="dateStart">
+          <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+          <mat-datepicker #dp startView="multi-year" (yearSelected)="chosenYearHandler($event)"
+            (monthSelected)="chosenMonthHandler($event, dp)" panelClass="example-month-picker">
+          </mat-datepicker>
+        </mat-form-field>
+      </div>
+    </div>
+  
+    <div class="flexRow formLine line3">
+      <div>
+        <p>Taux de matching minimum</p>
+        <div class="flexRow sliderValue">
+          <p>0%</p>
+          <mat-slider max="100" z min="0" thumbLabel="thumbLabel" tickInterval="1"
+            [(ngModel)]="currentFilter.matchingMini">
+          </mat-slider>
+          <p>100%</p>
+        </div>
+      </div>
+      <div>
+        <p>Rémunération minimum</p>
+        <div class="flexRow sliderValue">
+          <p>0€</p>
+          <mat-slider max="1461" min="0" thumbLabel="thumbLabel" tickInterval="1" [(ngModel)]="currentFilter.remunMini">
+          </mat-slider>
+          <p>{{salaireMax}}€</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3 *ngIf="isMoreFilterOpen" class="button btn" (click)="filter()">Rechercher</h3>
+  
+  <p *ngIf="!isMoreFilterOpen" class="noSpace textOpenMoreCriteria">Plus de critères</p>
+  <p *ngIf="isMoreFilterOpen" class="noSpace textOpenMoreCriteria">Moins de critères</p>
+</div>
+
+<div>
   <img class="logoShowMoreCriteria button" [ngClass]="{'moreFilterOpenImg':isMoreFilterOpen}"
-    (click)="manageMoreFilter()" src="assets/images/icon_arrowFilter.svg" />
+  (click)="manageMoreFilter()" src="assets/images/icon_arrowFilter.svg" />
 </div>
 
 
-<div *ngIf="isMoreFilterOpen" class="moreFilterDiv">
-  <div class="flexRow formLine line1">
-    <div>
-      <p>Lieu</p>
-      <form [formGroup]="locationForm">
-        <mat-select-autocomplete [placeholder]="'--'" [selectPlaceholder]="'Rechercher'" [options]="listOfferLocation"
-          [display]="'display'" [value]="'value'" [multiple]='true' name="optionsSelector" ngDefaultControl
-          [formControl]="locationForm.controls['selected']" (selectionChange)="getSelectedOptions('location', $event)">
-        </mat-select-autocomplete>
-      </form>
-    </div>
-
-    <div>
-      <p>Entreprise</p>
-      <form [formGroup]="companyForm">
-        <mat-select-autocomplete [placeholder]="'--'" [selectPlaceholder]="'Rechercher'" [options]="listOfferCompany"
-          [display]="'display'" [value]="'value'" [multiple]='true' name="optionsSelector" ngDefaultControl
-          [formControl]="companyForm.controls['selected']" (selectionChange)="getSelectedOptions('company', $event)">
-        </mat-select-autocomplete>
-      </form>
-    </div>
-
-    <div style="width: 15vw;">
-      <p style="text-align: center;">Partenaire de l'école seulement</p>
-      <mat-slide-toggle [(ngModel)]="currentFilter.isPartner"></mat-slide-toggle>
-    </div>
-  </div>
-
-  <div class="flexRow formLine line2">
-    <div>
-      <mat-form-field>
-        <mat-label>Date de publication</mat-label>
-        <mat-select [(value)]="currentFilter.publicationDate">
-          <mat-option value="">--</mat-option>
-          <mat-option value="today">Aujourd'hui</mat-option>
-          <mat-option value="week">Cette semaine</mat-option>
-          <mat-option value="month">Ce mois</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-
-    <div>
-      <mat-form-field>
-        <mat-label>Taille de l'entreprise</mat-label>
-        <mat-select [(value)]="currentFilter.companySize">
-          <mat-option value="">--</mat-option>
-          <mat-option value="small">- 20 employés</mat-option>
-          <mat-option value="medium">- 200 employés</mat-option>
-          <mat-option value="large">+ 200 employés</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-
-    <div>
-      <mat-form-field>
-        <input matInput [matDatepicker]="dp" placeholder="Date de début souhaitée" [formControl]="dateStart">
-        <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
-        <mat-datepicker #dp startView="multi-year" (yearSelected)="chosenYearHandler($event)"
-          (monthSelected)="chosenMonthHandler($event, dp)" panelClass="example-month-picker">
-        </mat-datepicker>
-      </mat-form-field>
-    </div>
-  </div>
-
-  <div class="flexRow formLine line3">
-    <div>
-      <p>Taux de matching minimum</p>
-      <div class="flexRow sliderValue">
-        <p>0%</p>
-        <mat-slider max="100" z min="0" thumbLabel="thumbLabel" tickInterval="1"
-          [(ngModel)]="currentFilter.matchingMini">
-        </mat-slider>
-        <p>100%</p>
-      </div>
-    </div>
-    <div>
-      <p>Rémunération minimum</p>
-      <div class="flexRow sliderValue">
-        <p>0€</p>
-        <mat-slider max="1461" min="0" thumbLabel="thumbLabel" tickInterval="1" [(ngModel)]="currentFilter.remunMini">
-        </mat-slider>
-        <p>{{salaireMax}}€</p>
-      </div>
-    </div>
-  </div>
-</div>
