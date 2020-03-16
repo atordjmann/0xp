@@ -20,11 +20,11 @@
         </div>
         <div class="bloc">
             <h2>Soft Skills</h2>
-            <ul *ngIf="details.softSkills != null">
-                <li *ngFor="let skill of details.softSkills">
-                    <span>{{skill}}</span>
-                </li>
-            </ul>
+            <div *ngIf="details.softSkills != null">
+                <ul *ngFor="let skill of details.softSkills">
+                    <li>{{skill}}</li>
+                </ul>
+            </div>
             <div *ngIf="details.softSkills == null" class="flexRow messageProfil">
                 <img src="https://image.flaticon.com/icons/svg/1636/1636062.svg"/>
                 <p class="information">Vous n'avez pas sélectionné de soft skills...</p>

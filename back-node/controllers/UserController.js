@@ -138,7 +138,7 @@ router.post('/update', function (req, res, next) {
     console.log("Request /users/update");
     let user = new Object();
     user = req.body["user"];
-    if(user["isStudent"]){
+    if (user["isStudent"]) {
         db.collection('users').updateOne({
             _id: ObjectId(user["_id"])
         }, {
@@ -153,7 +153,6 @@ router.post('/update', function (req, res, next) {
             }
         })
     } else {
-        console.log(user);
         db.collection('users').updateOne({
             _id: ObjectId(user["_id"])
         }, {

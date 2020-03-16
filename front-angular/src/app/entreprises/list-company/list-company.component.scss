@@ -20,17 +20,24 @@ input{
     margin: auto;
     position: relative;
     justify-content: space-evenly;
-    margin: 20px;
+    margin: 5vw;
+    margin-top: 3vh;
 }
 
 .company-box{
-    border: 0.5px black solid;
+    border: 0.5px #00000052 solid;
     box-shadow: #00000447 0px 2px 3px;
     border-radius: 5px;
     min-width: max-content;
-    margin: 5px;
+    margin: 1vh;
+    margin-bottom:1vw;
     padding: 5px;
     min-width: 20%;
+    
+    &:hover {
+        transform: scale(1.005);
+        background-color: rgb(238, 250, 253);
+    }
 }
 
 img{
