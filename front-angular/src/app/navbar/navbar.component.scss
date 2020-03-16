@@ -61,7 +61,7 @@ a:hover {
 .profilBox {
     position: relative;
 
-    filter: drop-shadow(0 0 2px #3e4259);
+    filter: drop-shadow(#00000447 0px 2px 3px);
     &:focus {
         outline: none;
     }
