@@ -3,6 +3,7 @@ h1 {
     font-style: oblique;
     font-size: x-large;
     color: var(--color-blue-medium);
+    margin-bottom: -5vh;
 }
 
 .listOffers {
@@ -99,10 +100,10 @@ h1 {
 }
 
 .noOffersDiv {
-    margin-top: 10vh;
-
-    h1 {
-        margin-bottom: 5vh;
+    margin: 3vh auto 10vh auto;
+    text-align: center;
+    h4,p {
+        color:gray;
     }
 }
 

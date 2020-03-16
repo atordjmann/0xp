@@ -40,7 +40,7 @@
   </div>
 
   <!--Critères supplémentaires-->
-
+  
   <div *ngIf="isMoreFilterOpen" class="moreFilterDiv">
     <h3 class="color-blue-medium">Critères supplémentaires</h3>
     <div class="flexRow formLine line1">
@@ -128,7 +128,7 @@
     </div>
   </div>
 
-  <h3 *ngIf="isMoreFilterOpen" class="button btn" (click)="filter()">Rechercher</h3>
+  <h4 class="button btn" (click)="filter()">Rechercher</h4>
   
   <p *ngIf="!isMoreFilterOpen" class="noSpace textOpenMoreCriteria">Plus de critères</p>
   <p *ngIf="isMoreFilterOpen" class="noSpace textOpenMoreCriteria">Moins de critères</p>

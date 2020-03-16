@@ -5,7 +5,7 @@ img{
 }
 
 .mainFilterText{
-    width: 54vw;
+    width: 60vw;
     margin: auto;
     margin-top: 8vh;
     padding: 1vh 2vw 1vh 5vw;
@@ -24,7 +24,7 @@ img{
 .boxMandatory{
     box-shadow: #00000447 0px 1px 2px;
     border-radius: 5px;
-    width: 56vw;
+    width: 60vw;
     margin:auto;
     padding: 1vh;
     position: relative;
@@ -40,8 +40,7 @@ img{
 
 .listSelect{
     width:90%;
-    margin:auto;
-    margin-top: 6vh;
+    margin:6vh auto -2vh auto;
 }
 
 ::ng-deep .mat-form-field-appearance-legacy .mat-form-field-infix{
@@ -143,9 +142,10 @@ img{
 
 .btn {
     border-radius: 25px;
-    width:12vw;
-    display: block;
-    margin:2vh auto 3vh auto;
+    width:10vw;
+    margin:4vh auto 4vh auto;
+    padding: 1vh 1vw;
+    text-align: center;
     background-color: var(--color-blue-medium);
     box-shadow: #00000447 0px 2px 3px;
     color:white;
