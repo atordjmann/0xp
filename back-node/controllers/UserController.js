@@ -149,6 +149,7 @@ router.post('/update', function (req, res, next) {
                 "location": user["location"],
                 "contactMail": user["contactMail"],
                 "contactTel": user["contactTel"],
+                "softSkills": user["softSkills"]
             }
         })
     } else {
