@@ -4,7 +4,7 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { OfferViewService } from 'src/app/offers/offerView.service';
-
+import { Router, ActivatedRoute } from '@angular/router';
 import { Offer } from 'src/models/Offer';
 
 import * as _moment from 'moment';
@@ -70,11 +70,13 @@ export class AddOfferComponent implements OnInit {
   listDomains: SelectOption[];
   domainsForm: FormGroup;
   modalSave = false;
+  errorOnForm = false;
 
   currentUser: any;
   constructor(private offerViewService: OfferViewService,
               private authenticationService: AuthenticationService,
-              private companyService: CompanyService) {
+              private companyService: CompanyService,
+              private router : Router) {
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
   }
 
@@ -126,7 +128,6 @@ export class AddOfferComponent implements OnInit {
     this.offerOnForm.company = this.currentUser.name;
     this.offerOnForm.id_company = this.currentUser.idCompany;
     this.offerOnForm.srcImgCompany = this.currentUser.photo;
-    console.log(this.currentUser)
 
     if (this.currentUser.username !== 'admin') {
       this.offerOnForm.company = this.currentUser.name;
@@ -141,13 +142,22 @@ export class AddOfferComponent implements OnInit {
       this.offerOnForm.start_date = '' + this.dateFromDate.getTime();
       this.offerOnForm.created_date = '' + (new Date()).getTime(); //TODO : Changer les types pour que rien soit cassé même si ça fonctionne
       this.offerOnForm.location = this.locationCity + ', ' + this.locationCountry;
+      if (!this.offerOnForm.isValid()){
+        this.errorOnForm=true;
+        return;
+      }
       this.offerViewService.addOffer(this.offerOnForm);
     } else {
       this.offerOnForm.start_date = '' + this.dateFromDate.getTime();
       this.offerOnForm.location = this.locationCity + ', ' + this.locationCountry;
+      if (!this.offerOnForm.isValid()){
+        this.errorOnForm=true;
+        return;
+      }
       this.offerViewService.editOffer(this.offerOnForm);
     }
 
+    this.router.navigate(["/profile"]);
   }
 
   chosenYearHandler(normalizedYear: Moment) {
