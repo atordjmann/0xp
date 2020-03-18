@@ -123,17 +123,15 @@ export class AddOfferComponent implements OnInit {
   }
 
   addOrEditOffer() {
-    this.offerOnForm.company = this.currentUser.name;
-    this.offerOnForm.id_company = this.currentUser.idCompany;
-    this.offerOnForm.srcImgCompany = this.currentUser.photo;
-    console.log(this.currentUser)
 
     if (this.currentUser.username !== 'admin') {
       this.offerOnForm.company = this.currentUser.name;
       this.offerOnForm.id_company = this.currentUser.idCompany;
+      this.offerOnForm.srcImgCompany = this.currentUser.photo;
     } else {
       const company = this.companiesList.find(x => x._id === this.offerOnForm.id_company);
       this.offerOnForm.company = company.name;
+      this.offerOnForm.id_company = company._id;
       this.offerOnForm.srcImgCompany = company.srcImage;
     }
 
