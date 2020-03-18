@@ -5,7 +5,7 @@ img{
 }
 
 .mainFilterText{
-    width: 54vw;
+    width: 60vw;
     margin: auto;
     margin-top: 8vh;
     padding: 1vh 2vw 1vh 5vw;
@@ -17,16 +17,19 @@ img{
         height: 6vh;
         font-family: MadeMedium;
         font-size: medium;
+        width:95%;
     }
 }
 
 .boxMandatory{
     box-shadow: #00000447 0px 1px 2px;
-    width: 54vw;
+    border-radius: 5px;
+    width: 60vw;
     margin:auto;
     padding: 1vh;
     position: relative;
     margin-bottom: 2px;
+
     h3{
         text-align: center;
     }
@@ -37,11 +40,7 @@ img{
 
 .listSelect{
     width:90%;
-    margin:auto;
-    margin-top: 6vh;
-    div{
-        margin-right: 10px;
-    }
+    margin:6vh auto -2vh auto;
 }
 
 ::ng-deep .mat-form-field-appearance-legacy .mat-form-field-infix{
@@ -80,22 +79,16 @@ img{
 }
 
 .logoShowMoreCriteria{
-    width: 5vh;
-    height: 5vh;
-    position: absolute;
-    bottom: -2.5vh;
-    left: 26vw;
+    width: 6vh;
+    height: 6vh;
     transform: rotate(0deg);
+    display: block;
+    margin: -3vh auto 2vh auto;
     transition-property: all;
     transition-duration: 0.2s;
 }
 
 .moreFilterDiv{
-    width:80vw;
-    padding:1vw;
-    margin: auto;
-    box-shadow: #00000447 0px 3px 5px;
-
     p{
         color:#adadad;
         margin-bottom: 0px;
@@ -104,19 +97,18 @@ img{
     .formLine{
         margin:auto;
         justify-content: space-between;
-        padding-bottom:3vh;
     }
 
     .line1{
-        width:60%;
+        width:80%;
+        margin-bottom: 5vh;
     }
     .line2{
-        width:70%;
+        width:90%;
     }
     .line3{
-        width:40%;
+        width:60%;
         text-align: center;
-        padding-bottom:0vh;
     }
 
     .sliderValue{
@@ -146,4 +138,15 @@ img{
     position: absolute;
     right: -5vw;
     width:2vw;
+}
+
+.btn {
+    border-radius: 25px;
+    width:10vw;
+    margin:4vh auto 4vh auto;
+    padding: 1vh 1vw;
+    text-align: center;
+    background-color: var(--color-blue-medium);
+    box-shadow: #00000447 0px 2px 3px;
+    color:white;
 }

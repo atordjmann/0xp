@@ -27,7 +27,7 @@
 
 .avis-preview{
     display:flex;
-    margin-left:8vw;
+    margin:-5vh 8vw 0 8vw;
 
     .noteGlobale
     {
@@ -60,12 +60,12 @@
 button {
     border: none;
     border-radius: 25px;
-    padding: 0.1vh 1.5vw;
+    padding: 1vh 1.5vw;
     background-color: var(--color-blue-medium);
     color:white;
     box-shadow: #00000447 0px 2px 3px;
-    cursor:pointer;
     margin: 2vh;
+    font-size:16px;
 }
 
 textarea{
