@@ -21,9 +21,9 @@ export class OfferDetailComponent implements OnInit {
   offerSubscription: Subscription;
 
   constructor(private route: ActivatedRoute,
-              private offerViewService: OfferViewService,
-              private sanitizer: DomSanitizer,
-              private companyService: CompanyService) { }
+    private offerViewService: OfferViewService,
+    private sanitizer: DomSanitizer,
+    private companyService: CompanyService) { }
 
   isModalopen = false;
 
@@ -50,21 +50,18 @@ export class OfferDetailComponent implements OnInit {
             this.colorScore = this.sanitizer.bypassSecurityTrustStyle('color:' + this.defineColor(this.offer.matchingScore));
           }
         });
+        this.companyService.getById(this.offer.id_company).subscribe(
+          company => {
+            this.company = company;
+          },
+          error => {
+            console.log('Erreur ! : ' + error);
+          }
+        );
       }
     );
 
     this.offerViewService.emitListOffersSubject();
-    // this.offer = this.offerViewService.getOfferById(idOffer);
-
-    this.companyService.getById(this.offer.id_company).subscribe(
-      value => {
-        this.company = value;
-      },
-      error => {
-        console.log('Erreur ! : ' + error);
-      }
-    );
-
   }
 
   openOrClose() {
@@ -83,13 +80,13 @@ export class OfferDetailComponent implements OnInit {
         break;
       }
     }
-    var lower = percentColors[i - 1];
-    var upper = percentColors[i];
-    var range = upper.pct - lower.pct;
-    var rangePct = (+percentage - lower.pct) / range;
-    var pctLower = 1 - rangePct;
-    var pctUpper = rangePct;
-    var color = {
+    const lower = percentColors[i - 1];
+    const upper = percentColors[i];
+    const range = upper.pct - lower.pct;
+    const rangePct = (+percentage - lower.pct) / range;
+    const pctLower = 1 - rangePct;
+    const pctUpper = rangePct;
+    const color = {
       r: Math.floor(lower.color.r * pctLower + upper.color.r * pctUpper),
       g: Math.floor(lower.color.g * pctLower + upper.color.g * pctUpper),
       b: Math.floor(lower.color.b * pctLower + upper.color.b * pctUpper)
