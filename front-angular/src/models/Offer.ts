@@ -53,4 +53,11 @@ export class Offer {
         this.domains = data.domains
         this.matchingScore = data.matchingScore;
     }
+
+    isValid(){
+        if (this.title=="" || this.sector=="" || this.type=="" || this.description=="" || this.location==""){
+            return false;
+        }
+        return true;
+    }
 }

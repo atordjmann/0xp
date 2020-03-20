@@ -49,6 +49,7 @@ router.post('/', function (req, res) {
 router.post('/filtered', function (req, res) {
     query = {}
     filter = req.query
+    console.log(filter)
     if (Object.keys(req.query).indexOf("type") > -1) {
         query["type"] = new RegExp('^' + escapeStringRegexp(req.query["type"]) + '$', 'i');
     }
@@ -107,13 +108,28 @@ router.post('/filtered', function (req, res) {
             resultsFiltered = []
             results.forEach((offre) => {
                 let company = companyDico[offre["id_company"]]
-                offer.company = company.name
-                offer.srcImgCompany = company.srcImage
+                offre.company = company.name
+                offre.srcImgCompany = company.srcImage
                 offre.matchingScore = matchingModule.matchingWithUser(offre, req.body, company, filter);
 
                 /* FILTRE AVANCE EST UN FILTRE ACTIF */
 
                 isInFilter = true;
+
+                if(Object.keys(req.query).indexOf("textinput") > -1){
+                    let textInput = req.query["textinput"]
+                    if (!offre["title"].includes(textInput) && !offre["company"].includes(textInput) && !offre["type"].includes(textInput) && !offre["sector"].includes(textInput)){
+                        let domainContain = false
+                        offre["domains"].forEach((domain) => {
+                            if (domain.includes(textInput)){
+                                domainContain = true;
+                            }
+                        })
+                        if (!domainContain){
+                            isInFilter = false;
+                        }
+                    }
+                }
 
                 /*if (Object.keys(req.query).indexOf("matchingMini") > -1) {
                     if (offre.matchingScore < req.query["matchingMini"]) {

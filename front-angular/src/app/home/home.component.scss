@@ -24,6 +24,7 @@ h1, h2{
     padding: 10px 20px;
     margin-top: 5vh;
     background-color: var(--color-blue-medium);
+    box-shadow: #00000447 0px 2px 3px;
     color:white;
     cursor:pointer;
 }
@@ -34,9 +35,6 @@ button a, .footer a{
     font-size:large;
 }
 
-.button1:hover {
-    color: white;
-}
 
 .grid-container {
     display: flex;
@@ -46,7 +44,7 @@ button a, .footer a{
 }
 
 .grid-title {
-    color: var(--color-orange);
+    color: var(--color-blue-medium);
 }
 
 .grid {

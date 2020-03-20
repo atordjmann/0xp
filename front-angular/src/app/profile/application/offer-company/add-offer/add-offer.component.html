@@ -122,8 +122,9 @@
     </div>
     <br />
 
-    <h3 class="button btn-success" *ngIf="!isEdition" (click)="addOrEditOffer()" routerLink="/profile">Ajouter</h3>
-    <h3 class="button btn-success" *ngIf="isEdition" (click)="addOrEditOffer()" routerLink="/profile">Modifier</h3>
+    <h3 class="button btn-success" *ngIf="!isEdition" (click)="addOrEditOffer()">Ajouter</h3>
+    <h3 class="button btn-success" *ngIf="isEdition" (click)="addOrEditOffer()">Modifier</h3>
+    <p *ngIf="errorOnForm" style="color:red; text-align:center">Certaines informations sont incorrectes</p>
 </div>
 
 

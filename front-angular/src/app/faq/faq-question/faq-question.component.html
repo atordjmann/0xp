@@ -1,7 +1,8 @@
-<div class="boxContainer question button" (click) = "openOrClose()">
+<div class="boxContainer flexRow question button" (click) = "openOrClose()">
     <p> {{ question }} </p>
+    <div><img class="arrow" src="../../../assets/images/icon_arrow_down.svg"/></div>
 </div>
 
-<div *ngIf="isAnswerOpen" class="boxContainer">
+<div *ngIf="isAnswerOpen" class="boxContainer answer">
     <p> {{ answer }} </p>
 </div>
