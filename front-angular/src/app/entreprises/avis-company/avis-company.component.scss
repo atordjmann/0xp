@@ -9,6 +9,7 @@
     border: 0.5px #00000052 solid;
     position: relative;
     width: max-content;
+    border-top: 2vh;
 }
 
 .form-group{
@@ -27,7 +28,7 @@
 
 .avis-preview{
     display:flex;
-    margin:-5vh 8vw 0 8vw;
+    margin:5vh 8vw 0 8vw;
 
     .noteGlobale
     {

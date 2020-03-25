@@ -10,7 +10,7 @@
   <a (click)="logout()">Deconnexion</a>
 </div>
 
-<div *ngIf="profile.username !== 'admin'" class="messageProfil flexRow">
+<div *ngIf="isStudent && profile.softSkills == undefined" class="messageProfil flexRow">
   <img src="https://image.flaticon.com/icons/svg/1636/1636062.svg" />
   <p class="information">Des informations manquent à votre profil</p>
 </div>
@@ -32,7 +32,6 @@
   <div class="bar-details">
     <a class="bar-button current" (click)="clicSection($event,'profil')">Mon Profil</a>
     <a class="bar-button" (click)="clicSection($event,'candidatures')">Mes offres</a>
-    <a class="bar-button" (click)="clicSection($event,'notif')">Mes Notifications</a>
   </div>
   <div class="square-sections">
     <app-profile-detail [details]="profile" *ngIf="showProfile"></app-profile-detail>
